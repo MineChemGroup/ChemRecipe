@@ -38,6 +38,7 @@ class Left(val jPanel: JPanel = JPanel()) {
         scrollableArea1.verticalScrollBarPolicy = ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS
         scrollableArea1.horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
 
+        jPanel.layout = GridLayout(2,1)
         jPanel.add(scrollableArea0)
         jPanel.add(scrollableArea1)
     }

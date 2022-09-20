@@ -58,6 +58,11 @@ class Loader(val jPanel: JPanel = JPanel()) {
         if (!db.exists())
             FileUtils.copyURLToFile(dbUrl, db)
 
+        val fontUrl: URL? = javaClass.getResource("/mcfont.ttf")
+        val fontfile = File(baseFolder.path + "/mcfont.ttf")
+        if (!fontfile.exists())
+            FileUtils.copyURLToFile(fontUrl, fontfile)
+
         if (isEmpty(elementsFolder.toPath())){
             for (i in 1..118){
                 FileUtils.copyURLToFile(javaClass.getResource("/elements/$i.png"), File(elementsFolder.path + "/$i.png"))

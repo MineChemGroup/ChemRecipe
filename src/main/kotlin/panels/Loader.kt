@@ -59,25 +59,10 @@ class Loader(val jPanel: JPanel = JPanel()) {
         if (!db.exists())
             FileUtils.copyURLToFile(dbUrl, db)
 
-        val wsUrl: URL? = javaClass.getResource("/white_square.png")
-        ws = File(baseFolder.path + "/white_square.png")
-        if (!ws.exists())
-            FileUtils.copyURLToFile(wsUrl, ws)
-
-        val fontUrl: URL? = javaClass.getResource("/mcfont.ttf")
-        val fontfile = File(baseFolder.path + "/mcfont.ttf")
-        if (!fontfile.exists())
-            FileUtils.copyURLToFile(fontUrl, fontfile)
-
-        val ctUrl: URL? = javaClass.getResource("/3x3.png")
-        val ct = File(baseFolder.path + "/3x3.png")
-        if (!ct.exists())
-            FileUtils.copyURLToFile(ctUrl, ct)
-
-        val arrowUrl: URL? = javaClass.getResource("/arrow.png")
-        val arrow = File(baseFolder.path + "/arrow.png")
-        if (!arrow.exists())
-            FileUtils.copyURLToFile(arrowUrl, arrow)
+        loadresource("mcfont.ttf")
+        loadresource("3x3.png")
+        loadresource("arrow.png")
+        loadresource("oneslot.png")
 
         if (isEmpty(elementsFolder.toPath())){
             for (i in 1..118){
@@ -137,5 +122,12 @@ class Loader(val jPanel: JPanel = JPanel()) {
             list.add(File(folder.path + "/$num.png"))
         }
         return list
+    }
+
+    fun loadresource(name : String){
+        val resourceUrl: URL? = javaClass.getResource("/$name")
+        val resource = File(baseFolder.path + "/$name")
+        if (!resource.exists())
+            FileUtils.copyURLToFile(resourceUrl, resource)
     }
 }

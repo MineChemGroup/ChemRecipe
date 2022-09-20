@@ -1,19 +1,21 @@
 package panels
 
 import misc.Inst
-import java.awt.Component
+import java.awt.BorderLayout
 import java.awt.Dimension
+import java.awt.GridLayout
 import javax.swing.*
 
 
 class Left(val jPanel: JPanel = JPanel()) {
 
-    val mcassetpanel = JPanel().apply { preferredSize = Dimension(160,5250); isVisible = true }
+    val mcassetpanel = JPanel().apply { preferredSize = Dimension(160,4825); isVisible = true }
     val chemassetpanel = JPanel().apply { preferredSize = Dimension(160, 4150); isVisible = true }
 
     fun init(){
         for (file in Inst.loader.getAssets(Inst.loader.iconsFolder)){
-            val label = JLabel(ImageIcon(file.path, file.nameWithoutExtension))
+            val label = JLabel(ImageIcon(file.path))
+            label.toolTipText = file.nameWithoutExtension
             mcassetpanel.add(label)
         }
 
@@ -23,10 +25,12 @@ class Left(val jPanel: JPanel = JPanel()) {
 
         for ((i, file) in Inst.loader.getNumerical(Inst.loader.elementsFolder, 118).withIndex()){
             val label = JLabel(ImageIcon(file.path))
+            label.toolTipText = file.nameWithoutExtension
             chemassetpanel.add(label)
         }
         for ((i, file) in Inst.loader.getNumerical(Inst.loader.compoundsFolder, 121).withIndex()){
             val label = JLabel(ImageIcon(file.path))
+            label.toolTipText = file.nameWithoutExtension
             chemassetpanel.add(label)
         }
 

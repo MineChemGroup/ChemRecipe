@@ -309,7 +309,6 @@ dead-brain-coral-fan:-896 -352
 dead-bubble-coral:-960 -352
 dead-bubble-coral-block:-992 -352
 dead-bubble-coral-fan:0 -384
-dead-bush:-64 -384
 dead-fire-coral:-96 -384
 dead-fire-coral-block:-128 -384
 dead-fire-coral-fan:-160 -384
@@ -948,7 +947,6 @@ sugar-cane:-32 -1152
 sunflower:-64 -1152
 suspicious-stew:-96 -1152
 sweet-berries:-128 -1152
-sweet-berry-bush:-160 -1152
 target:-288 -1152
 terracotta:-320 -1152
 tinted-glass:-352 -1152

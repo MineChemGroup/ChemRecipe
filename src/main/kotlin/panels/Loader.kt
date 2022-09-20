@@ -26,6 +26,7 @@ class Loader(val jPanel: JPanel = JPanel()) {
 
     lateinit var img : File
     lateinit var db : File
+    lateinit var ws : File
 
     suspend fun init() {
         baseFolder = File(System.getProperty("user.home") + "/Documents/ChemRecipe")
@@ -58,10 +59,25 @@ class Loader(val jPanel: JPanel = JPanel()) {
         if (!db.exists())
             FileUtils.copyURLToFile(dbUrl, db)
 
+        val wsUrl: URL? = javaClass.getResource("/white_square.png")
+        ws = File(baseFolder.path + "/white_square.png")
+        if (!ws.exists())
+            FileUtils.copyURLToFile(wsUrl, ws)
+
         val fontUrl: URL? = javaClass.getResource("/mcfont.ttf")
         val fontfile = File(baseFolder.path + "/mcfont.ttf")
         if (!fontfile.exists())
             FileUtils.copyURLToFile(fontUrl, fontfile)
+
+        val ctUrl: URL? = javaClass.getResource("/3x3.png")
+        val ct = File(baseFolder.path + "/3x3.png")
+        if (!ct.exists())
+            FileUtils.copyURLToFile(ctUrl, ct)
+
+        val arrowUrl: URL? = javaClass.getResource("/arrow.png")
+        val arrow = File(baseFolder.path + "/arrow.png")
+        if (!arrow.exists())
+            FileUtils.copyURLToFile(arrowUrl, arrow)
 
         if (isEmpty(elementsFolder.toPath())){
             for (i in 1..118){

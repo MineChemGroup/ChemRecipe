@@ -8,15 +8,30 @@ import javax.swing.*
 class Right(val jPanel: JPanel = JPanel()){
 
     val openfolder = JButton("Open Folder").apply { alignmentX = 0.5f}
-
+    val createnew = JButton("Create New").apply { alignmentX = 0.5f}
+    val saverecipe = JButton("Save Recipe").apply { alignmentX = 0.5f}
 
     fun init(){
-        openfolder.addActionListener(Inst.actions)
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)
-        jPanel.add(openfolder)
+
+        createnew.addActionListener(Inst.actions)
+        createnew.apply { preferredSize = Dimension(175,50); font = Inst.font }
+        createnew.minimumSize = Dimension(175,50)
+        createnew.maximumSize = Dimension(175,50)
+
+        saverecipe.addActionListener(Inst.actions)
+        saverecipe.apply { preferredSize = Dimension(175,50); font = Inst.font }
+        saverecipe.minimumSize = Dimension(175,50)
+        saverecipe.maximumSize = Dimension(175,50)
+
+        openfolder.addActionListener(Inst.actions)
         openfolder.apply { preferredSize = Dimension(175,50); font = Inst.font; toolTipText = "Open Folder containing recipes" }
         openfolder.minimumSize = Dimension(175,50)
         openfolder.maximumSize = Dimension(175,50)
+
+        jPanel.add(createnew)
+        jPanel.add(saverecipe)
+        jPanel.add(openfolder)
 
         val demoList: DefaultListModel<String> = DefaultListModel<String>()
         for (i in 1..20){

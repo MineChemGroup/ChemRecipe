@@ -11,7 +11,9 @@ object Inst {
     lateinit var font: Font
 
     val loader = Loader()
-    val mEditor = MEditor()
+    val sEditor = SEditor()
+    val cEditor = CEditor()
+    val center = Center()
     val left = Left()
     val right = Right()
     val actions = Actions()

@@ -31,7 +31,10 @@ class Actions : ActionListener {
             Inst.menu.dark -> {
                 FlatDarculaLaf.setup();
                 Inst.refresh() }
-            Inst.mEditor.createnew -> {
+            Inst.right.saverecipe -> {
+
+            }
+            Inst.right.createnew -> {
 
             }
             Inst.right.openfolder ->{

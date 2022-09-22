@@ -23,10 +23,11 @@ class Loader(val jPanel: JPanel = JPanel()) {
     lateinit var elementsFolder : File
     lateinit var compoundsFolder : File
     lateinit var recipeFolder : File
+    lateinit var decomposerFolder : File
+    lateinit var synthesizerFolder : File
 
     lateinit var img : File
     lateinit var db : File
-    lateinit var ws : File
 
     suspend fun init() {
         baseFolder = File(System.getProperty("user.home") + "/Documents/ChemRecipe")
@@ -35,10 +36,15 @@ class Loader(val jPanel: JPanel = JPanel()) {
         elementsFolder = File(baseFolder.path + "/elements")
         compoundsFolder = File(baseFolder.path + "/compounds")
         recipeFolder = File(baseFolder.path + "/recipes")
+        decomposerFolder = File(recipeFolder.path + "/decomposer")
+        synthesizerFolder = File(recipeFolder.path + "/synthesizer")
+
         iconsFolder.mkdir()
         elementsFolder.mkdir()
         compoundsFolder.mkdir()
         recipeFolder.mkdir()
+        decomposerFolder.mkdir()
+        synthesizerFolder.mkdir()
     }
 
     suspend fun paste(){

@@ -1,11 +1,15 @@
 package panels
 
 import misc.Inst
+import misc.LeftActions
 import java.awt.*
 import javax.swing.*
 
 
 class Left(val jPanel: JPanel = JPanel()) {
+
+    val listmcassets = arrayListOf<JLabel>()
+    val listchemassets = arrayListOf<JLabel>()
 
     val mcassetpanel = JPanel().apply { preferredSize = Dimension(160,4825); isVisible = true }
     val chemassetpanel = JPanel().apply { preferredSize = Dimension(160, 1150); isVisible = true }
@@ -14,7 +18,9 @@ class Left(val jPanel: JPanel = JPanel()) {
         for (file in Inst.loader.getAssets(Inst.loader.iconsFolder)){
             val label = JLabel(ImageIcon(file.path))
             label.toolTipText = file.nameWithoutExtension
+            label.addMouseListener(LeftActions())
             mcassetpanel.add(label)
+            listmcassets.add(label)
         }
 
         val scrollableArea0 = JScrollPane(mcassetpanel).apply { preferredSize = Dimension(320,500) }
@@ -23,18 +29,20 @@ class Left(val jPanel: JPanel = JPanel()) {
         scrollableArea0.horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
 
         for ((i, file) in Inst.loader.getNumerical(Inst.loader.elementsFolder, 118).withIndex()){
-            //val label = JLabel(ImageIcon(file.path))
             val label = JLabel(ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH)))
             label.toolTipText = "Element " + file.nameWithoutExtension
             label.preferredSize = Dimension(32,32)
+            label.addMouseListener(LeftActions())
             chemassetpanel.add(label)
+            listchemassets.add(label)
         }
         for ((i, file) in Inst.loader.getNumerical(Inst.loader.compoundsFolder, 121).withIndex()){
-            //val label = JLabel(ImageIcon(file.path))
             val label = JLabel(ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH)))
             label.toolTipText = "Compound " + file.nameWithoutExtension
             label.preferredSize = Dimension(32,32)
+            label.addMouseListener(LeftActions())
             chemassetpanel.add(label)
+            listchemassets.add(label)
         }
 
         val scrollableArea1 = JScrollPane(chemassetpanel).apply { preferredSize = Dimension(320,500) }

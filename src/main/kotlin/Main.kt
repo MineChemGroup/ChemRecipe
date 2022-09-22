@@ -1,11 +1,9 @@
 import com.formdev.flatlaf.FlatDarculaLaf
-import com.formdev.flatlaf.FlatDarkLaf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import misc.Inst
-import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.Font
 import java.awt.GraphicsEnvironment
@@ -18,8 +16,8 @@ suspend fun main(args: Array<String>){
 
     FlatDarculaLaf.setup()
 
-    Inst.jframe.size = Dimension(1000, 600)
-    Inst.jframe.minimumSize = Dimension(800,480)
+    Inst.jframe.size = Dimension(1000, 620)
+    Inst.jframe.minimumSize = Dimension(944,620)
     Inst.jframe.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE;
 
     Inst.jframe.layout = GridLayout(1,3)
@@ -39,14 +37,16 @@ suspend fun main(args: Array<String>){
             Inst.right.init()
 
             Inst.menu.init()
-            Inst.mEditor.init()
+            Inst.sEditor.init()
+            Inst.cEditor.init()
+            Inst.center.init()
 
             Inst.jframe.revalidate()
         }
         launch {
             Inst.jframe.jMenuBar = Inst.menu.bar
             Inst.jframe.add(Inst.left.jPanel)
-            Inst.jframe.add(Inst.mEditor.jPanel)
+            Inst.jframe.add(Inst.center.jPanel)
             Inst.jframe.add(Inst.right.jPanel)
             Inst.jframe.isVisible = true
         }

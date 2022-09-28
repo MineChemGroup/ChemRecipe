@@ -1,7 +1,8 @@
 package panels
 
 import misc.Inst
-import misc.LeftActions
+import actions.LeftMouseActions
+import transfer.LeftTransferHandler
 import java.awt.*
 import javax.swing.*
 
@@ -18,7 +19,8 @@ class Left(val jPanel: JPanel = JPanel()) {
         for (file in Inst.loader.getAssets(Inst.loader.iconsFolder)){
             val label = JLabel(ImageIcon(file.path))
             label.toolTipText = file.nameWithoutExtension
-            label.addMouseListener(LeftActions())
+            label.addMouseListener(LeftMouseActions())
+            label.transferHandler = LeftTransferHandler()
             mcassetpanel.add(label)
             listmcassets.add(label)
         }
@@ -32,7 +34,8 @@ class Left(val jPanel: JPanel = JPanel()) {
             val label = JLabel(ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH)))
             label.toolTipText = "Element " + file.nameWithoutExtension
             label.preferredSize = Dimension(32,32)
-            label.addMouseListener(LeftActions())
+            label.addMouseListener(LeftMouseActions())
+            label.transferHandler = LeftTransferHandler()
             chemassetpanel.add(label)
             listchemassets.add(label)
         }
@@ -40,7 +43,8 @@ class Left(val jPanel: JPanel = JPanel()) {
             val label = JLabel(ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH)))
             label.toolTipText = "Compound " + file.nameWithoutExtension
             label.preferredSize = Dimension(32,32)
-            label.addMouseListener(LeftActions())
+            label.addMouseListener(LeftMouseActions())
+            label.transferHandler = LeftTransferHandler()
             chemassetpanel.add(label)
             listchemassets.add(label)
         }
@@ -54,19 +58,4 @@ class Left(val jPanel: JPanel = JPanel()) {
         jPanel.add(scrollableArea0)
         jPanel.add(scrollableArea1)
     }
-    /*
-    fun redo(){
-        val components: Array<JLabel> = chemassetpanel.components as Array<JLabel>
-        chemassetpanel.removeAll()
-        var i = 1
-        while (chemassetpanel.components.size < 239){
-            val it = components.iterator()
-            while (it.hasNext()){
-                val label = it.next()
-                if (label.text.equals())
-            }
-        }
-    }
-
-     */
 }

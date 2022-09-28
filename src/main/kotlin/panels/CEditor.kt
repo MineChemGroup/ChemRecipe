@@ -1,7 +1,8 @@
 package panels
 
 import misc.Inst
-import misc.MEditorActions
+import actions.SEditorActions
+import transfer.CEditorHandler
 import java.awt.Color
 import java.awt.Component
 import java.awt.Dimension
@@ -23,9 +24,11 @@ class CEditor(val jPanel: JPanel = JPanel()) {
         val resultLabel = JLabel()
         resultLabel.background = Color(139,139,139)
         listLabel.add(resultLabel)
-        resultLabel.addMouseListener(MEditorActions())
+        resultLabel.addMouseListener(SEditorActions())
+        resultLabel.transferHandler = CEditorHandler()
         resultLabel.isVisible = true
         resultLabel.isOpaque = true
+        resultLabel.putClientProperty("number", 11)
         resultLabel.setBounds(32,18,44,44)
         val oneslot = JLabel(ImageIcon(File(Inst.loader.baseFolder.path + "/oneslot.png").path)).apply { alignmentX = Component.CENTER_ALIGNMENT }
         oneslot.setBounds(12,0,78,78)
@@ -43,11 +46,22 @@ class CEditor(val jPanel: JPanel = JPanel()) {
         arrowPanel.minimumSize = Dimension(100,100)
         arrowPanel.maximumSize = Dimension(100,100)
         arrowPanel.preferredSize = Dimension(100,100)
-       //arrowPanel.add(Box.createVerticalStrut(10))
         arrowPanel.layout = BoxLayout(arrowPanel, BoxLayout.PAGE_AXIS)
         val arrow = JLabel(ImageIcon(File(Inst.loader.baseFolder.path + "/arrow.png").path)).apply { alignmentX = 0.5f }
         arrowPanel.add(arrow)
 
         jPanel.add(arrowPanel)
+
+        val listpanel = JPanel()
+        listpanel.minimumSize = Dimension(220,300)
+        listpanel.maximumSize = Dimension(220,300)
+        listpanel.preferredSize = Dimension(220,300)
+        val demoList: DefaultListModel<JLabel> = DefaultListModel<JLabel>()
+        val list = JList(demoList)
+        val scrollableArea0 = JScrollPane(list).apply { preferredSize = Dimension(340,800) }
+        scrollableArea0.verticalScrollBar.unitIncrement = 16
+        scrollableArea0.verticalScrollBarPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
+        scrollableArea0.horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+        jPanel.add(scrollableArea0)
     }
 }

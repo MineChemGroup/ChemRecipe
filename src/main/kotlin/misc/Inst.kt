@@ -1,5 +1,6 @@
 package misc
 
+import actions.ButtonActions
 import panels.*
 import java.awt.Font
 import javax.swing.JFrame
@@ -16,7 +17,7 @@ object Inst {
     val center = Center()
     val left = Left()
     val right = Right()
-    val actions = Actions()
+    val buttonActions = ButtonActions()
     val menu = Menu()
 
     fun refresh(){

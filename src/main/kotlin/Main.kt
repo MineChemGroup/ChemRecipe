@@ -4,10 +4,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import misc.Inst
-import java.awt.Dimension
-import java.awt.Font
-import java.awt.GraphicsEnvironment
-import java.awt.GridLayout
+import java.awt.*
+import java.awt.event.MouseEvent
 import java.io.File
 import javax.swing.WindowConstants
 
@@ -16,8 +14,8 @@ suspend fun main(args: Array<String>){
 
     FlatDarculaLaf.setup()
 
-    Inst.jframe.size = Dimension(1000, 620)
-    Inst.jframe.minimumSize = Dimension(944,620)
+    Inst.jframe.size = Dimension(1000, 645)
+    Inst.jframe.minimumSize = Dimension(944,645)
     Inst.jframe.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE;
 
     Inst.jframe.layout = GridLayout(1,3)

@@ -2,6 +2,7 @@ package panels
 
 import misc.Inst
 import java.awt.Dimension
+import java.awt.GridLayout
 import javax.swing.*
 
 
@@ -9,34 +10,48 @@ class Right(val jPanel: JPanel = JPanel()){
 
     val openfolder = JButton("Open Folder").apply { alignmentX = 0.5f}
     val createnew = JButton("Create New").apply { alignmentX = 0.5f}
-    val saverecipe = JButton("Save Recipe").apply { alignmentX = 0.5f}
+    val save = JButton("Save Recipe").apply { alignmentX = 0.5f}
+    val remove = JButton("Remove Recipe").apply { alignmentX = 0.5f }
 
     fun init(){
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)
 
-        createnew.addActionListener(Inst.actions)
+        createnew.addActionListener(Inst.buttonActions)
         createnew.apply { preferredSize = Dimension(175,50); font = Inst.font }
         createnew.minimumSize = Dimension(175,50)
         createnew.maximumSize = Dimension(175,50)
 
-        saverecipe.addActionListener(Inst.actions)
-        saverecipe.apply { preferredSize = Dimension(175,50); font = Inst.font }
-        saverecipe.minimumSize = Dimension(175,50)
-        saverecipe.maximumSize = Dimension(175,50)
+        save.addActionListener(Inst.buttonActions)
+        save.apply { preferredSize = Dimension(175,50); font = Inst.font }
+        save.minimumSize = Dimension(175,50)
+        save.maximumSize = Dimension(175,50)
 
-        openfolder.addActionListener(Inst.actions)
+        remove.addActionListener(Inst.buttonActions)
+        remove.apply { preferredSize = Dimension(175,50); font = Inst.font}
+        remove.minimumSize = Dimension(175,50)
+        remove.maximumSize = Dimension(175,50)
+
+        openfolder.addActionListener(Inst.buttonActions)
         openfolder.apply { preferredSize = Dimension(175,50); font = Inst.font; toolTipText = "Open Folder containing recipes" }
         openfolder.minimumSize = Dimension(175,50)
         openfolder.maximumSize = Dimension(175,50)
 
-        jPanel.add(createnew)
-        jPanel.add(saverecipe)
-        jPanel.add(openfolder)
+        val upperpanel = JPanel(GridLayout(2,2,3,3))
+        upperpanel.minimumSize = Dimension(400,100)
+        upperpanel.maximumSize = Dimension(400,100)
+        upperpanel.preferredSize = Dimension(400,100)
+
+        upperpanel.add(openfolder)
+        upperpanel.add(createnew)
+        upperpanel.add(save)
+        upperpanel.add(remove)
+
+        jPanel.add(upperpanel)
 
         val demoList: DefaultListModel<String> = DefaultListModel<String>()
-        for (i in 1..20){
+        /*for (i in 1..20){
             demoList.addElement(i.toString())
-        }
+        }*/
         val list = JList(demoList).apply { toolTipText = "List of all loaded recipes"}
         list.font = Inst.font
 

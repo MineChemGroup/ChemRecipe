@@ -7,11 +7,11 @@ import javax.swing.JMenuItem
 
 class Menu(val bar: JMenuBar = JMenuBar()){
 
-    val light = JMenuItem("Light").apply { addActionListener(Inst.actions)}
-    val solarized = JMenuItem("Solarized").apply { addActionListener(Inst.actions) }
-    val deepocean = JMenuItem("Deep Ocean").apply { addActionListener(Inst.actions) }
-    val nord = JMenuItem("Nord").apply { addActionListener(Inst.actions) }
-    val dark = JMenuItem("Darcula").apply { addActionListener(Inst.actions) }
+    val light = JMenuItem("Light").apply { addActionListener(Inst.buttonActions)}
+    val solarized = JMenuItem("Solarized").apply { addActionListener(Inst.buttonActions) }
+    val deepocean = JMenuItem("Deep Ocean").apply { addActionListener(Inst.buttonActions) }
+    val nord = JMenuItem("Nord").apply { addActionListener(Inst.buttonActions) }
+    val dark = JMenuItem("Darcula").apply { addActionListener(Inst.buttonActions) }
 
     fun init(){
         val file = JMenu("File")

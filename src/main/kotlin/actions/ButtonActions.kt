@@ -40,6 +40,9 @@ class ButtonActions : ActionListener {
             Inst.right.createnew -> {
 
             }
+            Inst.right.remove -> {
+
+            }
             Inst.right.openfolder ->{
                 Desktop.getDesktop().open(Inst.loader.recipeFolder)
             }

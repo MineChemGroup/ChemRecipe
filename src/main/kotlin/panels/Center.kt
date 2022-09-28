@@ -7,8 +7,9 @@ import javax.swing.JTabbedPane
 
 class Center(val jPanel: JPanel = JPanel()) {
 
+    val tabbed = JTabbedPane()
+
     fun init() {
-        val tabbed = JTabbedPane()
         tabbed.addTab("Synthesizer", Inst.sEditor.jPanel)
         tabbed.addTab("Decomposer", Inst.cEditor.jPanel)
         tabbed.font = Inst.font.deriveFont(15f)

@@ -23,6 +23,8 @@ class LeftMouseActions : MouseAdapter() {
         val handler = c.transferHandler
         handler.dragImage = iconToImage((c as JLabel).icon)
         handler.exportAsDrag(c, e, TransferHandler.COPY)
+
+        //println("mousePressed")
     }
 
 

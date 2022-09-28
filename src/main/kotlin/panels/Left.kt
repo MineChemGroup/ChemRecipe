@@ -4,6 +4,7 @@ import misc.Inst
 import actions.LeftMouseActions
 import transfer.LeftTransferHandler
 import java.awt.*
+import java.awt.event.MouseAdapter
 import javax.swing.*
 
 
@@ -20,7 +21,7 @@ class Left(val jPanel: JPanel = JPanel()) {
             val label = JLabel(ImageIcon(file.path))
             label.toolTipText = file.nameWithoutExtension
             label.addMouseListener(LeftMouseActions())
-            label.transferHandler = LeftTransferHandler()
+            label.transferHandler = LeftTransferHandler("icon")
             mcassetpanel.add(label)
             listmcassets.add(label)
         }
@@ -34,8 +35,9 @@ class Left(val jPanel: JPanel = JPanel()) {
             val label = JLabel(ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH)))
             label.toolTipText = "Element " + file.nameWithoutExtension
             label.preferredSize = Dimension(32,32)
+            //label.addMouseListener(LeftMouseActions())
             label.addMouseListener(LeftMouseActions())
-            label.transferHandler = LeftTransferHandler()
+            label.transferHandler = LeftTransferHandler("icon")
             chemassetpanel.add(label)
             listchemassets.add(label)
         }
@@ -44,7 +46,7 @@ class Left(val jPanel: JPanel = JPanel()) {
             label.toolTipText = "Compound " + file.nameWithoutExtension
             label.preferredSize = Dimension(32,32)
             label.addMouseListener(LeftMouseActions())
-            label.transferHandler = LeftTransferHandler()
+            label.transferHandler = LeftTransferHandler("icon")
             chemassetpanel.add(label)
             listchemassets.add(label)
         }

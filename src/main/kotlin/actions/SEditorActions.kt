@@ -10,6 +10,7 @@ import javax.swing.*
 
 
 class SEditorActions : MouseAdapter() {
+
     override fun mouseEntered(e: MouseEvent?) {
         for (label in Inst.sEditor.listLabel) {
             if (label == e?.component) {
@@ -44,13 +45,13 @@ class SEditorActions : MouseAdapter() {
         }
     }
 
+
     override fun mousePressed(e: MouseEvent?) {
         val c = e!!.source as JLabel
-        //println(c.getClientProperty("number"))
-        //c.addMouseListener(this)
+        if (c.icon == null)
+            return
         val handler = c.transferHandler
-        if (c.icon != null)
-            handler.dragImage = iconToImage(c.icon)
+        handler.dragImage = iconToImage(c.icon)
         handler.exportAsDrag(c, e, TransferHandler.COPY)
     }
 
@@ -70,4 +71,5 @@ class SEditorActions : MouseAdapter() {
             image
         }
     }
+
 }

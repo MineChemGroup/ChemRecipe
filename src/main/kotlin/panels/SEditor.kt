@@ -16,6 +16,41 @@ class SEditor(val jPanel: JPanel = JPanel()) {
     lateinit var upperlayeredpane : JLayeredPane
     lateinit var lowerlayeredpane : JLayeredPane
 
+    //TODO: add spinner
+    fun add(label : JLabel){
+        for(i in listLabel){
+            if (i.mousePosition != null){
+                val id = i.getClientProperty("number") as Int
+                label.bounds = Rectangle(i.bounds.x+10, i.bounds.y, 32,32)
+
+                /**
+                 * I don't have even the slightest idea
+                 * on WHY THE FUCK does this need to be
+                 * like this. I tried a million other
+                 * ways, and this is the ONLY ONE which works
+                 * for some fucking reason.
+                 *
+                 * DO NOT TOUCH
+                 */
+                when (id) {
+                    10 -> lowerlayeredpane.add(label, Integer(10+id))
+                    9 -> upperlayeredpane.setLayer(label, 10+id)
+                    else -> upperlayeredpane.add(label, Integer(10+id))
+                }
+
+                Inst.refresh()
+                break
+            }
+        }
+    }
+
+    fun remove(label : JLabel){
+        if (upperlayeredpane.components.contains(label))
+            upperlayeredpane.remove(label)
+        else if (lowerlayeredpane.components.contains(label))
+            lowerlayeredpane.remove(label)
+    }
+
     fun init(){
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)
 
@@ -26,8 +61,6 @@ class SEditor(val jPanel: JPanel = JPanel()) {
         upperlayeredpane.add(jLabel, JLayeredPane.DEFAULT_LAYER)
 
         val diff = 78
-        val oX = 18
-        val oY = 18
         var x = 0
         var y = 0
         for (i in 1..9){
@@ -46,7 +79,7 @@ class SEditor(val jPanel: JPanel = JPanel()) {
                 x = 0
                 y += diff
             }
-            label.setBounds(x+oX, y+oY, 44,44)
+            label.setBounds(x+18, y+18, 44,44)
             x += diff
         }
         upperlayeredpane.isVisible = true

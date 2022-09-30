@@ -16,7 +16,7 @@ class SEditor(val jPanel: JPanel = JPanel()) {
     lateinit var upperlayeredpane : JLayeredPane
     lateinit var lowerlayeredpane : JLayeredPane
 
-    //TODO: add spinner
+    //TODO: add spinners
     fun add(label : JLabel){
         for(i in listLabel){
             if (i.mousePosition != null){
@@ -24,13 +24,11 @@ class SEditor(val jPanel: JPanel = JPanel()) {
                 label.bounds = Rectangle(i.bounds.x+10, i.bounds.y, 32,32)
 
                 /**
-                 * I don't have even the slightest idea
-                 * on WHY THE FUCK does this need to be
-                 * like this. I tried a million other
+                 * I tried a million other
                  * ways, and this is the ONLY ONE which works
                  * for some fucking reason.
                  *
-                 * DO NOT TOUCH
+                 * DO NOT TOUCH!!!!!!
                  */
                 when (id) {
                     10 -> lowerlayeredpane.add(label, Integer(10+id))
@@ -44,13 +42,14 @@ class SEditor(val jPanel: JPanel = JPanel()) {
         }
     }
 
+    /*
     fun remove(label : JLabel){
         if (upperlayeredpane.components.contains(label))
             upperlayeredpane.remove(label)
         else if (lowerlayeredpane.components.contains(label))
             lowerlayeredpane.remove(label)
     }
-
+    */
     fun init(){
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)
 

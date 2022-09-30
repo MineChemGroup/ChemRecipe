@@ -1,8 +1,6 @@
 package transfer
 
 import misc.Inst
-import misc.Inst.copy
-import org.apache.commons.lang3.SerializationUtils
 import java.awt.datatransfer.DataFlavor
 import java.awt.datatransfer.Transferable
 import java.awt.event.InputEvent

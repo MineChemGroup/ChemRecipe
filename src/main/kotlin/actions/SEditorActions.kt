@@ -2,18 +2,18 @@ package actions
 
 import misc.Inst
 import java.awt.Color
-import java.awt.Component
 import java.awt.GraphicsEnvironment
 import java.awt.Image
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
+import java.awt.event.MouseWheelEvent
 import javax.swing.*
 
 
 class SEditorActions : MouseAdapter() {
 
     override fun mouseEntered(e: MouseEvent?) {
-        for (label in Inst.sEditor.listLabel) {
+        for (label in Inst.sEditor.defaultlabels) {
             if (label == e?.component) {
                 label.background = Color(204,204,204)
                 label.repaint()
@@ -30,7 +30,7 @@ class SEditorActions : MouseAdapter() {
     }
 
     override fun mouseExited(e: MouseEvent?) {
-        for (label in Inst.sEditor.listLabel) {
+        for (label in Inst.sEditor.defaultlabels) {
             if (label == e?.component) {
                 label.background = Color(139,139,139)
                 label.repaint()
@@ -45,7 +45,6 @@ class SEditorActions : MouseAdapter() {
             }
         }
     }
-
 
     override fun mousePressed(e: MouseEvent?) {
         val c = e!!.source as JLabel

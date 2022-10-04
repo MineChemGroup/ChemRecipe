@@ -23,6 +23,12 @@ object Inst {
 
     fun refresh(){
         SwingUtilities.updateComponentTreeUI(jframe)
+        sEditor.jPanel.repaint()
+        sEditor.jPanel.revalidate()
+        cEditor.jPanel.repaint()
+        cEditor.jPanel.revalidate()
+        right.jPanel.repaint()
+        right.jPanel.revalidate()
     }
 
     var currentDragged : JLabel? = null

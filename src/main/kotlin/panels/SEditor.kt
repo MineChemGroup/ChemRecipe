@@ -10,7 +10,7 @@ import javax.swing.*
 
 class SEditor(val jPanel: JPanel = JPanel()) {
 
-    val listLabel = arrayListOf<JLabel>()
+    val defaultlabels = arrayListOf<JLabel>()
 
     val mirror = JButton("Mirror recipe").apply { alignmentX = 0.5f }
 
@@ -18,23 +18,40 @@ class SEditor(val jPanel: JPanel = JPanel()) {
     lateinit var lowerlayeredpane : JLayeredPane
 
     fun add(label : JLabel){
-        for(i in listLabel){
+        for(i in defaultlabels){
             if (i.mousePosition != null){
                 val id = i.getClientProperty("number") as Int
 
                 label.bounds = Rectangle(i.bounds.x+10, i.bounds.y, 32,32)
+                label.putClientProperty("number", id)
 
-                /**
-                 * I tried a million other
-                 * ways, and this is the ONLY ONE which works
-                 * for some fucking reason.
-                 *
-                 * DO NOT TOUCH!!!!!!
-                 */
+                label.addMouseWheelListener { e ->
+                    val l = e.source as JLabel
+                    val idl = l.getClientProperty("number") as Int
+                    if (idl < 10){
+                        for (s in upperlayeredpane.getComponentsInLayer(21)){
+                            if (((s as JSpinner).getClientProperty("connected") as Int)-10 == idl){
+                                s.value = (s.value as Int + -e.wheelRotation)
+                                break
+                            }
+                        }
+                    } else {
+                        if (lowerlayeredpane.getComponentCountInLayer(21) > 0) {
+                            val s = lowerlayeredpane.getComponentsInLayer(21)[0] as JSpinner
+                            s.value = (s.value as Int + -e.wheelRotation)
+                        }
+                    }
+                }
+
                 when (id) {
-                    10 -> lowerlayeredpane.add(label, Integer(10+id))
-                    9 -> upperlayeredpane.setLayer(label, 10+id)
-                    else -> upperlayeredpane.add(label, Integer(10+id))
+                    10 -> {
+                        lowerlayeredpane.add(label,Integer(20))
+                        lowerlayeredpane.setLayer(label, 20)
+                    }
+                    else -> {
+                        upperlayeredpane.add(label,Integer(10+id))
+                        upperlayeredpane.setLayer(label, 10+id)
+                    }
                 }
 
                 val spinner = JSpinner()
@@ -42,17 +59,20 @@ class SEditor(val jPanel: JPanel = JPanel()) {
                 spinner.value = 1
                 spinner.putClientProperty("connected", 10+id)
 
-                if (id < 10)
+                if (id < 10) {
                     upperlayeredpane.add(spinner, Integer(21))
-                else
+                }else {
                     lowerlayeredpane.add(spinner, Integer(21))
-
+                    lowerlayeredpane.setLayer(spinner, 21)
+                }
                 spinner.addChangeListener { e ->
                     val num : Int = (e.source as JSpinner).value as Int
+
                     if (num > 64){
                         (e.source as JSpinner).value = 64
                     } else if (num < 1){
                         val layer = (e.source as JSpinner).getClientProperty("connected") as Int
+
                         if (layer-10 < 10) {
                             upperlayeredpane.remove(upperlayeredpane.getComponentsInLayer(layer)[0])
                             upperlayeredpane.remove(e.source as JSpinner)
@@ -61,6 +81,7 @@ class SEditor(val jPanel: JPanel = JPanel()) {
                             lowerlayeredpane.remove(e.source as JSpinner)
                         }
                     }
+                    Inst.refresh()
                 }
 
                 Inst.refresh()
@@ -78,11 +99,9 @@ class SEditor(val jPanel: JPanel = JPanel()) {
                 }
             }
         }else {
-            for (comp in lowerlayeredpane.getComponentsInLayer(21)) {
-                if (((comp as JSpinner).getClientProperty("connected") as Int) == id+10) {
-                    lowerlayeredpane.remove(comp as JSpinner)
-                    break
-                }
+            if (lowerlayeredpane.getComponentCountInLayer(21) > 0) {
+                val s = lowerlayeredpane.getComponentsInLayer(21)[0] as JSpinner ?: return
+                lowerlayeredpane.remove(s)
             }
         }
     }
@@ -103,7 +122,7 @@ class SEditor(val jPanel: JPanel = JPanel()) {
 
             val label = JLabel()
             label.background = Color(139,139,139)
-            listLabel.add(label)
+            defaultlabels.add(label)
             label.addMouseListener(SEditorActions())
             label.transferHandler = SEditorHandler()
             label.putClientProperty("number", i)
@@ -140,7 +159,7 @@ class SEditor(val jPanel: JPanel = JPanel()) {
         lowerlayeredpane.setBounds(120,20,100,100)
         val resultLabel = JLabel()
         resultLabel.background = Color(139,139,139)
-        listLabel.add(resultLabel)
+        defaultlabels.add(resultLabel)
         resultLabel.addMouseListener(SEditorActions())
         resultLabel.transferHandler = SEditorHandler()
         resultLabel.putClientProperty("number", 10)

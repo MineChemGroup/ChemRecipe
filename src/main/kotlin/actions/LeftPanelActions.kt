@@ -13,14 +13,10 @@ class LeftPanelActions : ComponentAdapter() {
         if (e.component == Inst.left.mcassetpanel){
             val height = (1026*32*32)/(width*0.68)
             Inst.left.mcassetpanel.preferredSize = Dimension(width, height.toInt())
-            //Inst.left.mcassetpanel.size = Dimension(width, height.toInt())
         } else if (e.component == Inst.left.chemassetpanel){
             val height = (240*32*32)/(width*0.68)
             Inst.left.chemassetpanel.preferredSize = Dimension(width, height.toInt())
-            //Inst.left.chemassetpanel.size = Dimension(width, height)
         }
-
-        //Inst.left.jPanel.revalidate()
         Inst.refresh()
     }
 }

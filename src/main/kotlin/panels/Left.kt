@@ -5,9 +5,6 @@ import actions.LeftMouseActions
 import actions.LeftPanelActions
 import transfer.LeftTransferHandler
 import java.awt.*
-import java.awt.event.ComponentAdapter
-import java.awt.event.ComponentEvent
-import java.awt.event.MouseAdapter
 import javax.swing.*
 
 
@@ -41,7 +38,6 @@ class Left(val jPanel: JPanel = JPanel()) {
             val label = JLabel(ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH)))
             label.toolTipText = "Element " + file.nameWithoutExtension
             label.preferredSize = Dimension(32,32)
-            //label.addMouseListener(LeftMouseActions())
             label.addMouseListener(LeftMouseActions())
             label.transferHandler = LeftTransferHandler("icon")
             chemassetpanel.add(label)

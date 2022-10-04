@@ -29,7 +29,7 @@ suspend fun main(args: Array<String>){
             val ge = GraphicsEnvironment.getLocalGraphicsEnvironment()
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, File(Inst.loader.baseFolder.path + "/mcfont.ttf")))
 
-            delay(200)
+            //delay(200)
 
             Inst.left.init()
             Inst.right.init()

@@ -2,8 +2,11 @@ package panels
 
 import misc.Inst
 import actions.LeftMouseActions
+import actions.LeftPanelActions
 import transfer.LeftTransferHandler
 import java.awt.*
+import java.awt.event.ComponentAdapter
+import java.awt.event.ComponentEvent
 import java.awt.event.MouseAdapter
 import javax.swing.*
 
@@ -13,10 +16,13 @@ class Left(val jPanel: JPanel = JPanel()) {
     val listmcassets = arrayListOf<JLabel>()
     val listchemassets = arrayListOf<JLabel>()
 
-    val mcassetpanel = JPanel().apply { preferredSize = Dimension(160,4825); isVisible = true }
-    val chemassetpanel = JPanel().apply { preferredSize = Dimension(160, 1150); isVisible = true }
+    val mcassetpanel = JPanel().apply { preferredSize = Dimension(160,4825);
+        addComponentListener(LeftPanelActions()); isVisible = true }
+    val chemassetpanel = JPanel().apply { preferredSize = Dimension(160, 1150);
+        addComponentListener(LeftPanelActions()); isVisible = true }
 
     fun init(){
+
         for (file in Inst.loader.getAssets(Inst.loader.iconsFolder)){
             val label = JLabel(ImageIcon(file.path))
             label.toolTipText = file.nameWithoutExtension

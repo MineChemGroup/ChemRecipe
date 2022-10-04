@@ -1,7 +1,5 @@
-package panels
+package misc
 
-import kotlinx.coroutines.*
-import misc.Inst
 import org.apache.commons.io.FileUtils
 import java.awt.Image
 import java.awt.Toolkit
@@ -9,7 +7,6 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.net.URL
-import java.nio.file.Files
 import java.nio.file.Path
 import javax.imageio.ImageIO
 import javax.swing.JPanel

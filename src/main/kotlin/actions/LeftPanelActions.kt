@@ -11,7 +11,7 @@ class LeftPanelActions : ComponentAdapter() {
         val width = e.component.width
 
         if (e.component == Inst.left.mcassetpanel){
-            val height = (1056*32*32)/(width*0.68)
+            val height = (1026*32*32)/(width*0.68)
             Inst.left.mcassetpanel.preferredSize = Dimension(width, height.toInt())
             //Inst.left.mcassetpanel.size = Dimension(width, height.toInt())
         } else if (e.component == Inst.left.chemassetpanel){

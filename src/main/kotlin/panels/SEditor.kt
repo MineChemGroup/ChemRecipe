@@ -1,11 +1,12 @@
 package panels
 
-import misc.Inst
 import actions.SEditorActions
+import misc.Inst
 import transfer.SEditorHandler
 import java.awt.*
 import java.io.File
 import javax.swing.*
+
 
 class SEditor(val jPanel: JPanel = JPanel()) {
 
@@ -16,11 +17,11 @@ class SEditor(val jPanel: JPanel = JPanel()) {
     lateinit var upperlayeredpane : JLayeredPane
     lateinit var lowerlayeredpane : JLayeredPane
 
-    //TODO: add spinners
     fun add(label : JLabel){
         for(i in listLabel){
             if (i.mousePosition != null){
                 val id = i.getClientProperty("number") as Int
+
                 label.bounds = Rectangle(i.bounds.x+10, i.bounds.y, 32,32)
 
                 /**
@@ -36,20 +37,56 @@ class SEditor(val jPanel: JPanel = JPanel()) {
                     else -> upperlayeredpane.add(label, Integer(10+id))
                 }
 
+                val spinner = JSpinner()
+                spinner.setBounds(i.bounds.x-12, i.bounds.y+28, 60,32)
+                spinner.value = 1
+                spinner.putClientProperty("connected", 10+id)
+
+                if (id < 10)
+                    upperlayeredpane.add(spinner, Integer(21))
+                else
+                    lowerlayeredpane.add(spinner, Integer(21))
+
+                spinner.addChangeListener { e ->
+                    val num : Int = (e.source as JSpinner).value as Int
+                    if (num > 64){
+                        (e.source as JSpinner).value = 64
+                    } else if (num < 1){
+                        val layer = (e.source as JSpinner).getClientProperty("connected") as Int
+                        if (layer-10 < 10) {
+                            upperlayeredpane.remove(upperlayeredpane.getComponentsInLayer(layer)[0])
+                            upperlayeredpane.remove(e.source as JSpinner)
+                        }else {
+                            lowerlayeredpane.remove(lowerlayeredpane.getComponentsInLayer(layer)[0])
+                            lowerlayeredpane.remove(e.source as JSpinner)
+                        }
+                    }
+                }
+
                 Inst.refresh()
                 break
             }
         }
     }
 
-    /*
-    fun remove(label : JLabel){
-        if (upperlayeredpane.components.contains(label))
-            upperlayeredpane.remove(label)
-        else if (lowerlayeredpane.components.contains(label))
-            lowerlayeredpane.remove(label)
+    fun removeSpinner(id : Int){
+        if (id < 10) {
+            for (comp in upperlayeredpane.getComponentsInLayer(21)) {
+                if (((comp as JSpinner).getClientProperty("connected") as Int) == id+10) {
+                    upperlayeredpane.remove(comp as JSpinner)
+                    break
+                }
+            }
+        }else {
+            for (comp in lowerlayeredpane.getComponentsInLayer(21)) {
+                if (((comp as JSpinner).getClientProperty("connected") as Int) == id+10) {
+                    lowerlayeredpane.remove(comp as JSpinner)
+                    break
+                }
+            }
+        }
     }
-    */
+
     fun init(){
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)
 

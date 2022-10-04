@@ -2,6 +2,7 @@ package actions
 
 import misc.Inst
 import java.awt.Color
+import java.awt.Component
 import java.awt.GraphicsEnvironment
 import java.awt.Image
 import java.awt.event.MouseAdapter
@@ -53,6 +54,7 @@ class SEditorActions : MouseAdapter() {
         val handler = c.transferHandler
         handler.dragImage = iconToImage(c.icon)
         handler.exportAsDrag(c, e, TransferHandler.COPY)
+        Inst.sEditor.removeSpinner((c.getClientProperty("number") as Int))
     }
 
     fun iconToImage(icon: Icon): Image? {

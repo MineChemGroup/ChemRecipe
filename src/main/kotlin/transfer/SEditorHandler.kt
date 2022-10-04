@@ -1,5 +1,7 @@
 package transfer
 
+import actions.LeftMouseActions
+import actions.SEditorActions
 import misc.Inst
 import java.awt.datatransfer.DataFlavor
 import java.awt.datatransfer.Transferable
@@ -21,6 +23,8 @@ class SEditorHandler() : TransferHandler("icon") {
 
     override fun importData(comp: JComponent?, t: Transferable?): Boolean {
         Inst.sEditor.add(Inst.currentDragged!!)
+        Inst.currentDragged?.removeMouseListener(LeftMouseActions())
+        Inst.currentDragged?.addMouseListener(SEditorActions())
         return true
     }
 

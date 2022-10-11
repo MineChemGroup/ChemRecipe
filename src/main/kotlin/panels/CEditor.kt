@@ -5,6 +5,7 @@ import misc.Inst
 import transfer.CEditorHandler
 import java.awt.*
 import java.io.File
+import java.util.concurrent.Flow
 import javax.swing.*
 
 
@@ -51,6 +52,7 @@ class CEditor(val jPanel: JPanel = JPanel()) {
             val listpanel = JPanel()
             listpanel.minimumSize = Dimension(list.size.width, 44)
             listpanel.preferredSize = Dimension(list.size.width, 44)
+            listpanel.maximumSize = Dimension(list.size.width, 44)
             listpanel.layout = FlowLayout()
             listpanel.add(label)
 
@@ -129,6 +131,8 @@ class CEditor(val jPanel: JPanel = JPanel()) {
         list = JList(demoList)
         list.addMouseListener(CEditorActions())
         list.transferHandler = CEditorHandler()
+        list.cellRenderer = DefaultListCellRenderer()
+        list.isVisible = true
         val scrollableArea0 = JScrollPane(list).apply { preferredSize = Dimension(340,800) }
         scrollableArea0.verticalScrollBar.unitIncrement = 16
         scrollableArea0.verticalScrollBarPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED

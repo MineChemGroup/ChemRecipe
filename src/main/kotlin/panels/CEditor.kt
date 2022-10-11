@@ -2,46 +2,86 @@ package panels
 
 import actions.CEditorActions
 import misc.Inst
-import actions.SEditorActions
 import transfer.CEditorHandler
 import java.awt.*
 import java.io.File
 import javax.swing.*
 
+
 class CEditor(val jPanel: JPanel = JPanel()) {
 
-    val listpanel = JPanel()
     val resultLabel = JLabel()
     val layeredpane1 = JLayeredPane()
+    lateinit var list : JList<JPanel>
+
+    fun reset(){
+        layeredpane1.remove(layeredpane1.getComponentsInLayer(20)[0])
+        layeredpane1.remove(layeredpane1.getComponentsInLayer(21)[0])
+        list.removeAll()
+    }
 
     fun add(label : JLabel){
-        val i = resultLabel
-        label.bounds = Rectangle(i.bounds.x+10, i.bounds.y, 32,32)
-
-        label.addMouseWheelListener { e ->
-            val s = layeredpane1.getComponentsInLayer(21)[0] as JSpinner
-            s.value = (s.value as Int + -e.wheelRotation)
-        }
-
-        layeredpane1.add(label,Integer(20))
-        layeredpane1.setLayer(label, 20)
-
-        val spinner = JSpinner()
-        spinner.setBounds(i.bounds.x-12, i.bounds.y+28, 60,32)
-        spinner.value = 1
-        layeredpane1.add(spinner,Integer(21))
-        layeredpane1.setLayer(spinner, 21)
-
-        spinner.addChangeListener { e ->
-            val num: Int = (e.source as JSpinner).value as Int
-
-            if (num > 64) {
-                (e.source as JSpinner).value = 64
-            } else if (num < 1) {
-                layeredpane1.remove(layeredpane1.getComponentsInLayer(20)[0])
-                layeredpane1.remove(e.source as JSpinner)
+        println(1)
+        if (resultLabel.mousePosition != null) {
+            val i = resultLabel
+            label.bounds = Rectangle(i.bounds.x + 10, i.bounds.y, 32, 32)
+            layeredpane1.add(label, Integer(20))
+            layeredpane1.setLayer(label, 20)
+            val spinner = JSpinner()
+            spinner.setBounds(i.bounds.x - 12, i.bounds.y + 28, 60, 32)
+            spinner.value = 1
+            layeredpane1.add(spinner, Integer(21))
+            layeredpane1.setLayer(spinner, 21)
+            label.addMouseWheelListener { e ->
+                val s = layeredpane1.getComponentsInLayer(21)[0] as JSpinner
+                s.value = (s.value as Int + -e.wheelRotation)
             }
-            Inst.refresh()
+            spinner.addChangeListener { e ->
+                val num: Int = (e.source as JSpinner).value as Int
+                if (num > 64) {
+                    (e.source as JSpinner).value = 64
+                } else if (num < 1) {
+                    layeredpane1.remove(layeredpane1.getComponentsInLayer(20)[0])
+                    layeredpane1.remove(e.source as JSpinner)
+                }
+                Inst.refresh()
+            }
+        } else {
+            println(2)
+            val listpanel = JPanel()
+            listpanel.minimumSize = Dimension(list.size.width, 44)
+            listpanel.preferredSize = Dimension(list.size.width, 44)
+            listpanel.layout = FlowLayout()
+            listpanel.add(label)
+
+            val spinner = JSpinner()
+            spinner.value = 1
+            spinner.addChangeListener { e ->
+                val num: Int = (e.source as JSpinner).value as Int
+                if (num > 64) {
+                    (e.source as JSpinner).value = 64
+                } else if (num < 1) {
+                    for (i in list.components){
+                        for(j in (i as JPanel).components){
+                            if (j == e.source){
+                                list.remove(i)
+                            }
+                        }
+                    }
+                }
+                Inst.refresh()
+            }
+            listpanel.add(spinner)
+
+            val slider = JSlider(JSlider.HORIZONTAL, 0, 100, 100)
+            slider.minorTickSpacing = 5
+            slider.majorTickSpacing = 10
+            slider.paintTicks = true
+            slider.paintLabels = true
+            listpanel.add(slider)
+
+            println(3)
+            list.add(listpanel)
         }
         Inst.refresh()
     }
@@ -81,11 +121,14 @@ class CEditor(val jPanel: JPanel = JPanel()) {
 
         jPanel.add(arrowPanel)
 
+        val listpanel = JPanel()
         listpanel.minimumSize = Dimension(220,300)
         listpanel.maximumSize = Dimension(220,300)
         listpanel.preferredSize = Dimension(220,300)
-        val demoList: DefaultListModel<JLabel> = DefaultListModel<JLabel>()
-        val list = JList(demoList)
+        val demoList: DefaultListModel<JPanel> = DefaultListModel<JPanel>()
+        list = JList(demoList)
+        list.addMouseListener(CEditorActions())
+        list.transferHandler = CEditorHandler()
         val scrollableArea0 = JScrollPane(list).apply { preferredSize = Dimension(340,800) }
         scrollableArea0.verticalScrollBar.unitIncrement = 16
         scrollableArea0.verticalScrollBarPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED

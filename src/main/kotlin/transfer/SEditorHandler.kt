@@ -18,6 +18,11 @@ class SEditorHandler() : TransferHandler("icon") {
     }
 
     override fun canImport(comp: JComponent?, transferFlavors: Array<out DataFlavor>?): Boolean {
+        if (comp is JLabel){
+            if ((comp as JLabel).getClientProperty("connected") != null){
+                return false
+            }
+        }
         return true
     }
 

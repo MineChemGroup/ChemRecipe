@@ -1,30 +1,59 @@
 package panels
 
+import actions.CEditorActions
 import misc.Inst
 import actions.SEditorActions
 import transfer.CEditorHandler
-import java.awt.Color
-import java.awt.Component
-import java.awt.Dimension
-import java.awt.GridLayout
+import java.awt.*
 import java.io.File
 import javax.swing.*
 
 class CEditor(val jPanel: JPanel = JPanel()) {
 
-    val listLabel = arrayListOf<JLabel>()
+    val listpanel = JPanel()
+    val resultLabel = JLabel()
+    val layeredpane1 = JLayeredPane()
+
+    fun add(label : JLabel){
+        val i = resultLabel
+        label.bounds = Rectangle(i.bounds.x+10, i.bounds.y, 32,32)
+
+        label.addMouseWheelListener { e ->
+            val s = layeredpane1.getComponentsInLayer(21)[0] as JSpinner
+            s.value = (s.value as Int + -e.wheelRotation)
+        }
+
+        layeredpane1.add(label,Integer(20))
+        layeredpane1.setLayer(label, 20)
+
+        val spinner = JSpinner()
+        spinner.setBounds(i.bounds.x-12, i.bounds.y+28, 60,32)
+        spinner.value = 1
+        layeredpane1.add(spinner,Integer(21))
+        layeredpane1.setLayer(spinner, 21)
+
+        spinner.addChangeListener { e ->
+            val num: Int = (e.source as JSpinner).value as Int
+
+            if (num > 64) {
+                (e.source as JSpinner).value = 64
+            } else if (num < 1) {
+                layeredpane1.remove(layeredpane1.getComponentsInLayer(20)[0])
+                layeredpane1.remove(e.source as JSpinner)
+            }
+            Inst.refresh()
+        }
+        Inst.refresh()
+    }
 
     fun init(){
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)
 
         jPanel.add(Box.createVerticalStrut(40))
 
-        val layeredpane1 = JLayeredPane()
         layeredpane1.setBounds(120,20,100,100)
-        val resultLabel = JLabel()
         resultLabel.background = Color(139,139,139)
-        listLabel.add(resultLabel)
-        resultLabel.addMouseListener(SEditorActions())
+        resultLabel.addMouseListener(CEditorActions())
         resultLabel.transferHandler = CEditorHandler()
         resultLabel.isVisible = true
         resultLabel.isOpaque = true
@@ -52,7 +81,6 @@ class CEditor(val jPanel: JPanel = JPanel()) {
 
         jPanel.add(arrowPanel)
 
-        val listpanel = JPanel()
         listpanel.minimumSize = Dimension(220,300)
         listpanel.maximumSize = Dimension(220,300)
         listpanel.preferredSize = Dimension(220,300)

@@ -6,29 +6,26 @@ import java.awt.GraphicsEnvironment
 import java.awt.Image
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
-import java.awt.event.MouseWheelEvent
-import javax.swing.*
+import javax.swing.Icon
+import javax.swing.ImageIcon
+import javax.swing.JLabel
+import javax.swing.TransferHandler
 
-
-class SEditorActions : MouseAdapter() {
+class CEditorActions : MouseAdapter() {
 
     override fun mouseEntered(e: MouseEvent?) {
-        for (label in Inst.sEditor.defaultlabels) {
-            if (label == e?.component) {
-                label.background = Color(204,204,204)
-                label.repaint()
-                return
-            }
+        if (Inst.cEditor.resultLabel == e?.component) {
+            Inst.cEditor.resultLabel.background = Color(204,204,204)
+            Inst.cEditor.resultLabel.repaint()
+            return
         }
     }
 
     override fun mouseExited(e: MouseEvent?) {
-        for (label in Inst.sEditor.defaultlabels) {
-            if (label == e?.component) {
-                label.background = Color(139,139,139)
-                label.repaint()
-                return
-            }
+        if (Inst.cEditor.resultLabel == e?.component) {
+            Inst.cEditor.resultLabel.background = Color(139, 139, 139)
+            Inst.cEditor.resultLabel.repaint()
+            return
         }
     }
 

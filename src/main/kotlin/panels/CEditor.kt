@@ -5,7 +5,6 @@ import misc.Inst
 import transfer.CEditorHandler
 import java.awt.*
 import java.io.File
-import java.util.concurrent.Flow
 import javax.swing.*
 
 
@@ -13,7 +12,7 @@ class CEditor(val jPanel: JPanel = JPanel()) {
 
     val resultLabel = JLabel()
     val layeredpane1 = JLayeredPane()
-    lateinit var list : JList<JPanel>
+    lateinit var list : JList<JLabel>
 
     fun reset(){
         layeredpane1.remove(layeredpane1.getComponentsInLayer(20)[0])
@@ -49,12 +48,12 @@ class CEditor(val jPanel: JPanel = JPanel()) {
             }
         } else {
             println(2)
-            val listpanel = JPanel()
-            listpanel.minimumSize = Dimension(list.size.width, 44)
-            listpanel.preferredSize = Dimension(list.size.width, 44)
-            listpanel.maximumSize = Dimension(list.size.width, 44)
-            listpanel.layout = FlowLayout()
-            listpanel.add(label)
+            val listlabel = JLabel()
+            /*listlabel.minimumSize = Dimension(list.size.width, 44)
+            listlabel.preferredSize = Dimension(list.size.width, 44)
+            listlabel.maximumSize = Dimension(list.size.width, 44)
+            listlabel.layout = FlowLayout()*/
+            listlabel.add(label)
 
             val spinner = JSpinner()
             spinner.value = 1
@@ -73,17 +72,20 @@ class CEditor(val jPanel: JPanel = JPanel()) {
                 }
                 Inst.refresh()
             }
-            listpanel.add(spinner)
+            listlabel.add(spinner)
 
             val slider = JSlider(JSlider.HORIZONTAL, 0, 100, 100)
             slider.minorTickSpacing = 5
             slider.majorTickSpacing = 10
             slider.paintTicks = true
             slider.paintLabels = true
-            listpanel.add(slider)
+            listlabel.add(slider)
 
+            //list.add(listlabel)
+            //list.model = DefaultListModel<JLabel?>().apply { this.addElement( label ) }
+            list.cellRenderer =
+            list.add(label)
             println(3)
-            list.add(listpanel)
         }
         Inst.refresh()
     }
@@ -127,7 +129,7 @@ class CEditor(val jPanel: JPanel = JPanel()) {
         listpanel.minimumSize = Dimension(220,300)
         listpanel.maximumSize = Dimension(220,300)
         listpanel.preferredSize = Dimension(220,300)
-        val demoList: DefaultListModel<JPanel> = DefaultListModel<JPanel>()
+        val demoList: DefaultListModel<JLabel> = DefaultListModel<JLabel>()
         list = JList(demoList)
         list.addMouseListener(CEditorActions())
         list.transferHandler = CEditorHandler()

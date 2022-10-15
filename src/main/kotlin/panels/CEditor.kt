@@ -12,12 +12,13 @@ class CEditor(val jPanel: JPanel = JPanel()) {
 
     val resultLabel = JLabel()
     val layeredpane1 = JLayeredPane()
-    lateinit var list : JList<JLabel>
+    lateinit var listpanel : JPanel
+    lateinit var scrollableArea0 : JScrollPane
 
     fun reset(){
         layeredpane1.remove(layeredpane1.getComponentsInLayer(20)[0])
         layeredpane1.remove(layeredpane1.getComponentsInLayer(21)[0])
-        list.removeAll()
+        listpanel.removeAll()
     }
 
     fun add(label : JLabel){
@@ -48,11 +49,12 @@ class CEditor(val jPanel: JPanel = JPanel()) {
             }
         } else {
             println(2)
+
             val listlabel = JLabel()
-            /*listlabel.minimumSize = Dimension(list.size.width, 44)
-            listlabel.preferredSize = Dimension(list.size.width, 44)
-            listlabel.maximumSize = Dimension(list.size.width, 44)
-            listlabel.layout = FlowLayout()*/
+            listlabel.minimumSize = Dimension(listpanel.size.width, 44)
+            listlabel.preferredSize = Dimension(listpanel.size.width, 44)
+            listlabel.maximumSize = Dimension(listpanel.size.width, 44)
+            listlabel.layout = FlowLayout()
             listlabel.add(label)
 
             val spinner = JSpinner()
@@ -62,10 +64,10 @@ class CEditor(val jPanel: JPanel = JPanel()) {
                 if (num > 64) {
                     (e.source as JSpinner).value = 64
                 } else if (num < 1) {
-                    for (i in list.components){
-                        for(j in (i as JPanel).components){
+                    for (i in listpanel.components){
+                        for(j in (i as JLabel).components){
                             if (j == e.source){
-                                list.remove(i)
+                                listpanel.remove(i)
                             }
                         }
                     }
@@ -81,10 +83,19 @@ class CEditor(val jPanel: JPanel = JPanel()) {
             slider.paintLabels = true
             listlabel.add(slider)
 
-            //list.add(listlabel)
-            //list.model = DefaultListModel<JLabel?>().apply { this.addElement( label ) }
-            list.cellRenderer =
-            list.add(label)
+            val c = GridBagConstraints()
+            c.fill = GridBagConstraints.HORIZONTAL
+            c.gridx = 0
+            if (c.gridy == 0 || c.gridy == -1)
+                c.anchor = GridBagConstraints.FIRST_LINE_START
+            c.gridwidth = GridBagConstraints.REMAINDER
+            c.weightx = 1.0
+            c.weighty = 1.0
+            c.gridheight = 44
+
+            //listpanel.add(listlabel)
+            listpanel.add(label, c)
+
             println(3)
         }
         Inst.refresh()
@@ -125,17 +136,15 @@ class CEditor(val jPanel: JPanel = JPanel()) {
 
         jPanel.add(arrowPanel)
 
-        val listpanel = JPanel()
+        listpanel = JPanel()
         listpanel.minimumSize = Dimension(220,300)
         listpanel.maximumSize = Dimension(220,300)
         listpanel.preferredSize = Dimension(220,300)
-        val demoList: DefaultListModel<JLabel> = DefaultListModel<JLabel>()
-        list = JList(demoList)
-        list.addMouseListener(CEditorActions())
-        list.transferHandler = CEditorHandler()
-        list.cellRenderer = DefaultListCellRenderer()
-        list.isVisible = true
-        val scrollableArea0 = JScrollPane(list).apply { preferredSize = Dimension(340,800) }
+        listpanel.addMouseListener(CEditorActions())
+        listpanel.transferHandler = CEditorHandler()
+        listpanel.isVisible = true
+        listpanel.layout = GridBagLayout()
+        scrollableArea0 = JScrollPane(listpanel).apply { preferredSize = Dimension(340,200) }
         scrollableArea0.verticalScrollBar.unitIncrement = 16
         scrollableArea0.verticalScrollBarPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
         scrollableArea0.horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER

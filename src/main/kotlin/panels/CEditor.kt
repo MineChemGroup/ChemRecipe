@@ -77,8 +77,8 @@ class CEditor(val jPanel: JPanel = JPanel()) {
             listlabel.add(spinner)
 
             val slider = JSlider(JSlider.HORIZONTAL, 0, 100, 100)
-            slider.minorTickSpacing = 5
-            slider.majorTickSpacing = 10
+            slider.minorTickSpacing = 10
+            slider.majorTickSpacing = 20
             slider.paintTicks = true
             slider.paintLabels = true
             listlabel.add(slider)
@@ -86,15 +86,14 @@ class CEditor(val jPanel: JPanel = JPanel()) {
             val c = GridBagConstraints()
             c.fill = GridBagConstraints.HORIZONTAL
             c.gridx = 0
-            if (c.gridy == 0 || c.gridy == -1)
-                c.anchor = GridBagConstraints.FIRST_LINE_START
+            //c.anchor = GridBagConstraints.FIRST_LINE_START
             c.gridwidth = GridBagConstraints.REMAINDER
             c.weightx = 1.0
-            c.weighty = 1.0
-            c.gridheight = 44
+            //c.weighty = 1.0
+            c.gridheight = 55
 
-            //listpanel.add(listlabel)
-            listpanel.add(label, c)
+            listpanel.add(listlabel)
+            //listpanel.add(label, c)
 
             println(3)
         }

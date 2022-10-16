@@ -91,8 +91,8 @@ class CEditor(val jPanel: JPanel = JPanel()) {
             c.weightx = 1.0
             //c.weighty = 1.0
             c.gridheight = 55
-
-            listpanel.add(listlabel)
+            c.ipady = 10
+            listpanel.add(listlabel, c)
             //listpanel.add(label, c)
 
             println(3)

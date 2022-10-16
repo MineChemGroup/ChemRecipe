@@ -45,8 +45,8 @@ class CEditor(val jPanel: JPanel = JPanel()) {
                 } else if (num < 1) {
                     layeredpane1.remove(layeredpane1.getComponentsInLayer(20)[0])
                     layeredpane1.remove(e.source as JSpinner)
+                    Inst.refresh()
                 }
-                Inst.refresh()
             }
         } else {
             println(2)
@@ -76,6 +76,17 @@ class CEditor(val jPanel: JPanel = JPanel()) {
                 Inst.refresh()
             }
             listlabel.add(spinner)
+
+            listlabel.addMouseWheelListener { e ->
+                for (s in listpanel.components){
+                    if (s == e.source){
+                        val slabel = s as JLabel
+                        val sspinner = slabel.getComponent(1) as JSpinner
+                        sspinner.value = (sspinner.value as Int + -e.wheelRotation)
+                        break
+                    }
+                }
+            }
 
             val slider = JSlider(JSlider.HORIZONTAL, 0, 100, 100)
             slider.minorTickSpacing = 10

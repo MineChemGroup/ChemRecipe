@@ -30,6 +30,9 @@ class CEditorActions : MouseAdapter() {
     }
 
     override fun mousePressed(e: MouseEvent?) {
+        if (e?.source !is JLabel)
+            return
+
         val c = e!!.source as JLabel
         if (c.icon == null)
             return

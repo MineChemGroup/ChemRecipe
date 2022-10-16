@@ -1,6 +1,7 @@
 package panels
 
 import actions.CEditorActions
+import actions.CListActions
 import misc.Inst
 import transfer.CEditorHandler
 import java.awt.*
@@ -95,6 +96,8 @@ class CEditor(val jPanel: JPanel = JPanel()) {
             listpanel.add(listlabel, c)
             //listpanel.add(label, c)
 
+            listpanel.preferredSize = Dimension(jPanel.width, 108+54*listpanel.componentCount)
+
             println(3)
         }
         Inst.refresh()
@@ -147,6 +150,7 @@ class CEditor(val jPanel: JPanel = JPanel()) {
         scrollableArea0.verticalScrollBar.unitIncrement = 16
         scrollableArea0.verticalScrollBarPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
         scrollableArea0.horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+        scrollableArea0.addComponentListener(CListActions())
         jPanel.add(scrollableArea0)
     }
 }

@@ -6,7 +6,7 @@ import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
 
 class LeftPanelActions : ComponentAdapter() {
-
+    /*
     override fun componentResized(e : ComponentEvent){
         val width = e.component.width
 
@@ -21,4 +21,5 @@ class LeftPanelActions : ComponentAdapter() {
         }
         Inst.refresh()
     }
+    */
 }

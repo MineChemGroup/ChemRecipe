@@ -2,6 +2,7 @@ package panels
 
 import actions.CEditorActions
 import actions.CListActions
+import actions.LeftMouseActions
 import misc.Inst
 import transfer.CEditorHandler
 import java.awt.*

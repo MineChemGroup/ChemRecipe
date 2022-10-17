@@ -32,7 +32,7 @@ class LeftTransferHandler(val name : String) : TransferHandler(name) {
     */
 
     override fun canImport(comp: JComponent?, transferFlavors: Array<out DataFlavor>?): Boolean {
-        return canImport()
+        return true
     }
 
     /*
@@ -42,11 +42,25 @@ class LeftTransferHandler(val name : String) : TransferHandler(name) {
     */
 
     override fun importData(comp: JComponent?, t: Transferable?): Boolean {
-        return canImport()
-    }
-
-    private fun canImport() : Boolean {
-        return !Inst.left.jPanel.bounds.contains(MouseInfo.getPointerInfo().location)
+        for (s in Inst.sEditor.upperlayeredpane.components){
+            if (s == Inst.currentDragged){
+                Inst.sEditor.upperlayeredpane.remove(s)
+                return true
+            }
+        }
+        if (Inst.sEditor.lowerlayeredpane.getComponentCountInLayer(20) > 0){
+            if (Inst.sEditor.lowerlayeredpane.getComponentsInLayer(20)[0] == Inst.currentDragged){
+                Inst.sEditor.lowerlayeredpane.remove(Inst.currentDragged)
+                return true
+            }
+        }
+        if (Inst.cEditor.layeredpane1.getComponentCountInLayer(20) > 0){
+            if (Inst.cEditor.layeredpane1.getComponentsInLayer(20)[0] == Inst.currentDragged){
+                Inst.cEditor.layeredpane1.remove(Inst.currentDragged)
+                return true
+            }
+        }
+        return false
     }
 
 }

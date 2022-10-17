@@ -8,6 +8,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLight
 import misc.Inst
 import misc.Inst.copy
 import java.awt.Desktop
+import java.awt.Dimension
 import java.awt.Rectangle
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
@@ -41,7 +42,8 @@ class ButtonActions : ActionListener {
                 Inst.sEditor.reset()
             }
             Inst.right.remove -> {
-                Inst.right.list.remove(Inst.right.list.selectedIndex)
+                if (Inst.right.list.selectedIndex != -1)
+                    Inst.right.list.remove(Inst.right.list.selectedIndex)
                 Inst.cEditor.reset()
                 Inst.sEditor.reset()
             }
@@ -54,9 +56,11 @@ class ButtonActions : ActionListener {
                     val spinner = s as JSpinner
                     val id = spinner.getClientProperty("connected") as Int - 10
 
-                    val label = (Inst.sEditor.upperlayeredpane.getComponentsInLayer(id)[0] as JLabel).copy()
+                    val label = (Inst.sEditor.upperlayeredpane.getComponentsInLayer(id+10)[0] as JLabel).copy()
                     label.isVisible = true
                     label.bounds = Rectangle(0,0,32,32)
+                    label.preferredSize = Dimension(32,32)
+                    label.size = Dimension(32,32)
                     Inst.cEditor.add(label)
                     for (i in Inst.cEditor.listpanel.components) {
                         val comps = (i as JLabel).components

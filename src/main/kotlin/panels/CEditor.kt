@@ -29,6 +29,11 @@ class CEditor(val jPanel: JPanel = JPanel()) {
         if (resultLabel.mousePosition != null) {
             val i = resultLabel
             label.bounds = Rectangle(i.bounds.x + 10, i.bounds.y, 32, 32)
+
+            label.transferHandler = CEditorHandler()
+            label.removeMouseListener(LeftMouseActions())
+            label.addMouseListener(CEditorActions())
+
             layeredpane1.add(label, Integer(20))
             layeredpane1.setLayer(label, 20)
             val spinner = JSpinner()
@@ -54,6 +59,11 @@ class CEditor(val jPanel: JPanel = JPanel()) {
             println(2)
 
             val listlabel = JLabel()
+
+            listlabel.transferHandler = CEditorHandler()
+            listlabel.removeMouseListener(LeftMouseActions())
+            listlabel.addMouseListener(CEditorActions())
+
             listlabel.minimumSize = Dimension(listpanel.size.width, 44)
             listlabel.preferredSize = Dimension(listpanel.size.width, 44)
             listlabel.maximumSize = Dimension(listpanel.size.width, 44)

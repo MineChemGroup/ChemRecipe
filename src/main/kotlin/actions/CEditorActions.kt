@@ -33,13 +33,15 @@ class CEditorActions : MouseAdapter() {
         if (e?.source !is JLabel)
             return
 
-        val c = e!!.source as JLabel
+        val c = e.source as JLabel
         if (c.icon == null)
             return
         val handler = c.transferHandler
         handler.dragImage = iconToImage(c.icon)
         handler.exportAsDrag(c, e, TransferHandler.COPY)
-        Inst.sEditor.removeSpinner((c.getClientProperty("number") as Int))
+        if (Inst.cEditor.layeredpane1.getComponentCountInLayer(21) > 0){
+            Inst.cEditor.layeredpane1.remove(Inst.cEditor.layeredpane1.getComponentsInLayer(21)[0])
+        }
     }
 
     fun iconToImage(icon: Icon): Image? {

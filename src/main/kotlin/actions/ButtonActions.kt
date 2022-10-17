@@ -73,11 +73,11 @@ class ButtonActions : ActionListener {
                     val spinner = Inst.sEditor.lowerlayeredpane.getComponentsInLayer(21)[0] as JSpinner
                     val label = (Inst.sEditor.lowerlayeredpane.getComponentsInLayer(20)[0] as JLabel).copy()
 
-                    label.bounds = Rectangle(label.bounds.x, label.bounds.y, 32, 32)
+                    label.bounds = Rectangle(label.bounds.x-5, label.bounds.y, 32, 32)
                     Inst.cEditor.layeredpane1.add(label, Integer(20))
                     Inst.cEditor.layeredpane1.setLayer(label, 20)
                     val sspinner = JSpinner()
-                    sspinner.setBounds(label.bounds.x - 2, label.bounds.y + 28, 60, 32)
+                    sspinner.setBounds(label.bounds.x - 22, label.bounds.y + 28, 60, 32)
                     sspinner.value = spinner.value
                     Inst.cEditor.layeredpane1.add(sspinner, Integer(21))
                     Inst.cEditor.layeredpane1.setLayer(sspinner, 21)

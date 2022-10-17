@@ -18,7 +18,7 @@ class SEditor(val jPanel: JPanel = JPanel()) {
     lateinit var lowerlayeredpane : JLayeredPane
 
     fun reset(){
-        for (i in 10..21){
+        for (i in 11..21){
             for (s in upperlayeredpane.getComponentsInLayer(i)){
                 upperlayeredpane.remove(s)
             }

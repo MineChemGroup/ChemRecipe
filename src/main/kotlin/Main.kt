@@ -5,8 +5,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import misc.Inst
 import java.awt.*
+import java.awt.event.ComponentAdapter
+import java.awt.event.ComponentEvent
 import java.awt.event.MouseEvent
 import java.io.File
+import javax.swing.JComponent
+import javax.swing.JScrollPane
 import javax.swing.WindowConstants
 
 

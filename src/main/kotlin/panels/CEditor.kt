@@ -1,13 +1,17 @@
 package panels
 
 import actions.CEditorActions
-import actions.CListActions
 import actions.LeftMouseActions
 import misc.Inst
 import transfer.CEditorHandler
 import java.awt.*
+import java.awt.Color.blue
+import java.awt.Color.green
+import java.awt.event.ComponentAdapter
+import java.awt.event.ComponentEvent
 import java.io.File
 import javax.swing.*
+
 
 class CEditor(val jPanel: JPanel = JPanel()) {
 
@@ -21,11 +25,11 @@ class CEditor(val jPanel: JPanel = JPanel()) {
             layeredpane1.remove(layeredpane1.getComponentsInLayer(20)[0])
         if (layeredpane1.getComponentCountInLayer(21) > 0)
             layeredpane1.remove(layeredpane1.getComponentsInLayer(21)[0])
+        listpanel.preferredSize = Dimension(jPanel.width, 108+54*listpanel.componentCount)
         listpanel.removeAll()
     }
 
     fun add(label : JLabel){
-        println(1)
         if (resultLabel.mousePosition != null) {
             val i = resultLabel
             label.bounds = Rectangle(i.bounds.x + 10, i.bounds.y, 32, 32)
@@ -56,7 +60,6 @@ class CEditor(val jPanel: JPanel = JPanel()) {
                 }
             }
         } else {
-            println(2)
 
             val listlabel = JLabel()
 
@@ -84,6 +87,7 @@ class CEditor(val jPanel: JPanel = JPanel()) {
                             }
                         }
                     }
+                    listpanel.preferredSize = Dimension(jPanel.width, 108+54*listpanel.componentCount)
                 }
                 Inst.refresh()
             }
@@ -120,8 +124,6 @@ class CEditor(val jPanel: JPanel = JPanel()) {
             //listpanel.add(label, c)
 
             listpanel.preferredSize = Dimension(jPanel.width, 108+54*listpanel.componentCount)
-
-            println(3)
         }
         Inst.refresh()
     }
@@ -163,7 +165,7 @@ class CEditor(val jPanel: JPanel = JPanel()) {
 
         listpanel = JPanel()
         listpanel.minimumSize = Dimension(220,300)
-        listpanel.maximumSize = Dimension(220,300)
+        //listpanel.maximumSize = Dimension(220,300)
         listpanel.preferredSize = Dimension(220,300)
         listpanel.addMouseListener(CEditorActions())
         listpanel.transferHandler = CEditorHandler()
@@ -173,7 +175,13 @@ class CEditor(val jPanel: JPanel = JPanel()) {
         scrollableArea0.verticalScrollBar.unitIncrement = 16
         scrollableArea0.verticalScrollBarPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
         scrollableArea0.horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
-        scrollableArea0.addComponentListener(CListActions())
+
+        Inst.jframe.addComponentListener(object : ComponentAdapter() {
+            override fun componentResized(e: ComponentEvent) {
+                scrollableArea0.preferredSize = Dimension(Inst.jframe.width/3-1, Inst.jframe.height-200)
+            }
+        })
+
         jPanel.add(scrollableArea0)
     }
 }

@@ -8,7 +8,6 @@ import java.awt.*
 import java.io.File
 import javax.swing.*
 
-
 class CEditor(val jPanel: JPanel = JPanel()) {
 
     val resultLabel = JLabel()
@@ -17,8 +16,10 @@ class CEditor(val jPanel: JPanel = JPanel()) {
     lateinit var scrollableArea0 : JScrollPane
 
     fun reset(){
-        layeredpane1.remove(layeredpane1.getComponentsInLayer(20)[0])
-        layeredpane1.remove(layeredpane1.getComponentsInLayer(21)[0])
+        if (layeredpane1.getComponentCountInLayer(20) > 0)
+            layeredpane1.remove(layeredpane1.getComponentsInLayer(20)[0])
+        if (layeredpane1.getComponentCountInLayer(21) > 0)
+            layeredpane1.remove(layeredpane1.getComponentsInLayer(21)[0])
         listpanel.removeAll()
     }
 

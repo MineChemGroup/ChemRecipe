@@ -17,6 +17,17 @@ class SEditor(val jPanel: JPanel = JPanel()) {
     lateinit var upperlayeredpane : JLayeredPane
     lateinit var lowerlayeredpane : JLayeredPane
 
+    fun reset(){
+        for (i in 10..21){
+            for (s in upperlayeredpane.getComponentsInLayer(i)){
+                upperlayeredpane.remove(s)
+            }
+            for (s in lowerlayeredpane.getComponentsInLayer(i)){
+                lowerlayeredpane.remove(s)
+            }
+        }
+    }
+
     fun add(label : JLabel){
         for(i in defaultlabels){
             if (i.mousePosition != null){
@@ -92,10 +103,12 @@ class SEditor(val jPanel: JPanel = JPanel()) {
 
     fun removeSpinner(id : Int){
         if (id < 10) {
-            for (comp in upperlayeredpane.getComponentsInLayer(21)) {
-                if (((comp as JSpinner).getClientProperty("connected") as Int) == id+10) {
-                    upperlayeredpane.remove(comp as JSpinner)
-                    break
+            if (upperlayeredpane.getComponentCountInLayer(21) > 0) {
+                for (comp in upperlayeredpane.getComponentsInLayer(21)) {
+                    if (((comp as JSpinner).getClientProperty("connected") as Int) == id + 10) {
+                        upperlayeredpane.remove(comp as JSpinner)
+                        break
+                    }
                 }
             }
         }else {

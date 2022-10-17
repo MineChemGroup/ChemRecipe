@@ -6,9 +6,13 @@ import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme
 import com.formdev.flatlaf.intellijthemes.FlatNordIJTheme
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme
 import misc.Inst
+import misc.Inst.copy
 import java.awt.Desktop
+import java.awt.Rectangle
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
+import javax.swing.JLabel
+import javax.swing.JSpinner
 
 
 class ButtonActions : ActionListener {
@@ -16,36 +20,80 @@ class ButtonActions : ActionListener {
         when(e.source) {
             Inst.menu.light -> {
                 FlatIntelliJLaf.setup()
-                Inst.refresh()
             }
             Inst.menu.solarized -> {
                 FlatSolarizedLightIJTheme.setup()
-                Inst.refresh()
             }
             Inst.menu.nord -> {
                 FlatNordIJTheme.setup()
-                Inst.refresh()
             }
             Inst.menu.deepocean -> {
                 FlatGradiantoDeepOceanIJTheme.setup()
-                Inst.refresh()
             }
             Inst.menu.dark -> {
                 FlatDarculaLaf.setup();
-                Inst.refresh()
             }
             Inst.right.save -> {
 
             }
             Inst.right.createnew -> {
-
+                Inst.cEditor.reset()
+                Inst.sEditor.reset()
             }
             Inst.right.remove -> {
-
+                Inst.right.list.remove(Inst.right.list.selectedIndex)
+                Inst.cEditor.reset()
+                Inst.sEditor.reset()
             }
-            Inst.right.openfolder ->{
+            Inst.right.openfolder -> {
                 Desktop.getDesktop().open(Inst.loader.recipeFolder)
             }
+            Inst.sEditor.mirror -> {
+                Inst.cEditor.reset()
+                for (s in Inst.sEditor.upperlayeredpane.getComponentsInLayer(21)){
+                    val spinner = s as JSpinner
+                    val id = spinner.getClientProperty("connected") as Int - 10
+
+                    val label = (Inst.sEditor.upperlayeredpane.getComponentsInLayer(id)[0] as JLabel).copy()
+                    label.isVisible = true
+                    label.bounds = Rectangle(0,0,32,32)
+                    Inst.cEditor.add(label)
+                    for (i in Inst.cEditor.listpanel.components) {
+                        val comps = (i as JLabel).components
+                        if (comps[0] == label) {
+                            (comps[1] as JSpinner).value = spinner.value
+                        }
+                    }
+                }
+                if (Inst.sEditor.lowerlayeredpane.getComponentCountInLayer(21) > 0){
+                    val spinner = Inst.sEditor.lowerlayeredpane.getComponentsInLayer(21)[0] as JSpinner
+                    val label = (Inst.sEditor.lowerlayeredpane.getComponentsInLayer(20)[0] as JLabel).copy()
+
+                    label.bounds = Rectangle(label.bounds.x, label.bounds.y, 32, 32)
+                    Inst.cEditor.layeredpane1.add(label, Integer(20))
+                    Inst.cEditor.layeredpane1.setLayer(label, 20)
+                    val sspinner = JSpinner()
+                    sspinner.setBounds(label.bounds.x - 2, label.bounds.y + 28, 60, 32)
+                    sspinner.value = spinner.value
+                    Inst.cEditor.layeredpane1.add(sspinner, Integer(21))
+                    Inst.cEditor.layeredpane1.setLayer(sspinner, 21)
+                    label.addMouseWheelListener { e ->
+                        val s = Inst.cEditor.layeredpane1.getComponentsInLayer(21)[0] as JSpinner
+                        s.value = (s.value as Int + -e.wheelRotation)
+                    }
+                    sspinner.addChangeListener { e ->
+                        val num: Int = (e.source as JSpinner).value as Int
+                        if (num > 64) {
+                            (e.source as JSpinner).value = 64
+                        } else if (num < 1) {
+                            Inst.cEditor.layeredpane1.remove(Inst.cEditor.layeredpane1.getComponentsInLayer(20)[0])
+                            Inst.cEditor.layeredpane1.remove(e.source as JSpinner)
+                            Inst.refresh()
+                        }
+                    }
+                }
+            }
         }
+        Inst.refresh()
     }
 }

@@ -13,6 +13,8 @@ class Right(val jPanel: JPanel = JPanel()){
     val save = JButton("Save Recipe").apply { alignmentX = 0.5f}
     val remove = JButton("Remove Recipe").apply { alignmentX = 0.5f }
 
+    lateinit var list : JList<String>
+
     fun init(){
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)
 
@@ -52,7 +54,7 @@ class Right(val jPanel: JPanel = JPanel()){
         /*for (i in 1..20){
             demoList.addElement(i.toString())
         }*/
-        val list = JList(demoList).apply { toolTipText = "List of all loaded recipes"}
+        list = JList(demoList).apply { toolTipText = "List of all loaded recipes"}
         list.font = Inst.font
 
         val scrollableArea0 = JScrollPane(list).apply { preferredSize = Dimension(340,800) }

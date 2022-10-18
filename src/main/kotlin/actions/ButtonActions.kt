@@ -12,6 +12,7 @@ import java.awt.Dimension
 import java.awt.Rectangle
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
+import java.net.URL
 import javax.swing.JLabel
 import javax.swing.JSpinner
 
@@ -19,6 +20,9 @@ import javax.swing.JSpinner
 class ButtonActions : ActionListener {
     override fun actionPerformed(e: ActionEvent) {
         when(e.source) {
+            Inst.menu.about -> {
+                Desktop.getDesktop().browse(URL("https://github.com/justADeni").toURI())
+            }
             Inst.menu.light -> {
                 FlatIntelliJLaf.setup()
             }

@@ -7,6 +7,8 @@ import javax.swing.JMenuItem
 
 class Menu(val bar: JMenuBar = JMenuBar()){
 
+    val about = JMenu("About")
+
     val light = JMenuItem("Light").apply { addActionListener(Inst.buttonActions)}
     val solarized = JMenuItem("Solarized").apply { addActionListener(Inst.buttonActions) }
     val deepocean = JMenuItem("Deep Ocean").apply { addActionListener(Inst.buttonActions) }
@@ -14,9 +16,8 @@ class Menu(val bar: JMenuBar = JMenuBar()){
     val dark = JMenuItem("Darcula").apply { addActionListener(Inst.buttonActions) }
 
     fun init(){
-        val file = JMenu("File")
         val theme: JMenu = JMenu("Theme").apply { add(light); add(solarized); add(nord); add(deepocean); add(dark)}
 
-        bar.apply { add(file); add(theme) }
+        bar.apply { add(about); add(theme) }
     }
 }

@@ -14,6 +14,7 @@ class Right(val jPanel: JPanel = JPanel()){
     val remove = JButton("Remove Recipe").apply { alignmentX = 0.5f }
 
     lateinit var list : JList<String>
+    val demoList: DefaultListModel<String> = DefaultListModel<String>()
 
     fun init(){
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)
@@ -50,7 +51,6 @@ class Right(val jPanel: JPanel = JPanel()){
 
         jPanel.add(upperpanel)
 
-        val demoList: DefaultListModel<String> = DefaultListModel<String>()
         /*for (i in 1..20){
             demoList.addElement(i.toString())
         }*/

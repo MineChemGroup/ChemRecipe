@@ -44,6 +44,8 @@ class ButtonActions : ActionListener {
             Inst.right.createnew -> {
                 Inst.cEditor.reset()
                 Inst.sEditor.reset()
+
+                Inst.right.demoList.addElement("New Recipe")
             }
             Inst.right.remove -> {
                 if (Inst.right.list.selectedIndex != -1)

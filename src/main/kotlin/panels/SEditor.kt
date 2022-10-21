@@ -17,6 +17,37 @@ class SEditor(val jPanel: JPanel = JPanel()) {
     lateinit var upperlayeredpane : JLayeredPane
     lateinit var lowerlayeredpane : JLayeredPane
 
+    fun getResultLabel() : JLabel?{
+        if (lowerlayeredpane.getComponentCountInLayer(20) != 0){
+            return lowerlayeredpane.getComponentsInLayer(20)[0] as JLabel
+        } else {
+            return null
+        }
+    }
+
+    fun getResultLabelAmt() : Int{
+        return (lowerlayeredpane.getComponentsInLayer(21)[0] as JSpinner).value as Int
+    }
+
+    fun getSynthesisLabels() : HashMap<Int, JLabel>{
+        val map = hashMapOf<Int, JLabel>()
+        for (id in 1..9){
+            if (upperlayeredpane.getComponentCountInLayer(10+id) > 0){
+                map[id] = upperlayeredpane.getComponentsInLayer(10+id)[0] as JLabel
+            }
+        }
+        return map
+    }
+
+    fun getSynthesisLabelAmt(id : Int) : Int?{
+        for (part0 in upperlayeredpane.getComponentsInLayer(21)){
+            val part1 = part0 as JSpinner
+            if ((part1.getClientProperty("connected") as Int - 10) == id )
+                return part1.value as Int
+        }
+        return null
+    }
+
     fun reset(){
         for (i in 11..21){
             for (s in upperlayeredpane.getComponentsInLayer(i)){

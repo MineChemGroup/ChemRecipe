@@ -20,8 +20,11 @@ import javax.swing.JSpinner
 class ButtonActions : ActionListener {
     override fun actionPerformed(e: ActionEvent) {
         when(e.source) {
-            Inst.menu.about -> {
+            Inst.menu.author -> {
                 Desktop.getDesktop().browse(URL("https://github.com/justADeni").toURI())
+            }
+            Inst.menu.github -> {
+                Desktop.getDesktop().browse(URL("https://github.com/justADeni/ChemRecipe").toURI())
             }
             Inst.menu.light -> {
                 FlatIntelliJLaf.setup()
@@ -49,7 +52,7 @@ class ButtonActions : ActionListener {
             }
             Inst.right.remove -> {
                 if (Inst.right.list.selectedIndex != -1)
-                    Inst.right.list.remove(Inst.right.list.selectedIndex)
+                    Inst.right.demoList.remove(Inst.right.list.selectedIndex)
                 Inst.cEditor.reset()
                 Inst.sEditor.reset()
             }

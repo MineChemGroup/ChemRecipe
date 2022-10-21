@@ -20,7 +20,38 @@ class CEditor(val jPanel: JPanel = JPanel()) {
     lateinit var listpanel : JPanel
     lateinit var scrollableArea0 : JScrollPane
 
-    val list32 = arrayListOf<Int>()
+    fun getStartLabel() : JLabel?{
+        if (layeredpane1.getComponentCountInLayer(20) != 0){
+            return layeredpane1.getComponentsInLayer(20)[0] as JLabel
+        } else {
+            return null
+        }
+    }
+
+    fun getStartLabelAmt() : Int{
+        return (layeredpane1.getComponentsInLayer(21)[0] as JSpinner).value as Int
+    }
+
+    fun getDecomposeLabels() : ArrayList<JLabel>{
+        val list = arrayListOf<JLabel>()
+        for (part0 in listpanel.components){
+            val part1 = part0 as JLabel
+            list.add(part1.getComponent(0) as JLabel)
+        }
+        return list
+    }
+
+    fun getDecomposeLabelAmt(id : Int) : Int{
+        val part1 = listpanel.components[id+1] as JLabel
+        val part2 = part1.components[1] as JSpinner
+        return part2.value as Int
+    }
+
+    fun getDecomposeLabelPctg(id : Int) : Int{
+        val part1 = listpanel.components[id+1] as JLabel
+        val part3 = part1.components[1] as JSlider
+        return part3.value as Int
+    }
 
     fun reset(){
         if (layeredpane1.getComponentCountInLayer(20) > 0)
@@ -131,9 +162,6 @@ class CEditor(val jPanel: JPanel = JPanel()) {
     }
 
     fun init(){
-        for (i in 9..38){
-            list32.add(i*32)
-        }
 
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)
 

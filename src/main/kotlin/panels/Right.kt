@@ -56,6 +56,7 @@ class Right(val jPanel: JPanel = JPanel()){
         }*/
         list = JList(demoList).apply { toolTipText = "List of all loaded recipes"}
         list.font = Inst.font
+        list.selectionMode = ListSelectionModel.SINGLE_SELECTION
 
         val scrollableArea0 = JScrollPane(list).apply { preferredSize = Dimension(340,800) }
         scrollableArea0.verticalScrollBar.unitIncrement = 16

@@ -41,6 +41,7 @@ class ButtonActions : ActionListener {
             Inst.menu.dark -> {
                 FlatDarculaLaf.setup();
             }
+
             Inst.right.save -> {
 
             }

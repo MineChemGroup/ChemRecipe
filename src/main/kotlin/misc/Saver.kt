@@ -6,14 +6,16 @@ import javax.swing.JOptionPane
 object Saver {
 
     fun save(){
-        if (Inst.right.list.selectedIndex == -1)
+        val listIndex = Inst.right.list.selectedIndex
+
+        if (listIndex == -1)
             JOptionPane.showMessageDialog(null, "Please select an option");
 
-        val name = Inst.right.demoList[Inst.right.list.selectedIndex]
+        val name = Inst.right.demoList[listIndex]
         val file = File(Inst.loader.recipeFolder.path + name)
 
         if (Inst.sEditor.getResultLabel() != null){
-            
+
         }
     }
 

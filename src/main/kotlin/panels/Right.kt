@@ -1,5 +1,6 @@
 package panels
 
+import actions.RecipeRename
 import misc.Inst
 import java.awt.Dimension
 import java.awt.GridLayout
@@ -16,6 +17,7 @@ class Right(val jPanel: JPanel = JPanel()){
     lateinit var list : JList<String>
     val demoList: DefaultListModel<String> = DefaultListModel<String>()
 
+    val recipeName = JTextField()
     fun init(){
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)
 
@@ -62,6 +64,11 @@ class Right(val jPanel: JPanel = JPanel()){
         scrollableArea0.verticalScrollBar.unitIncrement = 16
         scrollableArea0.verticalScrollBarPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
         scrollableArea0.horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+
+        recipeName.toolTipText = "Rename recipe, press Enter to confirm"
+        recipeName.minimumSize = Dimension(90, 23)
+        recipeName.addKeyListener(RecipeRename())
+        jPanel.add(recipeName)
 
         jPanel.add(scrollableArea0)
 

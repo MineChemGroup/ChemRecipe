@@ -18,10 +18,10 @@ class SEditor(val jPanel: JPanel = JPanel()) {
     lateinit var lowerlayeredpane : JLayeredPane
 
     fun getResultLabel() : JLabel?{
-        if (lowerlayeredpane.getComponentCountInLayer(20) != 0){
-            return lowerlayeredpane.getComponentsInLayer(20)[0] as JLabel
+        return if (lowerlayeredpane.getComponentCountInLayer(20) != 0){
+            lowerlayeredpane.getComponentsInLayer(20)[0] as JLabel
         } else {
-            return null
+            null
         }
     }
 

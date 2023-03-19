@@ -7,6 +7,7 @@ import com.formdev.flatlaf.intellijthemes.FlatNordIJTheme
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme
 import misc.Inst
 import misc.Inst.copy
+import misc.Saver
 import java.awt.Desktop
 import java.awt.Dimension
 import java.awt.Rectangle
@@ -43,7 +44,7 @@ class ButtonActions : ActionListener {
             }
 
             Inst.right.save -> {
-
+                Saver.save()
             }
             Inst.right.createnew -> {
                 Inst.cEditor.reset()

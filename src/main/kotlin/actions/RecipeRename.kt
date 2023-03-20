@@ -3,6 +3,7 @@ package actions
 import misc.Inst
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
+import java.io.File
 
 
 internal class RecipeRename : KeyAdapter() {
@@ -12,6 +13,9 @@ internal class RecipeRename : KeyAdapter() {
 
             val listIndex = Inst.right.list.selectedIndex
             if (listIndex != -1) {
+                val file = File(Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[listIndex] + ".chemrecipe")
+                if (file.exists())
+                    file.renameTo(File(Inst.loader.recipeFolder.toString() + "/" + Inst.right.recipeName.text + ".chemrecipe"))
                 Inst.right.demoList[listIndex] = Inst.right.recipeName.text
                 Inst.right.recipeName.text = ""
             }

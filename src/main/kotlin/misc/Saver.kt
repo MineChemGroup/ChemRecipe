@@ -12,12 +12,8 @@ object Saver {
             JOptionPane.showMessageDialog(null, "Please select an option");
 
         val name = Inst.right.demoList[listIndex]
-        val file = File(Inst.loader.recipeFolder.path + name)
-
-        if (Inst.sEditor.getResultLabel() != null)
-            file.writeText("0:" + Inst.sEditor.getResultLabel()!!.toolTipText + ":" + Inst.sEditor.getResultLabelAmt() + "\n")
-        else
-            file.writeText("0:\n")
+        val file = File(Inst.loader.recipeFolder.toString() + "/" + name + ".chemrecipe")
+        file.createNewFile()
 
         for (labelNum in 1..9){
             if (Inst.sEditor.getSynthesisLabels().containsKey(labelNum))

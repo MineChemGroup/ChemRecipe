@@ -51,6 +51,7 @@ class ButtonActions : ActionListener {
                 Inst.sEditor.reset()
 
                 Inst.right.demoList.addElement("New Recipe")
+                Inst.right.list.selectedIndex = Inst.right.demoList.size() - 1
             }
             Inst.right.remove -> {
                 if (Inst.right.list.selectedIndex != -1)

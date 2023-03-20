@@ -13,6 +13,7 @@ import java.awt.Dimension
 import java.awt.Rectangle
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
+import java.io.File
 import java.net.URL
 import javax.swing.JLabel
 import javax.swing.JSpinner
@@ -54,8 +55,13 @@ class ButtonActions : ActionListener {
                 Inst.right.list.selectedIndex = Inst.right.demoList.size() - 1
             }
             Inst.right.remove -> {
-                if (Inst.right.list.selectedIndex != -1)
-                    Inst.right.demoList.remove(Inst.right.list.selectedIndex)
+                val listIndex = Inst.right.list.selectedIndex
+                if (listIndex != -1) {
+                    val file = File(Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[listIndex] + ".chemrecipe")
+                    if (file.exists())
+                        file.delete()
+                    Inst.right.demoList.remove(listIndex)
+                }
                 Inst.cEditor.reset()
                 Inst.sEditor.reset()
             }

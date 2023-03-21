@@ -48,6 +48,8 @@ class ButtonActions : ActionListener {
                 Saver.save()
             }
             Inst.right.createnew -> {
+                Saver.save()
+
                 Inst.cEditor.reset()
                 Inst.sEditor.reset()
 
@@ -55,6 +57,8 @@ class ButtonActions : ActionListener {
                 Inst.right.list.selectedIndex = Inst.right.demoList.size() - 1
             }
             Inst.right.remove -> {
+                deleting = true
+
                 val listIndex = Inst.right.list.selectedIndex
                 if (listIndex != -1) {
                     val file = File(Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[listIndex] + ".chemrecipe")
@@ -64,6 +68,8 @@ class ButtonActions : ActionListener {
                 }
                 Inst.cEditor.reset()
                 Inst.sEditor.reset()
+
+                deleting = false
             }
             Inst.right.openfolder -> {
                 Desktop.getDesktop().open(Inst.loader.recipeFolder)
@@ -117,5 +123,9 @@ class ButtonActions : ActionListener {
             }
         }
         Inst.refresh()
+    }
+
+    companion object {
+        var deleting = false
     }
 }

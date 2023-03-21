@@ -62,4 +62,18 @@ class Left(val jPanel: JPanel = JPanel()) {
         jPanel.add(scrollableArea0)
         jPanel.add(scrollableArea1)
     }
+
+    fun getAsset(name : String) : JLabel?{
+        for (asset in listchemassets){
+            if (asset.toolTipText.equals(name)){
+                return asset
+            }
+        }
+        for (asset in listmcassets){
+            if (asset.toolTipText.equals(name)){
+                return asset
+            }
+        }
+        return null
+    }
 }

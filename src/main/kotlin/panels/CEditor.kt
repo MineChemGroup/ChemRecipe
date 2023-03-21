@@ -161,6 +161,103 @@ class CEditor(val jPanel: JPanel = JPanel()) {
         Inst.refresh()
     }
 
+    fun add(label : JLabel, position : Int, spinnerNum : Int, sliderNum : Int) {
+        if (position == 0) {
+            val i = resultLabel
+            label.bounds = Rectangle(i.bounds.x + 10, i.bounds.y, 32, 32)
+
+            label.transferHandler = CEditorHandler()
+            label.removeMouseListener(LeftMouseActions())
+            label.addMouseListener(CEditorActions())
+
+            layeredpane1.add(label, Integer(20))
+            layeredpane1.setLayer(label, 20)
+            val spinner = JSpinner()
+            spinner.setBounds(i.bounds.x - 12, i.bounds.y + 28, 60, 32)
+            spinner.value = spinnerNum
+            layeredpane1.add(spinner, Integer(21))
+            layeredpane1.setLayer(spinner, 21)
+            label.addMouseWheelListener { e ->
+                val s = layeredpane1.getComponentsInLayer(21)[0] as JSpinner
+                s.value = (s.value as Int + -e.wheelRotation)
+            }
+            spinner.addChangeListener { e ->
+                val num: Int = (e.source as JSpinner).value as Int
+                if (num > 64) {
+                    (e.source as JSpinner).value = 64
+                } else if (num < 1) {
+                    layeredpane1.remove(layeredpane1.getComponentsInLayer(20)[0])
+                    layeredpane1.remove(e.source as JSpinner)
+                    Inst.refresh()
+                }
+            }
+        } else {
+            val listlabel = JLabel()
+
+            listlabel.transferHandler = CEditorHandler()
+            listlabel.removeMouseListener(LeftMouseActions())
+            listlabel.addMouseListener(CEditorActions())
+
+            listlabel.minimumSize = Dimension(listpanel.size.width, 44)
+            listlabel.preferredSize = Dimension(listpanel.size.width, 44)
+            listlabel.maximumSize = Dimension(listpanel.size.width, 44)
+            listlabel.layout = FlowLayout()
+            listlabel.add(label)
+
+            val spinner = JSpinner()
+            spinner.value = spinnerNum
+            spinner.addChangeListener { e ->
+                val num: Int = (e.source as JSpinner).value as Int
+                if (num > 64) {
+                    (e.source as JSpinner).value = 64
+                } else if (num < 1) {
+                    for (i in listpanel.components) {
+                        for (j in (i as JLabel).components) {
+                            if (j == e.source) {
+                                listpanel.remove(i)
+                            }
+                        }
+                    }
+                    listpanel.preferredSize = Dimension(jPanel.width, 108 + 54 * listpanel.componentCount)
+                }
+                Inst.refresh()
+            }
+            listlabel.add(spinner)
+
+            listlabel.addMouseWheelListener { e ->
+                for (s in listpanel.components) {
+                    if (s == e.source) {
+                        val slabel = s as JLabel
+                        val sspinner = slabel.getComponent(1) as JSpinner
+                        sspinner.value = (sspinner.value as Int + -e.wheelRotation)
+                        break
+                    }
+                }
+            }
+
+            val slider = JSlider(JSlider.HORIZONTAL, 0, 100, sliderNum)
+            slider.minorTickSpacing = 10
+            slider.majorTickSpacing = 20
+            slider.paintTicks = true
+            slider.paintLabels = true
+            listlabel.add(slider)
+
+            val c = GridBagConstraints()
+            c.fill = GridBagConstraints.HORIZONTAL
+            c.gridx = 0
+            //c.anchor = GridBagConstraints.FIRST_LINE_START
+            c.gridwidth = GridBagConstraints.REMAINDER
+            c.weightx = 1.0
+            //c.weighty = 1.0
+            c.gridheight = 55
+            c.ipady = 10
+            listpanel.add(listlabel, c)
+            //listpanel.add(label, c)
+
+            listpanel.preferredSize = Dimension(jPanel.width, 108 + 54 * listpanel.componentCount)
+        }
+    }
+
     fun init(){
 
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)

@@ -1,5 +1,6 @@
 package panels
 
+import actions.ListActions
 import actions.RecipeRename
 import misc.Inst
 import java.awt.Dimension
@@ -59,6 +60,7 @@ class Right(val jPanel: JPanel = JPanel()){
         list = JList(demoList).apply { toolTipText = "List of all loaded recipes"}
         list.font = Inst.font
         list.selectionMode = ListSelectionModel.SINGLE_SELECTION
+        list.addListSelectionListener(ListActions())
 
         val scrollableArea0 = JScrollPane(list).apply { preferredSize = Dimension(340,800) }
         scrollableArea0.verticalScrollBar.unitIncrement = 16

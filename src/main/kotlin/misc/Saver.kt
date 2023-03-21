@@ -2,6 +2,8 @@ package misc
 
 import java.io.File
 import java.io.PrintWriter
+import java.nio.file.Files
+import java.nio.file.Paths
 import javax.swing.JOptionPane
 
 
@@ -48,6 +50,11 @@ object Saver {
     }
 
     fun reloadall(){
-
+        Files.walk(Paths.get(Inst.loader.recipeFolder.path)).use {
+                paths -> paths.filter { Files.isRegularFile(it) }
+            .forEach {
+                Inst.right.demoList.addElement(it.fileName.toString().split(".chemrecipe")[0])
+            }
+        }
     }
 }

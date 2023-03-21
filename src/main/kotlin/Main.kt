@@ -4,6 +4,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import misc.Inst
+import misc.Saver
 import java.awt.*
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
@@ -44,6 +45,8 @@ suspend fun main(args: Array<String>){
             Inst.center.init()
 
             Inst.jframe.revalidate()
+
+            Saver.reloadall()
         }
         launch {
             Inst.jframe.jMenuBar = Inst.menu.bar

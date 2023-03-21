@@ -11,7 +11,7 @@ object Saver {
         val listIndex = Inst.right.list.selectedIndex
 
         if (listIndex == -1)
-            JOptionPane.showMessageDialog(null, "Please select an option");
+            JOptionPane.showMessageDialog(null, "Please select an option")
 
         val name = Inst.right.demoList[listIndex]
         val file = File(Inst.loader.recipeFolder.toString() + "/" + name + ".chemrecipe")

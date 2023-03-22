@@ -26,6 +26,11 @@ class ListActions : ListSelectionListener {
             //even fires twice for some reason
         }
 
+        if (Inst.right.demoList.size() == 0) {
+            current = 0
+            return
+        }
+
         println("current: $current")
 
         /*

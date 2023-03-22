@@ -45,7 +45,8 @@ object Saver {
             file.appendText("C:" + "\n")
 
         for ((labelNum, label) in Inst.cEditor.getDecomposeLabels().withIndex()){
-            file.appendText("$labelNum:" + label.toolTipText + ":" + Inst.cEditor.getDecomposeLabelAmt(labelNum) + ":" + Inst.cEditor.getDecomposeLabelPctg(labelNum) + "\n")
+            val newNum = labelNum + 10
+            file.appendText("$newNum:" + label.toolTipText + ":" + Inst.cEditor.getDecomposeLabelAmt(labelNum) + ":" + Inst.cEditor.getDecomposeLabelPctg(labelNum) + "\n")
         }
     }
 

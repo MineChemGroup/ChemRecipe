@@ -1,16 +1,14 @@
 package panels
 
 import actions.CEditorActions
-import actions.LeftMouseActions
+import main.kotlin.actions.LeftMouseActions
 import misc.Inst
 import transfer.CEditorHandler
 import java.awt.*
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
 import java.io.File
-import java.util.DoubleSummaryStatistics
 import javax.swing.*
-import kotlin.math.roundToInt
 
 
 class CEditor(val jPanel: JPanel = JPanel()) {

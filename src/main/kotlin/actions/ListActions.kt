@@ -1,22 +1,19 @@
-package actions
+package main.kotlin.actions
 
+import actions.CEditorActions
+import actions.SEditorActions
 import misc.Inst
 import misc.Inst.copy
 import misc.Saver
 import transfer.CEditorHandler
 import transfer.SEditorHandler
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.io.IOException
-import javax.swing.DefaultListModel
 import javax.swing.JLabel
-import javax.swing.ListSelectionModel
 import javax.swing.event.ListSelectionEvent
 import javax.swing.event.ListSelectionListener
-import javax.swing.plaf.basic.BasicListUI.ListSelectionHandler
 
 
 class ListActions : ListSelectionListener {

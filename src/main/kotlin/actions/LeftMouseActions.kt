@@ -1,4 +1,4 @@
-package actions
+package main.kotlin.actions
 
 import java.awt.GraphicsEnvironment
 import java.awt.Image

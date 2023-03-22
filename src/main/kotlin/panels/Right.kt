@@ -1,6 +1,6 @@
 package panels
 
-import actions.ListActions
+import main.kotlin.actions.ListActions
 import actions.RecipeRename
 import misc.Inst
 import java.awt.Dimension

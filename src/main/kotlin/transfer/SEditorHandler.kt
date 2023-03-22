@@ -1,6 +1,6 @@
 package transfer
 
-import actions.LeftMouseActions
+import main.kotlin.actions.LeftMouseActions
 import actions.SEditorActions
 import misc.Inst
 import java.awt.datatransfer.DataFlavor

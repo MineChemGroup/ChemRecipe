@@ -1,7 +1,7 @@
 package panels
 
 import misc.Inst
-import actions.LeftMouseActions
+import main.kotlin.actions.LeftMouseActions
 import actions.LeftPanelActions
 import transfer.LeftTransferHandler
 import java.awt.*

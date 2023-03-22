@@ -1,15 +1,13 @@
 package transfer
 
 import actions.CEditorActions
-import actions.LeftMouseActions
-import actions.SEditorActions
+import main.kotlin.actions.LeftMouseActions
 import misc.Inst
 import java.awt.datatransfer.DataFlavor
 import java.awt.datatransfer.Transferable
 import java.awt.event.InputEvent
 import javax.swing.JComponent
 import javax.swing.JLabel
-import javax.swing.JPanel
 import javax.swing.TransferHandler
 
 class CEditorHandler() : TransferHandler("CEditor") {

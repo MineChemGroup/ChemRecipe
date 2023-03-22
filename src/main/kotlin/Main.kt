@@ -1,3 +1,5 @@
+package main.kotlin
+
 import com.formdev.flatlaf.FlatDarculaLaf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope

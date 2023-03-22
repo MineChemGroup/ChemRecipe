@@ -1,5 +1,6 @@
-package misc
+package main.kotlin.misc
 
+import misc.Inst
 import java.io.File
 import java.io.PrintWriter
 import java.nio.file.Files
@@ -88,6 +89,7 @@ object Saver {
     }
 
     fun reloadall(){
+        Inst.right.list.removeAll()
         Inst.right.demoList.removeAllElements()
         Files.walk(Paths.get(Inst.loader.recipeFolder.path)).use {
                 paths -> paths.filter { Files.isRegularFile(it) }

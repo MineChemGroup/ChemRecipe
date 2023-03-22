@@ -5,9 +5,10 @@ import com.formdev.flatlaf.FlatIntelliJLaf
 import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme
 import com.formdev.flatlaf.intellijthemes.FlatNordIJTheme
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme
+import kotlinx.coroutines.*
 import misc.Inst
 import misc.Inst.copy
-import misc.Saver
+import main.kotlin.misc.Saver
 import java.awt.Desktop
 import java.awt.Dimension
 import java.awt.Rectangle
@@ -58,17 +59,30 @@ class ButtonActions : ActionListener {
                 Inst.right.list.selectedIndex = Inst.right.demoList.size() - 1
             }
             Inst.right.remove -> {
+                removing = true
+
                 val listIndex = Inst.right.list.selectedIndex
                 if (listIndex != -1) {
                     val file = File(Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[listIndex] + ".chemrecipe")
                     if (file.exists())
                         file.delete()
-                    Inst.right.demoList.remove(listIndex)
+                    //Inst.right.demoList.remove(listIndex)
                     //Inst.right.list.remove(listIndex)
-                    Inst.right.list.selectedIndex = Inst.right.demoList.size()-1
                 }
                 Inst.cEditor.reset()
                 Inst.sEditor.reset()
+
+                Saver.reloadall()
+
+                Inst.listActions.justRemoved = true
+                Inst.listActions.current = -1
+
+                runBlocking {
+                    launch {
+                        delay(220)
+                        removing = false
+                    }
+                }
             }
             Inst.right.openfolder -> {
                 Desktop.getDesktop().open(Inst.loader.recipeFolder)
@@ -122,5 +136,9 @@ class ButtonActions : ActionListener {
             }
         }
         Inst.refresh()
+    }
+
+    companion object{
+        var removing = false
     }
 }

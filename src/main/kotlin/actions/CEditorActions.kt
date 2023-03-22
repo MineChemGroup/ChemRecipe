@@ -1,4 +1,4 @@
-package actions
+package main.kotlin.actions
 
 import misc.Inst
 import java.awt.Color

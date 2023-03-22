@@ -3,17 +3,11 @@ package main.kotlin
 import com.formdev.flatlaf.FlatDarculaLaf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import misc.Inst
-import misc.Saver
+import main.kotlin.misc.Saver
 import java.awt.*
-import java.awt.event.ComponentAdapter
-import java.awt.event.ComponentEvent
-import java.awt.event.MouseEvent
 import java.io.File
-import javax.swing.JComponent
-import javax.swing.JScrollPane
 import javax.swing.WindowConstants
 
 

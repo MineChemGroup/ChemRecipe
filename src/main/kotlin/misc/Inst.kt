@@ -1,6 +1,7 @@
 package misc
 
 import actions.ButtonActions
+import main.kotlin.actions.ListActions
 import panels.*
 import java.awt.Font
 import javax.swing.JFrame
@@ -20,6 +21,7 @@ object Inst {
     val right = Right()
     val buttonActions = ButtonActions()
     val menu = Menu()
+    val listActions = ListActions()
 
     fun refresh(){
         SwingUtilities.updateComponentTreeUI(jframe)

@@ -4,7 +4,7 @@ Program for creating and editing MineChem Recipes
 # Images
 
 ## Synthesizer
-![synthesizer img](http://url/to/img.png)
+![synthesizer img](https://raw.githubusercontent.com/justADeni/ChemRecipe/master/img/synthesizer.jpg)
 
 ## Decomposer
-![decomposer img](http://url/to/img.png)
+![decomposer img](https://raw.githubusercontent.com/justADeni/ChemRecipe/master/img/decomposer.jpg)

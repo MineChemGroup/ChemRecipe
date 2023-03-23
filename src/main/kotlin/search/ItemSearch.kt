@@ -16,13 +16,9 @@ class ItemSearch : KeyAdapter() {
         else
             text += ch
 
-        println("char: |$ch|")
-        println("text: |$text|")
-
         Inst.left.mcassetpanel.removeAll()
 
         if (text.isBlank()){
-            //println("assets: " + Inst.left.listmcassets)
             for (asset in Inst.left.listmcassets)
                 Inst.left.mcassetpanel.add(asset.copyHandler())
 

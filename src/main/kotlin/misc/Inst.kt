@@ -3,9 +3,14 @@ package main.kotlin.misc
 import main.kotlin.actions.ButtonActions
 import main.kotlin.actions.ListActions
 import main.kotlin.misc.Inst.copy
+import main.kotlin.misc.Inst.copyHandler
 import main.kotlin.panels.CEditor
 import main.kotlin.panels.Center
 import main.kotlin.panels.Left
+import main.kotlin.tooltip.CompoundLabel
+import main.kotlin.tooltip.ElementLabel
+import main.kotlin.tooltip.ItemLabel
+import org.bukkit.entity.Item
 import panels.*
 import java.awt.Font
 import javax.swing.JFrame
@@ -40,7 +45,13 @@ object Inst {
     var currentDragged : JLabel? = null
 
     fun JLabel.copy() : JLabel{
-        val label = JLabel()
+        val label = when(this){
+            is CompoundLabel -> CompoundLabel()
+            is ElementLabel -> ElementLabel()
+            is ItemLabel -> ItemLabel()
+            else -> ItemLabel()
+        }
+
         label.preferredSize = this.preferredSize
         label.icon = this.icon
         label.text = this.text
@@ -52,7 +63,13 @@ object Inst {
     }
 
     fun JLabel.copyHandler() : JLabel{
-        val label = JLabel()
+        val label = when(this){
+            is CompoundLabel -> CompoundLabel()
+            is ElementLabel -> ElementLabel()
+            is ItemLabel -> ItemLabel()
+            else -> ItemLabel()
+        }
+
         label.preferredSize = this.preferredSize
         label.icon = this.icon
         label.text = this.text

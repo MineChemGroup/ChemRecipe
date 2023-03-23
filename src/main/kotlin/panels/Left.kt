@@ -2,16 +2,18 @@ package main.kotlin.panels
 
 import main.kotlin.actions.LeftMouseActions
 import main.kotlin.actions.LeftPanelActions
+import main.kotlin.tooltip.ElementLabel
 import main.kotlin.misc.Inst
 import main.kotlin.misc.Inst.copy
 import main.kotlin.misc.Inst.copyHandler
 import main.kotlin.search.ChemSearch
 import main.kotlin.search.ItemSearch
+import main.kotlin.tooltip.ItemLabel
+import main.kotlin.tooltip.CompoundLabel
 import transfer.LeftTransferHandler
 import java.awt.Dimension
 import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
-import java.awt.GridLayout
 import java.awt.Image
 import java.io.File
 import javax.swing.*
@@ -43,7 +45,8 @@ class Left(val jPanel: JPanel = JPanel()) {
     fun init(){
 
         for (file in Inst.loader.getAssets(Inst.loader.iconsFolder)){
-            val label = JLabel(ImageIcon(file.path))
+            val label = ItemLabel()
+            label.icon = ImageIcon(file.path)
             label.toolTipText = file.nameWithoutExtension
             label.addMouseListener(LeftMouseActions())
             label.transferHandler = LeftTransferHandler("icon")
@@ -57,16 +60,19 @@ class Left(val jPanel: JPanel = JPanel()) {
         scrollableArea0.horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
 
         for ((i, file) in Inst.loader.getNumerical(Inst.loader.elementsFolder, 118).withIndex()){
-            val label = JLabel(ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH)))
+            val label = ElementLabel()
+            label.icon = ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH))
             label.toolTipText = "Element " + file.nameWithoutExtension
             label.preferredSize = Dimension(32,32)
             label.addMouseListener(LeftMouseActions())
             label.transferHandler = LeftTransferHandler("icon")
             chemassetpanel.add(label)
             listchemassets.add(label.copyHandler())
+
         }
         for ((i, file) in Inst.loader.getNumerical(Inst.loader.compoundsFolder, 121).withIndex()){
-            val label = JLabel(ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH)))
+            val label = CompoundLabel()
+            label.icon = ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH))
             label.toolTipText = "Compound " + file.nameWithoutExtension
             label.preferredSize = Dimension(32,32)
             label.addMouseListener(LeftMouseActions())

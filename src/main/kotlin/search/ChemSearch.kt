@@ -15,13 +15,9 @@ class ChemSearch : KeyAdapter() {
         else
             text += ch
 
-        println("char: |$ch|")
-        println("text: |$text|")
-
         Inst.left.chemassetpanel.removeAll()
 
         if (text.isBlank()){
-            //println("assets: " + Inst.left.listmcassets)
             for (asset in Inst.left.listchemassets)
                 Inst.left.chemassetpanel.add(asset.copyHandler())
 

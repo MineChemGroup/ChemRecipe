@@ -4,6 +4,9 @@ import main.kotlin.actions.LeftMouseActions
 import main.kotlin.actions.LeftPanelActions
 import main.kotlin.misc.Inst
 import main.kotlin.misc.Inst.copy
+import main.kotlin.misc.Inst.copyHandler
+import main.kotlin.search.ChemSearch
+import main.kotlin.search.ItemSearch
 import transfer.LeftTransferHandler
 import java.awt.Dimension
 import java.awt.GridBagConstraints
@@ -27,6 +30,16 @@ class Left(val jPanel: JPanel = JPanel()) {
     val itemSearchBar = JTextField()
     val chemSearchBar = JTextField()
 
+    fun refreshItems(){
+        mcassetpanel.repaint()
+        mcassetpanel.revalidate()
+    }
+
+    fun refreshChems(){
+        chemassetpanel.repaint()
+        chemassetpanel.revalidate()
+    }
+
     fun init(){
 
         for (file in Inst.loader.getAssets(Inst.loader.iconsFolder)){
@@ -35,7 +48,7 @@ class Left(val jPanel: JPanel = JPanel()) {
             label.addMouseListener(LeftMouseActions())
             label.transferHandler = LeftTransferHandler("icon")
             mcassetpanel.add(label)
-            listmcassets.add(label)
+            listmcassets.add(label.copyHandler())
         }
 
         val scrollableArea0 = JScrollPane(mcassetpanel).apply { preferredSize = Dimension(320,500) }
@@ -50,7 +63,7 @@ class Left(val jPanel: JPanel = JPanel()) {
             label.addMouseListener(LeftMouseActions())
             label.transferHandler = LeftTransferHandler("icon")
             chemassetpanel.add(label)
-            listchemassets.add(label)
+            listchemassets.add(label.copyHandler())
         }
         for ((i, file) in Inst.loader.getNumerical(Inst.loader.compoundsFolder, 121).withIndex()){
             val label = JLabel(ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH)))
@@ -59,7 +72,7 @@ class Left(val jPanel: JPanel = JPanel()) {
             label.addMouseListener(LeftMouseActions())
             label.transferHandler = LeftTransferHandler("icon")
             chemassetpanel.add(label)
-            listchemassets.add(label)
+            listchemassets.add(label.copyHandler())
         }
 
         val scrollableArea1 = JScrollPane(chemassetpanel).apply { preferredSize = Dimension(320,500) }
@@ -67,9 +80,13 @@ class Left(val jPanel: JPanel = JPanel()) {
         scrollableArea1.verticalScrollBarPolicy = JScrollPane.VERTICAL_SCROLLBAR_ALWAYS
         scrollableArea1.horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
 
+        itemSearchBar.toolTipText = "Search in vanilla items"
+        itemSearchBar.addKeyListener(ItemSearch())
         itemSearchBar.minimumSize = Dimension(180, 25)
         itemSearchBar.maximumSize = Dimension(1000, 25)
 
+        chemSearchBar.toolTipText = "Search in chemistry items"
+        chemSearchBar.addKeyListener(ChemSearch())
         chemSearchBar.minimumSize = Dimension(180, 25)
         chemSearchBar.maximumSize = Dimension(1000, 25)
 

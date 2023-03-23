@@ -69,7 +69,8 @@ class Right(val jPanel: JPanel = JPanel()){
         scrollableArea0.horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
 
         recipeName.toolTipText = "Rename recipe, press Enter to confirm"
-        recipeName.minimumSize = Dimension(90, 23)
+        recipeName.minimumSize = Dimension(180, 25)
+        recipeName.maximumSize = Dimension(1000,25)
         recipeName.addKeyListener(RecipeRename())
         jPanel.add(recipeName)
 

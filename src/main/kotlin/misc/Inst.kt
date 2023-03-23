@@ -2,6 +2,7 @@ package main.kotlin.misc
 
 import main.kotlin.actions.ButtonActions
 import main.kotlin.actions.ListActions
+import main.kotlin.misc.Inst.copy
 import main.kotlin.panels.CEditor
 import main.kotlin.panels.Center
 import main.kotlin.panels.Left
@@ -46,6 +47,20 @@ object Inst {
         label.bounds = this.bounds
         label.setUI(this.ui)
         label.toolTipText = this.toolTipText
+
+        return label
+    }
+
+    fun JLabel.copyHandler() : JLabel{
+        val label = JLabel()
+        label.preferredSize = this.preferredSize
+        label.icon = this.icon
+        label.text = this.text
+        label.bounds = this.bounds
+        label.setUI(this.ui)
+        label.toolTipText = this.toolTipText
+        label.transferHandler = this.transferHandler
+        label.addMouseListener(this.mouseListeners[0])
 
         return label
     }

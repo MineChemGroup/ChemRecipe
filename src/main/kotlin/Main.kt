@@ -4,7 +4,7 @@ import com.formdev.flatlaf.FlatDarculaLaf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import misc.Inst
+import main.kotlin.misc.Inst
 import main.kotlin.misc.Saver
 import java.awt.*
 import java.io.File

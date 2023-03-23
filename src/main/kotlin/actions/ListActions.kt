@@ -1,10 +1,8 @@
 package main.kotlin.actions
 
-import actions.ButtonActions
-import actions.SEditorActions
 import kotlinx.coroutines.*
-import misc.Inst
-import misc.Inst.copy
+import main.kotlin.misc.Inst
+import main.kotlin.misc.Inst.copy
 import main.kotlin.misc.Saver
 import transfer.CEditorHandler
 import transfer.SEditorHandler

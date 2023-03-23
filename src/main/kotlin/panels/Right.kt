@@ -1,8 +1,8 @@
 package panels
 
 import main.kotlin.actions.ListActions
-import actions.RecipeRename
-import misc.Inst
+import main.kotlin.actions.RecipeRename
+import main.kotlin.misc.Inst
 import java.awt.Dimension
 import java.awt.GridLayout
 import javax.swing.*

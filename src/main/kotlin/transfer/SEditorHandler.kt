@@ -1,8 +1,8 @@
 package transfer
 
 import main.kotlin.actions.LeftMouseActions
-import actions.SEditorActions
-import misc.Inst
+import main.kotlin.actions.SEditorActions
+import main.kotlin.misc.Inst
 import java.awt.datatransfer.DataFlavor
 import java.awt.datatransfer.Transferable
 import java.awt.event.InputEvent

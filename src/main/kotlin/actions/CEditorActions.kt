@@ -1,6 +1,6 @@
 package main.kotlin.actions
 
-import misc.Inst
+import main.kotlin.misc.Inst
 import java.awt.Color
 import java.awt.GraphicsEnvironment
 import java.awt.Image

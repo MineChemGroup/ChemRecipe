@@ -1,7 +1,7 @@
 package panels
 
-import actions.SEditorActions
-import misc.Inst
+import main.kotlin.actions.SEditorActions
+import main.kotlin.misc.Inst
 import transfer.SEditorHandler
 import java.awt.*
 import java.io.File

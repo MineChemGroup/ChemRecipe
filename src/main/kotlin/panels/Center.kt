@@ -1,6 +1,6 @@
-package panels
+package main.kotlin.panels
 
-import misc.Inst
+import main.kotlin.misc.Inst
 import java.awt.*
 import javax.swing.JPanel
 import javax.swing.JTabbedPane

@@ -1,9 +1,6 @@
-package actions
+package main.kotlin.actions
 
-import misc.Inst
-import java.awt.Dimension
 import java.awt.event.ComponentAdapter
-import java.awt.event.ComponentEvent
 
 class LeftPanelActions : ComponentAdapter() {
     /*

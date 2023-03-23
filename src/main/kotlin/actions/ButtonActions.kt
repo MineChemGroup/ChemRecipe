@@ -1,4 +1,4 @@
-package actions
+package main.kotlin.actions
 
 import com.formdev.flatlaf.FlatDarculaLaf
 import com.formdev.flatlaf.FlatIntelliJLaf
@@ -6,8 +6,8 @@ import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme
 import com.formdev.flatlaf.intellijthemes.FlatNordIJTheme
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme
 import kotlinx.coroutines.*
-import misc.Inst
-import misc.Inst.copy
+import main.kotlin.misc.Inst
+import main.kotlin.misc.Inst.copy
 import main.kotlin.misc.Saver
 import java.awt.Desktop
 import java.awt.Dimension

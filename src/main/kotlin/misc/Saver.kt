@@ -1,6 +1,5 @@
 package main.kotlin.misc
 
-import misc.Inst
 import java.io.File
 import java.io.PrintWriter
 import java.nio.file.Files

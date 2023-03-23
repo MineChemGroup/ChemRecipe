@@ -1,4 +1,4 @@
-package misc
+package main.kotlin.misc
 
 import org.apache.commons.io.FileUtils
 import java.awt.Image

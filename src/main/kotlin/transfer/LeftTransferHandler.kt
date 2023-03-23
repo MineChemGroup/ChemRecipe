@@ -1,15 +1,13 @@
 package transfer
 
-import actions.SEditorActions
-import misc.Inst
-import misc.Inst.copy
-import java.awt.MouseInfo
+import main.kotlin.actions.SEditorActions
+import main.kotlin.misc.Inst
+import main.kotlin.misc.Inst.copy
 import java.awt.datatransfer.DataFlavor
 import java.awt.datatransfer.Transferable
 import java.awt.event.InputEvent
 import javax.swing.JComponent
 import javax.swing.JLabel
-import javax.swing.JPanel
 import javax.swing.TransferHandler
 
 class LeftTransferHandler(val name : String) : TransferHandler(name) {

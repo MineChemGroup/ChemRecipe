@@ -1,7 +1,10 @@
-package misc
+package main.kotlin.misc
 
-import actions.ButtonActions
+import main.kotlin.actions.ButtonActions
 import main.kotlin.actions.ListActions
+import main.kotlin.panels.CEditor
+import main.kotlin.panels.Center
+import main.kotlin.panels.Left
 import panels.*
 import java.awt.Font
 import javax.swing.JFrame

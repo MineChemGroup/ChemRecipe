@@ -1,12 +1,11 @@
-package actions
+package main.kotlin.actions
 
-import misc.Inst
+import main.kotlin.misc.Inst
 import java.awt.Color
 import java.awt.GraphicsEnvironment
 import java.awt.Image
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
-import java.awt.event.MouseWheelEvent
 import javax.swing.*
 
 

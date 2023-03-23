@@ -1,8 +1,8 @@
-package panels
+package main.kotlin.panels
 
 import main.kotlin.actions.CEditorActions
 import main.kotlin.actions.LeftMouseActions
-import misc.Inst
+import main.kotlin.misc.Inst
 import transfer.CEditorHandler
 import java.awt.*
 import java.awt.event.ComponentAdapter

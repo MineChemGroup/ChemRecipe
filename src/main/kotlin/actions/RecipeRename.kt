@@ -1,6 +1,6 @@
-package actions
+package main.kotlin.actions
 
-import misc.Inst
+import main.kotlin.misc.Inst
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import java.io.File

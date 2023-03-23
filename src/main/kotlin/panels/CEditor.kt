@@ -18,11 +18,25 @@ class CEditor(val jPanel: JPanel = JPanel()) {
     lateinit var listpanel : JPanel
     lateinit var scrollableArea0 : JScrollPane
 
+    fun hasLabelThenIncrement(label : JLabel, spinnerNum: Int) : Boolean{
+        for (part0 in listpanel.components){
+            val part1 = part0 as JLabel
+            val part2 = part1.getComponent(0) as JLabel
+
+            if (part2.toolTipText == label.toolTipText){
+                val part3 = part1.components[1] as JSpinner
+                part3.value = part3.value as Int + spinnerNum
+                return true
+            }
+        }
+        return false
+    }
+
     fun getStartLabel() : JLabel?{
-        if (layeredpane1.getComponentCountInLayer(20) != 0){
-            return layeredpane1.getComponentsInLayer(20)[0] as JLabel
+        return if (layeredpane1.getComponentCountInLayer(20) != 0){
+            layeredpane1.getComponentsInLayer(20)[0] as JLabel
         } else {
-            return null
+            null
         }
     }
 

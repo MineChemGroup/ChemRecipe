@@ -21,6 +21,7 @@ class Loader(val jPanel: JPanel = JPanel()) {
     lateinit var compoundsFolder : File
     lateinit var recipeFolder : File
 
+
     lateinit var img : File
     lateinit var db : File
 
@@ -60,6 +61,7 @@ class Loader(val jPanel: JPanel = JPanel()) {
         loadresource("3x3.png")
         loadresource("arrow.png")
         loadresource("oneslot.png")
+        loadresource("searchicon.png")
 
         if (isEmpty(elementsFolder.toPath())){
             for (i in 1..118){

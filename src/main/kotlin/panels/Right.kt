@@ -15,10 +15,11 @@ class Right(val jPanel: JPanel = JPanel()){
     val save = JButton("Save Recipe").apply { alignmentX = 0.5f}
     val remove = JButton("Remove Recipe").apply { alignmentX = 0.5f }
 
+    val recipeName = JTextField()
+
     lateinit var list : JList<String>
     val demoList: DefaultListModel<String> = DefaultListModel<String>()
 
-    val recipeName = JTextField()
     fun init(){
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)
 

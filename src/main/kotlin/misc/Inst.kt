@@ -40,6 +40,7 @@ object Inst {
 
     fun JLabel.copy() : JLabel{
         val label = JLabel()
+        label.preferredSize = this.preferredSize
         label.icon = this.icon
         label.text = this.text
         label.bounds = this.bounds

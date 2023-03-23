@@ -1,6 +1,7 @@
 package main.kotlin.actions
 
 import main.kotlin.misc.Inst
+import main.kotlin.tooltip.CustomLabel
 import java.awt.Color
 import java.awt.GraphicsEnvironment
 import java.awt.Image
@@ -8,7 +9,6 @@ import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.Icon
 import javax.swing.ImageIcon
-import javax.swing.JLabel
 import javax.swing.TransferHandler
 
 class CEditorActions : MouseAdapter() {
@@ -30,10 +30,10 @@ class CEditorActions : MouseAdapter() {
     }
 
     override fun mousePressed(e: MouseEvent?) {
-        if (e?.source !is JLabel)
+        if (e?.source !is CustomLabel)
             return
 
-        val c = e.source as JLabel
+        val c = e.source as CustomLabel
         if (c.icon == null)
             return
         val handler = c.transferHandler

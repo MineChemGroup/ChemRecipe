@@ -1,5 +1,6 @@
 package main.kotlin.panels
 
+import eu.hoefel.chemistry.Element
 import main.kotlin.actions.LeftMouseActions
 import main.kotlin.actions.LeftPanelActions
 import main.kotlin.tooltip.ElementLabel
@@ -10,23 +11,25 @@ import main.kotlin.search.ChemSearch
 import main.kotlin.search.ItemSearch
 import main.kotlin.tooltip.ItemLabel
 import main.kotlin.tooltip.CompoundLabel
-import transfer.LeftTransferHandler
+import main.kotlin.tooltip.CustomLabel
+import main.kotlin.transfer.LeftTransferHandler
 import java.awt.Dimension
 import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import java.awt.Image
 import java.io.File
+import java.util.*
 import javax.swing.*
 
 
 class Left(val jPanel: JPanel = JPanel()) {
 
-    val listmcassets = arrayListOf<JLabel>()
-    val listchemassets = arrayListOf<JLabel>()
+    val listmcassets = arrayListOf<CustomLabel>()
+    val listchemassets = arrayListOf<CustomLabel>()
 
-    val mcassetpanel = JPanel().apply { preferredSize = Dimension(160,4825);
+    val mcassetpanel = JPanel().apply { preferredSize = Dimension(160,4825)
         addComponentListener(LeftPanelActions()); isVisible = true }
-    val chemassetpanel = JPanel().apply { preferredSize = Dimension(160, 1150);
+    val chemassetpanel = JPanel().apply { preferredSize = Dimension(160, 1150)
         addComponentListener(LeftPanelActions()); isVisible = true }
 
     val itemSearchBar = JTextField()
@@ -45,9 +48,9 @@ class Left(val jPanel: JPanel = JPanel()) {
     fun init(){
 
         for (file in Inst.loader.getAssets(Inst.loader.iconsFolder)){
-            val label = ItemLabel()
+            val label = ItemLabel(file.nameWithoutExtension)
             label.icon = ImageIcon(file.path)
-            label.toolTipText = file.nameWithoutExtension
+            label.toolTipText = file.nameWithoutExtension.replace(Regex("[_]"), " ")
             label.addMouseListener(LeftMouseActions())
             label.transferHandler = LeftTransferHandler("icon")
             mcassetpanel.add(label)
@@ -60,9 +63,10 @@ class Left(val jPanel: JPanel = JPanel()) {
         scrollableArea0.horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
 
         for ((i, file) in Inst.loader.getNumerical(Inst.loader.elementsFolder, 118).withIndex()){
-            val label = ElementLabel()
+            val label = ElementLabel("Element " + file.nameWithoutExtension)
             label.icon = ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH))
-            label.toolTipText = "Element " + file.nameWithoutExtension
+            label.toolTipText = "Element " + file.nameWithoutExtension + "\n" + Element.withAtomicNumber(file.nameWithoutExtension.toInt()).fullName()
+                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
             label.preferredSize = Dimension(32,32)
             label.addMouseListener(LeftMouseActions())
             label.transferHandler = LeftTransferHandler("icon")
@@ -71,9 +75,9 @@ class Left(val jPanel: JPanel = JPanel()) {
 
         }
         for ((i, file) in Inst.loader.getNumerical(Inst.loader.compoundsFolder, 121).withIndex()){
-            val label = CompoundLabel()
+            val label = CompoundLabel("Compound " + file.nameWithoutExtension)
             label.icon = ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH))
-            label.toolTipText = "Compound " + file.nameWithoutExtension
+            label.toolTipText = "Undefined compound " + file.nameWithoutExtension
             label.preferredSize = Dimension(32,32)
             label.addMouseListener(LeftMouseActions())
             label.transferHandler = LeftTransferHandler("icon")
@@ -129,14 +133,14 @@ class Left(val jPanel: JPanel = JPanel()) {
         jPanel.add(scrollableArea1)
     }
 
-    fun getAsset(name : String) : JLabel?{
+    fun getAsset(name : String) : CustomLabel?{
         for (asset in listchemassets){
-            if (asset.toolTipText.equals(name)){
+            if (asset.info.equals(name)){
                 return asset
             }
         }
         for (asset in listmcassets){
-            if (asset.toolTipText.equals(name)){
+            if (asset.info.equals(name)){
                 return asset
             }
         }

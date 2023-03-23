@@ -9,6 +9,7 @@ import kotlinx.coroutines.*
 import main.kotlin.misc.Inst
 import main.kotlin.misc.Inst.copy
 import main.kotlin.misc.Saver
+import main.kotlin.tooltip.CustomLabel
 import java.awt.Desktop
 import java.awt.Dimension
 import java.awt.Rectangle
@@ -42,7 +43,7 @@ class ButtonActions : ActionListener {
                 FlatGradiantoDeepOceanIJTheme.setup()
             }
             Inst.menu.dark -> {
-                FlatDarculaLaf.setup();
+                FlatDarculaLaf.setup()
             }
 
             Inst.right.save -> {
@@ -93,7 +94,7 @@ class ButtonActions : ActionListener {
                     val spinner = s as JSpinner
                     val id = spinner.getClientProperty("connected") as Int - 10
 
-                    val label = (Inst.sEditor.upperlayeredpane.getComponentsInLayer(id+10)[0] as JLabel).copy()
+                    val label = (Inst.sEditor.upperlayeredpane.getComponentsInLayer(id+10)[0] as CustomLabel).copy()
                     label.isVisible = true
                     label.bounds = Rectangle(0,0,32,32)
                     label.preferredSize = Dimension(32,32)
@@ -112,7 +113,7 @@ class ButtonActions : ActionListener {
                 }
                 if (Inst.sEditor.lowerlayeredpane.getComponentCountInLayer(21) > 0){
                     val spinner = Inst.sEditor.lowerlayeredpane.getComponentsInLayer(21)[0] as JSpinner
-                    val label = (Inst.sEditor.lowerlayeredpane.getComponentsInLayer(20)[0] as JLabel).copy()
+                    val label = (Inst.sEditor.lowerlayeredpane.getComponentsInLayer(20)[0] as CustomLabel).copy()
 
                     label.bounds = Rectangle(label.bounds.x-5, label.bounds.y, 32, 32)
                     Inst.cEditor.layeredpane1.add(label, Integer(20))

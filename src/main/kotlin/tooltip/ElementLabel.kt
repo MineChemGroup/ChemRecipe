@@ -5,7 +5,7 @@ import java.awt.Color
 import javax.swing.*
 
 
-internal class ElementLabel : JLabel() {
+internal class ElementLabel(info : String) : CustomLabel(info) {
     override fun createToolTip(): JToolTip? {
         val tip = super.createToolTip()
         tip.foreground = Color.CYAN

@@ -4,13 +4,14 @@ import kotlinx.coroutines.*
 import main.kotlin.misc.Inst
 import main.kotlin.misc.Inst.copy
 import main.kotlin.misc.Saver
+import main.kotlin.tooltip.CustomLabel
 import transfer.CEditorHandler
-import transfer.SEditorHandler
+import main.kotlin.transfer.SEditorHandler
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.io.IOException
-import javax.swing.JLabel
+
 import javax.swing.event.ListSelectionEvent
 import javax.swing.event.ListSelectionListener
 
@@ -118,7 +119,7 @@ class ListActions : ListSelectionListener {
                                 if (splot.size == 1)
                                     return@forEach
 
-                                val label: JLabel = Inst.left.getAsset(splot[1])?.copy() ?: return@forEach
+                                val label: CustomLabel = Inst.left.getAsset(splot[1])?.copy() ?: return@forEach
 
                                 if (splot[0] == "S") {
                                     label.transferHandler = SEditorHandler()

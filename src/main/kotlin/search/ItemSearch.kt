@@ -1,7 +1,6 @@
 package main.kotlin.search
 
 import main.kotlin.misc.Inst
-import main.kotlin.misc.Inst.copy
 import main.kotlin.misc.Inst.copyHandler
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
@@ -27,7 +26,7 @@ class ItemSearch : KeyAdapter() {
         }
 
         for (asset in Inst.left.listmcassets)
-            if (asset.toolTipText.contains(text, ignoreCase = true) || asset.toolTipText.contains(text.replace(Regex("[ ]"), "_"), ignoreCase = true))
+            if (asset.toolTipText.contains(text, ignoreCase = true))
                 Inst.left.mcassetpanel.add(asset.copyHandler())
 
         Inst.left.refreshItems()

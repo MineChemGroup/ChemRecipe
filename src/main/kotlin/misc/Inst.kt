@@ -2,16 +2,16 @@ package main.kotlin.misc
 
 import main.kotlin.actions.ButtonActions
 import main.kotlin.actions.ListActions
-import main.kotlin.misc.Inst.copy
-import main.kotlin.misc.Inst.copyHandler
 import main.kotlin.panels.CEditor
 import main.kotlin.panels.Center
 import main.kotlin.panels.Left
 import main.kotlin.tooltip.CompoundLabel
+import main.kotlin.tooltip.CustomLabel
 import main.kotlin.tooltip.ElementLabel
 import main.kotlin.tooltip.ItemLabel
-import org.bukkit.entity.Item
-import panels.*
+import panels.Menu
+import panels.Right
+import panels.SEditor
 import java.awt.Font
 import javax.swing.JFrame
 import javax.swing.JLabel
@@ -42,14 +42,14 @@ object Inst {
         right.jPanel.revalidate()
     }
 
-    var currentDragged : JLabel? = null
+    var currentDragged : CustomLabel? = null
 
-    fun JLabel.copy() : JLabel{
+    fun CustomLabel.copy() : CustomLabel {
         val label = when(this){
-            is CompoundLabel -> CompoundLabel()
-            is ElementLabel -> ElementLabel()
-            is ItemLabel -> ItemLabel()
-            else -> ItemLabel()
+            is CompoundLabel -> CompoundLabel(this.info)
+            is ElementLabel -> ElementLabel(this.info)
+            is ItemLabel -> ItemLabel(this.info)
+            else -> ItemLabel(this.info)
         }
 
         label.preferredSize = this.preferredSize
@@ -62,12 +62,25 @@ object Inst {
         return label
     }
 
-    fun JLabel.copyHandler() : JLabel{
+    fun JLabel.copy() : JLabel {
+        val label = JLabel()
+
+        label.preferredSize = this.preferredSize
+        label.icon = this.icon
+        label.text = this.text
+        label.bounds = this.bounds
+        label.setUI(this.ui)
+        label.toolTipText = this.toolTipText
+
+        return label
+    }
+
+    fun CustomLabel.copyHandler() : CustomLabel{
         val label = when(this){
-            is CompoundLabel -> CompoundLabel()
-            is ElementLabel -> ElementLabel()
-            is ItemLabel -> ItemLabel()
-            else -> ItemLabel()
+            is CompoundLabel -> CompoundLabel(this.info)
+            is ElementLabel -> ElementLabel(this.info)
+            is ItemLabel -> ItemLabel(this.info)
+            else -> ItemLabel(this.info)
         }
 
         label.preferredSize = this.preferredSize

@@ -2,7 +2,8 @@ package panels
 
 import main.kotlin.actions.SEditorActions
 import main.kotlin.misc.Inst
-import transfer.SEditorHandler
+import main.kotlin.tooltip.CustomLabel
+import main.kotlin.transfer.SEditorHandler
 import java.awt.*
 import java.io.File
 import javax.swing.*
@@ -17,9 +18,9 @@ class SEditor(val jPanel: JPanel = JPanel()) {
     lateinit var upperlayeredpane : JLayeredPane
     lateinit var lowerlayeredpane : JLayeredPane
 
-    fun getResultLabel() : JLabel?{
+    fun getResultLabel() : CustomLabel?{
         return if (lowerlayeredpane.getComponentCountInLayer(20) != 0){
-            lowerlayeredpane.getComponentsInLayer(20)[0] as JLabel
+            lowerlayeredpane.getComponentsInLayer(20)[0] as CustomLabel
         } else {
             null
         }
@@ -29,11 +30,11 @@ class SEditor(val jPanel: JPanel = JPanel()) {
         return (lowerlayeredpane.getComponentsInLayer(21)[0] as JSpinner).value as Int
     }
 
-    fun getSynthesisLabels() : HashMap<Int, JLabel>{
-        val map = hashMapOf<Int, JLabel>()
+    fun getSynthesisLabels() : HashMap<Int, CustomLabel>{
+        val map = hashMapOf<Int, CustomLabel>()
         for (id in 1..9){
             if (upperlayeredpane.getComponentCountInLayer(10+id) > 0){
-                map[id] = upperlayeredpane.getComponentsInLayer(10+id)[0] as JLabel
+                map[id] = upperlayeredpane.getComponentsInLayer(10+id)[0] as CustomLabel
             }
         }
         return map
@@ -59,7 +60,7 @@ class SEditor(val jPanel: JPanel = JPanel()) {
         }
     }
 
-    fun add(label : JLabel){
+    fun add(label : CustomLabel){
         for(i in defaultlabels){
             if (i.mousePosition != null){
                 val id = i.getClientProperty("number") as Int
@@ -68,7 +69,7 @@ class SEditor(val jPanel: JPanel = JPanel()) {
                 label.putClientProperty("number", id)
 
                 label.addMouseWheelListener { e ->
-                    val l = e.source as JLabel
+                    val l = e.source as CustomLabel
                     val idl = l.getClientProperty("number") as Int
                     if (idl < 10){
                         for (s in upperlayeredpane.getComponentsInLayer(21)){
@@ -132,7 +133,7 @@ class SEditor(val jPanel: JPanel = JPanel()) {
         }
     }
 
-    fun add(label : JLabel, position : Int, spinnerNum : Int){
+    fun add(label : CustomLabel, position : Int, spinnerNum : Int){
         for(i in defaultlabels){
             val id = i.getClientProperty("number") as Int
 
@@ -141,7 +142,7 @@ class SEditor(val jPanel: JPanel = JPanel()) {
                 label.putClientProperty("number", id)
 
                 label.addMouseWheelListener { e ->
-                    val l = e.source as JLabel
+                    val l = e.source as CustomLabel
                     val idl = l.getClientProperty("number") as Int
                     if (idl < 10) {
                         for (s in upperlayeredpane.getComponentsInLayer(21)) {

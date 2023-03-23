@@ -3,6 +3,7 @@ package main.kotlin.panels
 import main.kotlin.actions.CEditorActions
 import main.kotlin.actions.LeftMouseActions
 import main.kotlin.misc.Inst
+import main.kotlin.tooltip.CustomLabel
 import transfer.CEditorHandler
 import java.awt.*
 import java.awt.event.ComponentAdapter
@@ -18,12 +19,12 @@ class CEditor(val jPanel: JPanel = JPanel()) {
     lateinit var listpanel : JPanel
     lateinit var scrollableArea0 : JScrollPane
 
-    fun hasLabelThenIncrement(label : JLabel, spinnerNum: Int) : Boolean{
+    fun hasLabelThenIncrement(label : CustomLabel, spinnerNum: Int) : Boolean{
         for (part0 in listpanel.components){
             val part1 = part0 as JLabel
-            val part2 = part1.getComponent(0) as JLabel
+            val part2 = part1.getComponent(0) as CustomLabel
 
-            if (part2.toolTipText == label.toolTipText){
+            if (part2.info == label.info){
                 val part3 = part1.components[1] as JSpinner
                 part3.value = part3.value as Int + spinnerNum
                 return true
@@ -32,9 +33,9 @@ class CEditor(val jPanel: JPanel = JPanel()) {
         return false
     }
 
-    fun getStartLabel() : JLabel?{
+    fun getStartLabel() : CustomLabel?{
         return if (layeredpane1.getComponentCountInLayer(20) != 0){
-            layeredpane1.getComponentsInLayer(20)[0] as JLabel
+            layeredpane1.getComponentsInLayer(20)[0] as CustomLabel
         } else {
             null
         }
@@ -44,11 +45,11 @@ class CEditor(val jPanel: JPanel = JPanel()) {
         return (layeredpane1.getComponentsInLayer(21)[0] as JSpinner).value as Int
     }
 
-    fun getDecomposeLabels() : ArrayList<JLabel>{
-        val list = arrayListOf<JLabel>()
+    fun getDecomposeLabels() : ArrayList<CustomLabel>{
+        val list = arrayListOf<CustomLabel>()
         for (part0 in listpanel.components){
             val part1 = part0 as JLabel
-            list.add(part1.getComponent(0) as JLabel)
+            list.add(part1.getComponent(0) as CustomLabel)
         }
         return list
     }

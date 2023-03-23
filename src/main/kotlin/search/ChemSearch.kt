@@ -26,7 +26,7 @@ class ChemSearch : KeyAdapter() {
         }
 
         for (asset in Inst.left.listchemassets)
-            if (asset.toolTipText.contains(text, ignoreCase = true) || asset.toolTipText.contains(text.replace(Regex("[ ]"), "_"), ignoreCase = true))
+            if (asset.toolTipText.contains(text, ignoreCase = true))
                 Inst.left.chemassetpanel.add(asset.copyHandler())
 
         Inst.left.refreshChems()

@@ -123,6 +123,10 @@ class Loader(val jPanel: JPanel = JPanel()) {
         return list
     }
 
+    fun getExactNumerical(folder: File, i: Int) : File{
+        return File(folder.path + "/$i.png")
+    }
+
     fun loadresource(name : String){
         val resourceUrl: URL? = javaClass.getResource("/$name")
         val resource = File(baseFolder.path + "/$name")

@@ -2,10 +2,10 @@ package main.kotlin.tooltip
 
 import main.kotlin.misc.Inst
 import java.awt.Color
-import javax.swing.JLabel
+
 import javax.swing.JToolTip
 
-internal class CompoundLabel : JLabel() {
+internal class CompoundLabel(info : String) : CustomLabel(info) {
     override fun createToolTip(): JToolTip? {
         val tip = super.createToolTip()
         tip.foreground = Color.ORANGE

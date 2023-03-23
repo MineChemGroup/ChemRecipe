@@ -1,6 +1,7 @@
 package main.kotlin.actions
 
 import main.kotlin.misc.Inst
+import main.kotlin.tooltip.CustomLabel
 import java.awt.Color
 import java.awt.GraphicsEnvironment
 import java.awt.Image
@@ -32,7 +33,7 @@ class SEditorActions : MouseAdapter() {
     }
 
     override fun mousePressed(e: MouseEvent?) {
-        val c = e!!.source as JLabel
+        val c = e!!.source as CustomLabel
         if (c.icon == null)
             return
         val handler = c.transferHandler

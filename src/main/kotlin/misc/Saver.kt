@@ -28,25 +28,25 @@ object Saver {
         file.appendText("sEditor\n")
         for (labelNum in 1..9){
             if (Inst.sEditor.getSynthesisLabels().containsKey(labelNum))
-                file.appendText(labelNum.toString() + ":" + Inst.sEditor.getSynthesisLabels()[labelNum]?.toolTipText
+                file.appendText(labelNum.toString() + ":" + Inst.sEditor.getSynthesisLabels()[labelNum]?.info
                         + ":" + Inst.sEditor.getSynthesisLabelAmt(labelNum) + "\n")
             else
                 file.appendText("$labelNum:\n")
         }
         if (Inst.sEditor.getResultLabel() != null)
-            file.appendText("S:" + Inst.sEditor.getResultLabel()?.toolTipText + ":" + Inst.sEditor.getResultLabelAmt() + "\n")
+            file.appendText("S:" + Inst.sEditor.getResultLabel()?.info + ":" + Inst.sEditor.getResultLabelAmt() + "\n")
         else
             file.appendText("S:" + "\n")
 
         file.appendText("cEditor\n")
         if (Inst.cEditor.getStartLabel() != null)
-            file.appendText("C:" + Inst.cEditor.getStartLabel()?.toolTipText + ":" + Inst.cEditor.getStartLabelAmt() + "\n")
+            file.appendText("C:" + Inst.cEditor.getStartLabel()?.info + ":" + Inst.cEditor.getStartLabelAmt() + "\n")
         else
             file.appendText("C:" + "\n")
 
         for ((labelNum, label) in Inst.cEditor.getDecomposeLabels().withIndex()){
             val newNum = labelNum + 10
-            file.appendText("$newNum:" + label.toolTipText + ":" + Inst.cEditor.getDecomposeLabelAmt(labelNum) + ":" + Inst.cEditor.getDecomposeLabelPctg(labelNum) + "\n")
+            file.appendText("$newNum:" + label.info + ":" + Inst.cEditor.getDecomposeLabelAmt(labelNum) + ":" + Inst.cEditor.getDecomposeLabelPctg(labelNum) + "\n")
         }
     }
 
@@ -65,25 +65,25 @@ object Saver {
         file.appendText("sEditor\n")
         for (labelNum in 1..9){
             if (Inst.sEditor.getSynthesisLabels().containsKey(labelNum))
-                file.appendText(labelNum.toString() + ":" + Inst.sEditor.getSynthesisLabels()[labelNum]?.toolTipText
+                file.appendText(labelNum.toString() + ":" + Inst.sEditor.getSynthesisLabels()[labelNum]?.info
                         + ":" + Inst.sEditor.getSynthesisLabelAmt(labelNum) + "\n")
             else
                 file.appendText("$labelNum:\n")
         }
         if (Inst.sEditor.getResultLabel() != null)
-            file.appendText("S:" + Inst.sEditor.getResultLabel()?.toolTipText + ":" + Inst.sEditor.getResultLabelAmt() + "\n")
+            file.appendText("S:" + Inst.sEditor.getResultLabel()?.info + ":" + Inst.sEditor.getResultLabelAmt() + "\n")
         else
             file.appendText("S:" + "\n")
 
         file.appendText("cEditor\n")
         if (Inst.cEditor.getStartLabel() != null)
-            file.appendText("C:" + Inst.cEditor.getStartLabel()?.toolTipText + ":" + Inst.cEditor.getStartLabelAmt() + "\n")
+            file.appendText("C:" + Inst.cEditor.getStartLabel()?.info + ":" + Inst.cEditor.getStartLabelAmt() + "\n")
         else
             file.appendText("C:" + "\n")
 
         for ((labelNum, label) in Inst.cEditor.getDecomposeLabels().withIndex()){
             val newNum = labelNum + 10
-            file.appendText("$newNum:" + label.toolTipText + ":" + Inst.cEditor.getDecomposeLabelAmt(labelNum) + ":" + Inst.cEditor.getDecomposeLabelPctg(labelNum) + "\n")
+            file.appendText("$newNum:" + label.info + ":" + Inst.cEditor.getDecomposeLabelAmt(labelNum) + ":" + Inst.cEditor.getDecomposeLabelPctg(labelNum) + "\n")
         }
     }
 

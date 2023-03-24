@@ -43,7 +43,7 @@ object Inst {
     }
 
     var currentDragged : CustomLabel? = null
-
+    /*
     fun CustomLabel.copy() : CustomLabel {
         val label = when(this){
             is CompoundLabel -> CompoundLabel(this.info)
@@ -61,7 +61,7 @@ object Inst {
 
         return label
     }
-
+    */
     fun JLabel.copy() : JLabel {
         val label = JLabel()
 
@@ -90,7 +90,8 @@ object Inst {
         label.setUI(this.ui)
         label.toolTipText = this.toolTipText
         label.transferHandler = this.transferHandler
-        label.addMouseListener(this.mouseListeners[0])
+        for (listener in this.mouseListeners)
+            label.addMouseListener(listener)
 
         return label
     }

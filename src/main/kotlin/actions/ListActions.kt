@@ -3,6 +3,7 @@ package main.kotlin.actions
 import kotlinx.coroutines.*
 import main.kotlin.misc.Inst
 import main.kotlin.misc.Inst.copy
+import main.kotlin.misc.Inst.copyHandler
 import main.kotlin.misc.Saver
 import main.kotlin.tooltip.CustomLabel
 import transfer.CEditorHandler
@@ -22,6 +23,12 @@ class ListActions : ListSelectionListener {
     var justRemoved = false
 
     override fun valueChanged(e: ListSelectionEvent?) {
+
+        if (current == -1){
+            Inst.sEditor.reset()
+            Inst.cEditor.reset()
+        }
+
         runBlocking {
             launch {
                 delay(100)
@@ -119,7 +126,7 @@ class ListActions : ListSelectionListener {
                                 if (splot.size == 1)
                                     return@forEach
 
-                                val label: CustomLabel = Inst.left.getAsset(splot[1])?.copy() ?: return@forEach
+                                val label: CustomLabel = Inst.left.getAsset(splot[1])?.copyHandler() ?: return@forEach
 
                                 if (splot[0] == "S") {
                                     label.transferHandler = SEditorHandler()

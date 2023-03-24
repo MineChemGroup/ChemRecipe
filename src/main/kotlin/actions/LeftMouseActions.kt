@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent
 import javax.swing.Icon
 import javax.swing.ImageIcon
 import javax.swing.JComponent
+import javax.swing.JLabel
 import javax.swing.TransferHandler
 
 
@@ -51,7 +52,7 @@ class LeftMouseActions : MouseAdapter() {
         //(c as CustomLabel).preferredSize = Dimension(32,32)
         //c.addMouseListener(this)
         val handler = c.transferHandler
-        handler.dragImage = iconToImage((c as CustomLabel).icon)
+        handler.dragImage = iconToImage((c as JLabel).icon)
         handler.exportAsDrag(c, e, TransferHandler.COPY)
 
         //println("mousePressed")

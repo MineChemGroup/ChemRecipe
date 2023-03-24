@@ -3,6 +3,7 @@ package main.kotlin.transfer
 import main.kotlin.actions.SEditorActions
 import main.kotlin.misc.Inst
 import main.kotlin.misc.Inst.copy
+import main.kotlin.misc.Inst.copyHandler
 import main.kotlin.tooltip.CustomLabel
 import java.awt.datatransfer.DataFlavor
 import java.awt.datatransfer.Transferable
@@ -14,7 +15,7 @@ import javax.swing.TransferHandler
 class LeftTransferHandler(val name : String) : TransferHandler(name) {
 
     override fun exportAsDrag(comp: JComponent?, e: InputEvent?, action: Int) {
-        Inst.currentDragged = (comp as CustomLabel).copy()
+        Inst.currentDragged = (comp as CustomLabel).copyHandler()
         if (Inst.center.tabbed.selectedComponent == Inst.sEditor.jPanel) {
             Inst.currentDragged!!.addMouseListener(SEditorActions())
             Inst.currentDragged!!.transferHandler = SEditorHandler()

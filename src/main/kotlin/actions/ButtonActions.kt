@@ -8,6 +8,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLight
 import kotlinx.coroutines.*
 import main.kotlin.misc.Inst
 import main.kotlin.misc.Inst.copy
+import main.kotlin.misc.Inst.copyHandler
 import main.kotlin.misc.Saver
 import main.kotlin.tooltip.CustomLabel
 import java.awt.Desktop
@@ -94,7 +95,7 @@ class ButtonActions : ActionListener {
                     val spinner = s as JSpinner
                     val id = spinner.getClientProperty("connected") as Int - 10
 
-                    val label = (Inst.sEditor.upperlayeredpane.getComponentsInLayer(id+10)[0] as CustomLabel).copy()
+                    val label = (Inst.sEditor.upperlayeredpane.getComponentsInLayer(id+10)[0] as CustomLabel).copyHandler()
                     label.isVisible = true
                     label.bounds = Rectangle(0,0,32,32)
                     label.preferredSize = Dimension(32,32)

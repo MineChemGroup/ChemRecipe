@@ -42,7 +42,7 @@ class ListActions : ListSelectionListener {
                     return@launch
                 }
 
-                println("current: $current")
+                //println("current: $current")
 
 
                 //this saves previous recipe and resets editors
@@ -51,11 +51,11 @@ class ListActions : ListSelectionListener {
                 else
                     e.lastIndex
 
-                if (ButtonActions.removing) {
-                    println("stopped due to removing")
+                if (ButtonActions.removing) //{
+                    //println("stopped due to removing")
                     return@launch
-                } else
-                    println("not stopped due to removing")
+                //} else
+                    //println("not stopped due to removing")
 
 
                 if (current != new) {
@@ -68,7 +68,7 @@ class ListActions : ListSelectionListener {
                     } else {
                         if (current != -1) {
                             Saver.save(current)
-                            println("saving $current")
+                            //println("saving $current")
 
                             Inst.sEditor.reset()
                             Inst.cEditor.reset()
@@ -79,11 +79,11 @@ class ListActions : ListSelectionListener {
                     justRemoved = false
                 }
 
-                println("new: $current")
-                println(" ")
+                //println("new: $current")
+                //println(" ")
 
                 //this loads the new recipe
-                println("file>>> " + Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[current] + ".chemrecipe")
+                //println("file>>> " + Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[current] + ".chemrecipe")
                 val file = File(Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[current] + ".chemrecipe")
 
                 if (!file.exists()) {

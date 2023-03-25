@@ -19,6 +19,7 @@ import java.awt.event.ActionListener
 import java.io.File
 import java.net.URL
 import javax.swing.JLabel
+import javax.swing.JOptionPane
 import javax.swing.JSpinner
 
 
@@ -57,7 +58,12 @@ class ButtonActions : ActionListener {
                 //Inst.cEditor.reset()
                 //Inst.sEditor.reset()
 
-                Inst.right.demoList.addElement("New Recipe")
+                var recipeNum = 0
+                for (item in Inst.right.demoList.elements())
+                    if (item.contains("New Recipe"))
+                        recipeNum++
+
+                Inst.right.demoList.addElement("New Recipe #$recipeNum")
                 Inst.right.list.selectedIndex = Inst.right.demoList.size() - 1
             }
             Inst.right.remove -> {
@@ -70,10 +76,25 @@ class ButtonActions : ActionListener {
                         file.delete()
                     //Inst.right.demoList.remove(listIndex)
                     //Inst.right.list.remove(listIndex)
+
+                    Saver.reloadall()
+
+                    Inst.listActions.justRemoved = true
+                    Inst.listActions.current = -1
+
+                    runBlocking {
+                        launch {
+                            delay(220)
+                            removing = false
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a recipe")
                 }
+
                 Inst.cEditor.reset()
                 Inst.sEditor.reset()
-
+                /*
                 Saver.reloadall()
 
                 Inst.listActions.justRemoved = true
@@ -85,6 +106,7 @@ class ButtonActions : ActionListener {
                         removing = false
                     }
                 }
+                */
             }
             Inst.right.openfolder -> {
                 Desktop.getDesktop().open(Inst.loader.recipeFolder)
@@ -100,11 +122,11 @@ class ButtonActions : ActionListener {
 
                     val label = (Inst.sEditor.upperlayeredpane.getComponentsInLayer(id+10)[0] as CustomLabel).copyHandler()
 
-                    println("id $id")
+                    //println("id $id")
                     var unduplicate = false
                     for (otherLabel in labelMap.keys){
                         if (otherLabel.info == label.info){
-                            println("duplicate found")
+                            //println("duplicate found")
                             unduplicate = true
 
                             for (i in Inst.cEditor.listpanel.components) {

@@ -2,7 +2,6 @@ package main.kotlin.actions
 
 import kotlinx.coroutines.*
 import main.kotlin.misc.Inst
-import main.kotlin.misc.Inst.copy
 import main.kotlin.misc.Inst.copyHandler
 import main.kotlin.misc.Saver
 import main.kotlin.tooltip.CustomLabel
@@ -31,7 +30,7 @@ class ListActions : ListSelectionListener {
 
         runBlocking {
             launch {
-                delay(100)
+                delay(25)
 
                 if (e?.valueIsAdjusting == true) {
                     return@launch

@@ -22,7 +22,7 @@ class CEditor(val jPanel: JPanel = JPanel()) {
     fun hasLabelThenIncrement(label : CustomLabel, spinnerNum: Int) : Boolean{
         for (part0 in listpanel.components){
             val part1 = part0 as JLabel
-            val part2 = part1.getComponent(0) as CustomLabel
+            val part2 = part1.components[0] as CustomLabel
 
             if (part2.info == label.info){
                 val part3 = part1.components[1] as JSpinner
@@ -33,7 +33,7 @@ class CEditor(val jPanel: JPanel = JPanel()) {
         return false
     }
 
-    fun getStartLabel() : CustomLabel?{
+    fun getStartLabel() : CustomLabel? {
         return if (layeredpane1.getComponentCountInLayer(20) != 0){
             layeredpane1.getComponentsInLayer(20)[0] as CustomLabel
         } else {

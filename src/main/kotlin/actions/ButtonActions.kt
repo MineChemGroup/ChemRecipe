@@ -91,30 +91,60 @@ class ButtonActions : ActionListener {
             }
             Inst.sEditor.mirror -> {
                 Inst.cEditor.reset()
+
+                val labelMap = hashMapOf<CustomLabel, Int>()
+
                 for (s in Inst.sEditor.upperlayeredpane.getComponentsInLayer(21)){
                     val spinner = s as JSpinner
                     val id = spinner.getClientProperty("connected") as Int - 10
 
                     val label = (Inst.sEditor.upperlayeredpane.getComponentsInLayer(id+10)[0] as CustomLabel).copyHandler()
+
+                    println("id $id")
+                    var unduplicate = false
+                    for (otherLabel in labelMap.keys){
+                        if (otherLabel.info == label.info){
+                            println("duplicate found")
+                            unduplicate = true
+
+                            for (i in Inst.cEditor.listpanel.components) {
+                                val comps = (i as JLabel).components
+                                if (comps[0] == otherLabel) {
+                                    labelMap[otherLabel] = labelMap[otherLabel]!! + (spinner.value as Int)
+                                    (comps[1] as JSpinner).value = labelMap[otherLabel]
+                                    break
+                                }
+                            }
+
+                            break
+                        }
+                    }
+
+                    if (unduplicate)
+                        continue
+
+                    labelMap[label] = spinner.value as Int
+
                     label.isVisible = true
                     label.bounds = Rectangle(0,0,32,32)
                     label.preferredSize = Dimension(32,32)
                     label.size = Dimension(32,32)
 
-                    if (Inst.cEditor.hasLabelThenIncrement(label, spinner.value as Int))
-                        return
+                    /*if (Inst.cEditor.hasLabelThenIncrement(label, spinner.value as Int))
+                        return*/
 
                     Inst.cEditor.add(label)
                     for (i in Inst.cEditor.listpanel.components) {
                         val comps = (i as JLabel).components
                         if (comps[0] == label) {
                             (comps[1] as JSpinner).value = spinner.value
+                            break
                         }
                     }
                 }
                 if (Inst.sEditor.lowerlayeredpane.getComponentCountInLayer(21) > 0){
                     val spinner = Inst.sEditor.lowerlayeredpane.getComponentsInLayer(21)[0] as JSpinner
-                    val label = (Inst.sEditor.lowerlayeredpane.getComponentsInLayer(20)[0] as CustomLabel).copy()
+                    val label = (Inst.sEditor.lowerlayeredpane.getComponentsInLayer(20)[0] as CustomLabel).copyHandler()
 
                     label.bounds = Rectangle(label.bounds.x-5, label.bounds.y, 32, 32)
                     Inst.cEditor.layeredpane1.add(label, Integer(20))

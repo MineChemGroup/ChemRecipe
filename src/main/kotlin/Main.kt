@@ -50,8 +50,6 @@ suspend fun main(args: Array<String>){
             Inst.jframe.add(Inst.left.jPanel)
             Inst.jframe.add(Inst.center.jPanel)
             Inst.jframe.add(Inst.right.jPanel)
-
-            delay(3500)
             Inst.jframe.isVisible = true
         }
     }

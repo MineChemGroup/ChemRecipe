@@ -2,6 +2,8 @@ package main.kotlin.misc
 
 import main.kotlin.tooltip.CustomLabel
 import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
 import java.io.PrintWriter
 import java.nio.file.Files
 import java.nio.file.Path
@@ -50,6 +52,8 @@ object Saver {
             val newNum = labelNum + 10
             file.appendText("$newNum:" + label.info + ":" + Inst.cEditor.getDecomposeLabelAmt(labelNum) + ":" + Inst.cEditor.getDecomposeLabelPctg(labelNum) + "\n")
         }
+
+        compoundLoadCheck(file.toPath())
     }
 
     fun save(listIndex : Int){
@@ -87,6 +91,8 @@ object Saver {
             val newNum = labelNum + 10
             file.appendText("$newNum:" + label.info + ":" + Inst.cEditor.getDecomposeLabelAmt(labelNum) + ":" + Inst.cEditor.getDecomposeLabelPctg(labelNum) + "\n")
         }
+
+        compoundLoadCheck(file.toPath())
     }
 
     fun reloadall(){
@@ -136,13 +142,18 @@ object Saver {
         if (recipeName.contains("New Recipe"))
             return
 
-        for (compound in Inst.left.listchemassets)
+        for (compound in Inst.left.listchemassets) {
+            if (compound.toolTipText == recipeName)
+                compound.toolTipText = "Undefined " + compound.info
             if (compound.info == parts[1])
                 compound.toolTipText = recipeName
-
-        for (compound in Inst.left.chemassetpanel.components)
+        }
+        for (compound in Inst.left.chemassetpanel.components) {
+            if ((compound as CustomLabel).toolTipText == recipeName)
+                compound.toolTipText = "Undefined " + compound.info
             if ((compound as CustomLabel).info == parts[1])
                 compound.toolTipText = recipeName
+        }
 
         val clabel = Inst.cEditor.getStartLabel()
         if (clabel != null)
@@ -157,6 +168,9 @@ object Saver {
 
     fun compoundDeleteCheck(path: Path){
         val recipeName = path.fileName.toString().split(".chemrecipe")[0]
+        if (isEmptyFile(path))
+            return
+
         val cLine : String = Files.lines(path).use { lines -> lines.skip(10).findFirst().get() }
         if (cLine == "S:")
             return
@@ -175,5 +189,9 @@ object Saver {
         for (compound in Inst.left.chemassetpanel.components)
             if ((compound as CustomLabel).info == parts[1])
                 compound.toolTipText = "Undefined Compound " + parts[1].replace("Compound ", "")
+    }
+
+    private fun isEmptyFile(path: Path): Boolean {
+        return path.toFile().readLines().isEmpty()
     }
 }

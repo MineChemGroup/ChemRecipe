@@ -74,6 +74,8 @@ class ListActions : ListSelectionListener {
                             Inst.cEditor.reset()
                         }
                         current = new
+
+                        loadRecipe()
                     }
                 } else {
                     justRemoved = false
@@ -84,66 +86,67 @@ class ListActions : ListSelectionListener {
 
                 //this loads the new recipe
                 //println("file>>> " + Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[current] + ".chemrecipe")
-                val file = File(Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[current] + ".chemrecipe")
 
-                if (!file.exists()) {
-                    withContext(Dispatchers.IO) {
-                        file.createNewFile()
-                    }
-                    return@launch
-                }
-
-                try {
-                    withContext(Dispatchers.IO) {
-                        BufferedReader(FileReader(file)).use { br ->
-                            br.lines().forEach {
-
-                                if (it == "sEditor" || it == "cEditor")
-                                    return@forEach
-
-
-                                val splot = it.split(":")
-
-                                if (splot.size == 1)
-                                    return@forEach
-
-                                val label: CustomLabel = Inst.left.getAsset(splot[1])?.copyHandler() ?: return@forEach
-
-                                if (splot[0] == "S") {
-                                    label.transferHandler = SEditorHandler()
-                                    label.addMouseListener(SEditorActions())
-                                    Inst.sEditor.add(label, 10, splot[2].toInt())
-                                    return@forEach
-                                }
-                                if (splot[0] == "C") {
-                                    label.transferHandler = CEditorHandler()
-                                    label.addMouseListener(CEditorActions())
-                                    Inst.cEditor.add(label, 0, splot[2].toInt(), 0)
-                                    return@forEach
-                                }
-
-                                val num = splot[0].toInt()
-
-                                if (num <= 9) {
-                                    label.transferHandler = SEditorHandler()
-                                    label.addMouseListener(SEditorActions())
-                                    Inst.sEditor.add(label, num, splot[2].toInt())
-                                    return@forEach
-                                } else if (num > 9) {
-                                    label.transferHandler = CEditorHandler()
-                                    label.addMouseListener(CEditorActions())
-                                    Inst.cEditor.add(label, num, splot[2].toInt(), splot[3].toInt())
-                                    return@forEach
-                                }
-
-                            }
-                            Inst.refresh()
-                        }
-                    }
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
             }
+        }
+    }
+
+    fun loadRecipe(){
+        val file = File(Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[current] + ".chemrecipe")
+
+        if (!file.exists()) {
+
+            file.createNewFile()
+            return
+        }
+
+        try {
+            BufferedReader(FileReader(file)).use { br ->
+                br.lines().forEach {
+
+                    if (it == "sEditor" || it == "cEditor")
+                        return@forEach
+
+
+                    val splot = it.split(":")
+
+                    if (splot.size == 1)
+                        return@forEach
+
+                    val label: CustomLabel = Inst.left.getAsset(splot[1])?.copyHandler() ?: return@forEach
+
+                    if (splot[0] == "S") {
+                        label.transferHandler = SEditorHandler()
+                        label.addMouseListener(SEditorActions())
+                        Inst.sEditor.add(label, 10, splot[2].toInt())
+                        return@forEach
+                    }
+                    if (splot[0] == "C") {
+                        label.transferHandler = CEditorHandler()
+                        label.addMouseListener(CEditorActions())
+                        Inst.cEditor.add(label, 0, splot[2].toInt(), 0)
+                        return@forEach
+                    }
+
+                    val num = splot[0].toInt()
+
+                    if (num <= 9) {
+                        label.transferHandler = SEditorHandler()
+                        label.addMouseListener(SEditorActions())
+                        Inst.sEditor.add(label, num, splot[2].toInt())
+                        return@forEach
+                    } else if (num > 9) {
+                        label.transferHandler = CEditorHandler()
+                        label.addMouseListener(CEditorActions())
+                        Inst.cEditor.add(label, num, splot[2].toInt(), splot[3].toInt())
+                        return@forEach
+                    }
+
+                }
+                Inst.refresh()
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
     }
 }

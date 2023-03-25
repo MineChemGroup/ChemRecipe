@@ -36,10 +36,11 @@ internal class RecipeRename : KeyAdapter() {
 
                 Saver.save()
 
-                Saver.compoundLoadCheck(File(Inst.loader.recipeFolder.toString() + "/" + Inst.right.recipeName.text + ".chemrecipe").toPath())
+                //Saver.compoundLoadCheck(File(Inst.loader.recipeFolder.toString() + "/" + Inst.right.recipeName.text + ".chemrecipe").toPath())
 
                 Inst.right.recipeName.text = ""
             }
+
         }
     }
 }

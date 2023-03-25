@@ -64,19 +64,28 @@ class ButtonActions : ActionListener {
                         recipeNum++
 
                 Inst.right.demoList.addElement("New Recipe #$recipeNum")
-                Inst.right.list.selectedIndex = Inst.right.demoList.size() - 1
+
+                //println("demoList.size() >>> " + Inst.right.demoList.size)
+                Inst.right.list.selectedIndex = Inst.right.demoList.size - 1
+
+                Saver.save()
             }
             Inst.right.remove -> {
                 removing = true
 
+                //println("1")
+
                 val listIndex = Inst.right.list.selectedIndex
                 if (listIndex != -1) {
+                    //println("2")
                     val file = File(Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[listIndex] + ".chemrecipe")
 
                     Saver.compoundDeleteCheck(file.toPath())
 
-                    if (file.exists())
+                    if (file.exists()) {
+                        //println("3")
                         file.delete()
+                    }
                     //Inst.right.demoList.remove(listIndex)
                     //Inst.right.list.remove(listIndex)
 
@@ -97,6 +106,9 @@ class ButtonActions : ActionListener {
 
                 Inst.cEditor.reset()
                 Inst.sEditor.reset()
+
+                //println("4")
+
                 /*
                 Saver.reloadall()
 

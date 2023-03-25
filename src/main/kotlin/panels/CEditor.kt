@@ -19,20 +19,6 @@ class CEditor(val jPanel: JPanel = JPanel()) {
     lateinit var listpanel : JPanel
     lateinit var scrollableArea0 : JScrollPane
 
-    fun hasLabelThenIncrement(label : CustomLabel, spinnerNum: Int) : Boolean{
-        for (part0 in listpanel.components){
-            val part1 = part0 as JLabel
-            val part2 = part1.components[0] as CustomLabel
-
-            if (part2.info == label.info){
-                val part3 = part1.components[1] as JSpinner
-                part3.value = part3.value as Int + spinnerNum
-                return true
-            }
-        }
-        return false
-    }
-
     fun getStartLabel() : CustomLabel? {
         return if (layeredpane1.getComponentCountInLayer(20) != 0){
             layeredpane1.getComponentsInLayer(20)[0] as CustomLabel

@@ -130,9 +130,6 @@ class ButtonActions : ActionListener {
                     label.preferredSize = Dimension(32,32)
                     label.size = Dimension(32,32)
 
-                    /*if (Inst.cEditor.hasLabelThenIncrement(label, spinner.value as Int))
-                        return*/
-
                     Inst.cEditor.add(label)
                     for (i in Inst.cEditor.listpanel.components) {
                         val comps = (i as JLabel).components

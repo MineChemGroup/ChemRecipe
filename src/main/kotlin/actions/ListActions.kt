@@ -44,16 +44,6 @@ class ListActions : ListSelectionListener {
 
                 println("current: $current")
 
-                /*
-                if (Inst.right.demoList.size() < current + 1){
-                    current = if (Inst.right.list.selectedIndex != -1)
-                        Inst.right.list.selectedIndex
-                    else
-                        0
-
-                    return
-                }
-                */
 
                 //this saves previous recipe and resets editors
                 var new = if (e?.firstIndex != current)
@@ -67,15 +57,7 @@ class ListActions : ListSelectionListener {
                 } else
                     println("not stopped due to removing")
 
-                /*
-        if (current != new) {
-            if (Inst.right.demoList.size() >= current + 1) {
-                Saver.save(current)
-            }else {
-                return
-            }
-        }
-        */
+
                 if (current != new) {
                     if (justRemoved){
 

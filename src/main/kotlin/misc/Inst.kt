@@ -43,25 +43,7 @@ object Inst {
     }
 
     var currentDragged : CustomLabel? = null
-    /*
-    fun CustomLabel.copy() : CustomLabel {
-        val label = when(this){
-            is CompoundLabel -> CompoundLabel(this.info)
-            is ElementLabel -> ElementLabel(this.info)
-            is ItemLabel -> ItemLabel(this.info)
-            else -> ItemLabel(this.info)
-        }
 
-        label.preferredSize = this.preferredSize
-        label.icon = this.icon
-        label.text = this.text
-        label.bounds = this.bounds
-        label.setUI(this.ui)
-        label.toolTipText = this.toolTipText
-
-        return label
-    }
-    */
     fun JLabel.copy() : JLabel {
         val label = JLabel()
 

@@ -3,6 +3,7 @@ package main.kotlin
 import com.formdev.flatlaf.FlatDarculaLaf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import main.kotlin.misc.Inst
 import main.kotlin.misc.Saver
@@ -49,6 +50,8 @@ suspend fun main(args: Array<String>){
             Inst.jframe.add(Inst.left.jPanel)
             Inst.jframe.add(Inst.center.jPanel)
             Inst.jframe.add(Inst.right.jPanel)
+
+            delay(3500)
             Inst.jframe.isVisible = true
         }
     }

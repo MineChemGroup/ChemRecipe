@@ -72,6 +72,9 @@ class ButtonActions : ActionListener {
                 val listIndex = Inst.right.list.selectedIndex
                 if (listIndex != -1) {
                     val file = File(Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[listIndex] + ".chemrecipe")
+
+                    Saver.compoundDeleteCheck(file.toPath())
+
                     if (file.exists())
                         file.delete()
                     //Inst.right.demoList.remove(listIndex)

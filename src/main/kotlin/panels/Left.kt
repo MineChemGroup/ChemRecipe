@@ -77,7 +77,7 @@ class Left(val jPanel: JPanel = JPanel()) {
         for ((i, file) in Inst.loader.getNumerical(Inst.loader.compoundsFolder, 121).withIndex()){
             val label = CompoundLabel("Compound " + file.nameWithoutExtension)
             label.icon = ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH))
-            label.toolTipText = "Undefined compound " + file.nameWithoutExtension
+            label.toolTipText = "Undefined Compound " + file.nameWithoutExtension
             label.preferredSize = Dimension(32,32)
             label.addMouseListener(LeftMouseActions())
             label.transferHandler = LeftTransferHandler("icon")

@@ -4,7 +4,7 @@ Program for creating and editing MineChem Recipes
 # Requirements
 - this program requires JRE 17 or higher.
 - If you don't have Java installed, [I recommend getting it here](https://bell-sw.com/pages/downloads/)
-  - Under downloads select your platform and Standard JRE
+  - Under downloads select Java 17(!!!) or higher, your platform and Standard JRE
   ![jre_downloads](https://raw.githubusercontent.com/justADeni/ChemRecipe/master/img/jre_downloads.png)
 
 # Usage

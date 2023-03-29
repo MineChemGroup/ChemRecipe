@@ -1,8 +1,9 @@
 package main.kotlin.panels
 
-import eu.hoefel.chemistry.Element
+//import eu.hoefel.chemistry.Element
 import main.kotlin.actions.LeftMouseActions
 import main.kotlin.actions.LeftPanelActions
+import main.kotlin.misc.Element
 import main.kotlin.tooltip.ElementLabel
 import main.kotlin.misc.Inst
 import main.kotlin.misc.Inst.copy
@@ -20,6 +21,8 @@ import java.awt.Image
 import java.io.File
 import java.util.*
 import javax.swing.*
+import kotlin.math.ceil
+import kotlin.math.floor
 
 
 class Left(val jPanel: JPanel = JPanel()) {
@@ -35,6 +38,13 @@ class Left(val jPanel: JPanel = JPanel()) {
     val itemSearchBar = JTextField()
     val chemSearchBar = JTextField()
 
+    fun changeSizeDynamically(panel : JPanel){
+        val components = panel.componentCount
+        val columns = floor((panel.width-12).toDouble()/35.7)
+        val rows = ceil(components/columns)
+        panel.preferredSize = Dimension((Inst.jframe.width/3)-12, (rows.toInt()*40)+32)
+    }
+
     fun refreshItems(){
         mcassetpanel.repaint()
         mcassetpanel.revalidate()
@@ -43,6 +53,22 @@ class Left(val jPanel: JPanel = JPanel()) {
     fun refreshChems(){
         chemassetpanel.repaint()
         chemassetpanel.revalidate()
+    }
+
+    fun loadCompound(num : Int){
+        val file = File(Inst.loader.compoundsFolder.path + "/$num.png")
+        val label = CompoundLabel("Compound " + file.nameWithoutExtension)
+        label.icon = ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH))
+        label.toolTipText = "Undefined Compound " + file.nameWithoutExtension
+        label.preferredSize = Dimension(32,32)
+        label.addMouseListener(LeftMouseActions())
+        label.transferHandler = LeftTransferHandler("icon")
+        if (ChemSearch.text == "") {
+            chemassetpanel.add(label)
+            listchemassets.add(label.copyHandler())
+        } else{
+            listchemassets.add(label.copyHandler())
+        }
     }
 
     fun init(){
@@ -65,7 +91,7 @@ class Left(val jPanel: JPanel = JPanel()) {
         for ((i, file) in Inst.loader.getNumerical(Inst.loader.elementsFolder, 118).withIndex()){
             val label = ElementLabel("Element " + file.nameWithoutExtension)
             label.icon = ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH))
-            label.toolTipText = "Element " + file.nameWithoutExtension + "\n" + Element.withAtomicNumber(file.nameWithoutExtension.toInt()).fullName()
+            label.toolTipText = "Element " + file.nameWithoutExtension + "\n" + Element.getByAtomicNumber(file.nameWithoutExtension.toInt())!!.fullName
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
             label.preferredSize = Dimension(32,32)
             label.addMouseListener(LeftMouseActions())
@@ -74,7 +100,9 @@ class Left(val jPanel: JPanel = JPanel()) {
             listchemassets.add(label.copyHandler())
 
         }
-        for ((i, file) in Inst.loader.getNumerical(Inst.loader.compoundsFolder, 121).withIndex()){
+        val compoundNum = Inst.loader.compoundsFolder.list()?.size
+        for (i in 1..compoundNum!!){
+            val file = Inst.loader.getExactNumerical(Inst.loader.compoundsFolder, i)
             val label = CompoundLabel("Compound " + file.nameWithoutExtension)
             label.icon = ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH))
             label.toolTipText = "Undefined Compound " + file.nameWithoutExtension
@@ -131,6 +159,9 @@ class Left(val jPanel: JPanel = JPanel()) {
         jPanel.add(lowerSearchPanel)
 
         jPanel.add(scrollableArea1)
+
+        changeSizeDynamically(mcassetpanel)
+        changeSizeDynamically(chemassetpanel)
     }
 
     fun getAsset(name : String) : CustomLabel?{

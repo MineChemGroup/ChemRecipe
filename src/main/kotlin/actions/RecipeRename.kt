@@ -41,6 +41,7 @@ internal class RecipeRename : KeyAdapter() {
                 Inst.right.recipeName.text = ""
             }
 
+            Saver.enoughCompoundsCheck()
         }
     }
 }

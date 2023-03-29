@@ -21,6 +21,7 @@ class ItemSearch : KeyAdapter() {
             for (asset in Inst.left.listmcassets)
                 Inst.left.mcassetpanel.add(asset.copyHandler())
 
+            Inst.left.changeSizeDynamically(Inst.left.mcassetpanel)
             Inst.left.refreshItems()
             return
         }
@@ -29,6 +30,7 @@ class ItemSearch : KeyAdapter() {
             if (asset.toolTipText.contains(text, ignoreCase = true))
                 Inst.left.mcassetpanel.add(asset.copyHandler())
 
+        Inst.left.changeSizeDynamically(Inst.left.mcassetpanel)
         Inst.left.refreshItems()
     }
 }

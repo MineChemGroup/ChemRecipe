@@ -11,6 +11,7 @@ import java.nio.file.Path
 import javax.imageio.ImageIO
 import javax.swing.JPanel
 import kotlin.math.abs
+import javax.swing.Painter as Painter1
 
 
 class Loader(val jPanel: JPanel = JPanel()) {
@@ -30,13 +31,19 @@ class Loader(val jPanel: JPanel = JPanel()) {
         baseFolder.mkdir()
         iconsFolder = File(baseFolder.path + "/icons")
         elementsFolder = File(baseFolder.path + "/elements")
-        compoundsFolder = File(baseFolder.path + "/compounds")
+        compoundsFolder = File(baseFolder.path + "/compounds").apply { mkdir() }
         recipeFolder = File(baseFolder.path + "/recipes")
 
         iconsFolder.mkdir()
         elementsFolder.mkdir()
         compoundsFolder.mkdir()
         recipeFolder.mkdir()
+
+        val emptyUrl: URL? = javaClass.getResource("/empty.png")
+        val empty = File(baseFolder.path + "/empty.png")
+        if (!empty.exists())
+            FileUtils.copyURLToFile(emptyUrl, empty)
+        Painter.init(empty)
     }
 
     suspend fun paste(){
@@ -70,8 +77,9 @@ class Loader(val jPanel: JPanel = JPanel()) {
         }
 
         if (isEmpty(compoundsFolder.toPath())){
-            for (i in 1..121){
-                FileUtils.copyURLToFile(javaClass.getResource("/compounds/$i.png"), File(compoundsFolder.path + "/$i.png"))
+            for (i in 1..10){
+                //FileUtils.copyURLToFile(javaClass.getResource("/compounds/$i.png"), File(compoundsFolder.path + "/$i.png"))
+                Painter.paintOne(compoundsFolder.toPath(), i)
             }
         }
     }

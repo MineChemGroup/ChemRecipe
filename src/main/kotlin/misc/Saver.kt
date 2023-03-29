@@ -54,6 +54,7 @@ object Saver {
         }
 
         compoundLoadCheck(file.toPath())
+        enoughCompoundsCheck()
     }
 
     fun save(listIndex : Int){
@@ -93,6 +94,7 @@ object Saver {
         }
 
         compoundLoadCheck(file.toPath())
+        enoughCompoundsCheck()
     }
 
     fun reloadall(){
@@ -127,6 +129,7 @@ object Saver {
                 */
             }
         }
+        enoughCompoundsCheck()
     }
 
     fun compoundLoadCheck(path: Path){
@@ -164,6 +167,8 @@ object Saver {
         if (slabel != null)
             if (slabel.info == parts[1])
                 slabel.toolTipText = recipeName
+
+        enoughCompoundsCheck()
     }
 
     fun compoundDeleteCheck(path: Path){
@@ -193,5 +198,38 @@ object Saver {
 
     private fun isEmptyFile(path: Path): Boolean {
         return path.toFile().readLines().isEmpty()
+    }
+
+    var compoundsChecking = false
+    fun enoughCompoundsCheck(){
+        if (compoundsChecking)
+            return
+
+        compoundsChecking = true
+
+        var a = 0
+        var b = 0
+        for (compound in Inst.left.listchemassets){
+            if (compound.toolTipText.contains("Element"))
+                continue
+
+            if (compound.toolTipText.contains("Undefined"))
+                a++
+            else
+                b++
+        }
+
+        //println("a: $a")
+        //println("b: $b")
+
+        if (a < 5){
+            for (i in a+b+1..a+(5-a)+b){
+                Painter.paintOne(Inst.loader.compoundsFolder.toPath(), i)
+                Inst.left.loadCompound(i)
+            }
+        }
+        Inst.left.changeSizeDynamically(Inst.left.chemassetpanel)
+        Inst.left.refreshChems()
+        compoundsChecking = false
     }
 }

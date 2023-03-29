@@ -311,10 +311,12 @@ class CEditor(val jPanel: JPanel = JPanel()) {
 
                 val width = (Inst.jframe.width/3)-12
                 scrollableArea0.preferredSize = Dimension(width, Inst.jframe.height-255)
-                //Inst.left.mcassetpanel.preferredSize = Dimension(width, (1026*32*32)/(width).toInt())
-                Inst.left.mcassetpanel.preferredSize = Dimension(width, 1026*32*32/(width*0.68).toInt())
-                //Inst.left.chemassetpanel.preferredSize = Dimension(width, (240*32*32)/(width).toInt())
-                Inst.left.chemassetpanel.preferredSize = Dimension(width, 240*32*32/(width*0.68).toInt())
+                //Inst.left.mcassetpanel.preferredSize = Dimension(width, 1026*32*32/(width*0.68).toInt())
+                Inst.left.changeSizeDynamically(Inst.left.mcassetpanel)
+                Inst.left.refreshItems()
+                //Inst.left.chemassetpanel.preferredSize = Dimension(width, 240*32*32/(width*0.68).toInt())
+                Inst.left.changeSizeDynamically(Inst.left.chemassetpanel)
+                Inst.left.refreshItems()
             }
         })
 

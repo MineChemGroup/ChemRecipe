@@ -145,6 +145,13 @@ object Saver {
         if (recipeName.contains("New Recipe"))
             return
 
+        val num = parts[1].replace("Compound ", "").toInt()
+        if (!File(Inst.loader.compoundsFolder.path + "/$num.png").exists()){
+            Painter.paintOne(Inst.loader.compoundsFolder.toPath(), num)
+            Inst.left.loadCompound(num)
+        }
+
+
         for (compound in Inst.left.listchemassets) {
             if (compound.toolTipText == recipeName)
                 compound.toolTipText = "Undefined " + compound.info
@@ -154,7 +161,7 @@ object Saver {
         for (compound in Inst.left.chemassetpanel.components) {
             if ((compound as CustomLabel).toolTipText == recipeName)
                 compound.toolTipText = "Undefined " + compound.info
-            if ((compound as CustomLabel).info == parts[1])
+            if (compound.info == parts[1])
                 compound.toolTipText = recipeName
         }
 
@@ -223,8 +230,14 @@ object Saver {
         //println("b: $b")
 
         if (a < 5){
+            var plus = 0
             for (i in a+b+1..a+(5-a)+b){
-                Painter.paintOne(Inst.loader.compoundsFolder.toPath(), i)
+                var j = i + plus
+                while (File(Inst.loader.compoundsFolder.path + "/$j.png").exists()){
+                    j++
+                    plus++
+                }
+                Painter.paintOne(Inst.loader.compoundsFolder.toPath(), j)
                 Inst.left.loadCompound(i)
             }
         }

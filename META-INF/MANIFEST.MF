@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Main-Class: main.kotlin.MainKt
-Class-Path: \main\kotlin\Main.kt
+Class-Path: src/main/kotlin/Main.kt
 

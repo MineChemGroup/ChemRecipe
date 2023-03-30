@@ -13,6 +13,7 @@ import panels.Menu
 import panels.Right
 import panels.SEditor
 import java.awt.Font
+import java.nio.file.Path
 import javax.swing.JFrame
 import javax.swing.JLabel
 import javax.swing.SwingUtilities
@@ -31,6 +32,10 @@ object Inst {
     val buttonActions = ButtonActions()
     val menu = Menu()
     val listActions = ListActions()
+
+    //fun paintOnee(path: Path, num : Int){
+    //    Painter.paintOne(path, num)
+    //}
 
     fun refresh(){
         SwingUtilities.updateComponentTreeUI(jframe)

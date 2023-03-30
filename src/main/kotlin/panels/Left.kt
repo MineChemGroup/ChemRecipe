@@ -19,6 +19,7 @@ import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import java.awt.Image
 import java.io.File
+import java.nio.file.Path
 import java.util.*
 import javax.swing.*
 import kotlin.math.ceil
@@ -56,7 +57,9 @@ class Left(val jPanel: JPanel = JPanel()) {
     }
 
     fun loadCompound(num : Int){
-        val file = File(Inst.loader.compoundsFolder.path + "/$num.png")
+        println("loadCompound loading $num")
+
+        var file = File(Inst.loader.compoundsFolder.path + "/$num.png")
         val label = CompoundLabel("Compound " + file.nameWithoutExtension)
         label.icon = ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH))
         label.toolTipText = "Undefined Compound " + file.nameWithoutExtension
@@ -100,9 +103,14 @@ class Left(val jPanel: JPanel = JPanel()) {
             listchemassets.add(label.copyHandler())
 
         }
-        val compoundNum = Inst.loader.compoundsFolder.list()?.size
-        for (i in 1..compoundNum!!){
-            val file = Inst.loader.getExactNumerical(Inst.loader.compoundsFolder, i)
+        //val compoundNum = Inst.loader.compoundsFolder.list()?.size
+        val fileNums = arrayListOf<Int>()
+        for (file in Inst.loader.compoundsFolder.listFiles()!!){
+            fileNums.add(file.nameWithoutExtension.toInt())
+        }
+        fileNums.sort()
+        for (num in fileNums){
+            val file = File(Inst.loader.compoundsFolder.path + "/$num.png")
             val label = CompoundLabel("Compound " + file.nameWithoutExtension)
             label.icon = ImageIcon(ImageIcon(file.path).image.getScaledInstance(32,32,Image.SCALE_SMOOTH))
             label.toolTipText = "Undefined Compound " + file.nameWithoutExtension

@@ -1,5 +1,9 @@
 package main.kotlin.misc
 
+import Painter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import main.kotlin.tooltip.CustomLabel
 import java.io.File
 import java.io.FileInputStream
@@ -100,12 +104,12 @@ object Saver {
     fun reloadall(){
         Inst.right.list.removeAll()
         Inst.right.demoList.removeAllElements()
+
         Files.walk(Paths.get(Inst.loader.recipeFolder.path)).use {
                 paths -> paths.filter { Files.isRegularFile(it) }
             .forEach {
                 val recipeName = it.fileName.toString().split(".chemrecipe")[0]
                 Inst.right.demoList.addElement(recipeName)
-
                 compoundLoadCheck(it)
                 /*
                 val cLine : String = Files.lines(it).use { lines -> lines.skip(10).findFirst().get() }
@@ -129,6 +133,7 @@ object Saver {
                 */
             }
         }
+
         enoughCompoundsCheck()
     }
 
@@ -150,6 +155,15 @@ object Saver {
             Painter.paintOne(Inst.loader.compoundsFolder.toPath(), num)
             Inst.left.loadCompound(num)
         }
+        var loaded = false
+        for (compound in Inst.left.listchemassets) {
+            if (compound.info == parts[1]) {
+                loaded = true
+                break
+            }
+        }
+        if (!loaded)
+            Inst.left.loadCompound(num)
 
 
         for (compound in Inst.left.listchemassets) {
@@ -215,34 +229,30 @@ object Saver {
         compoundsChecking = true
 
         var a = 0
-        var b = 0
         for (compound in Inst.left.listchemassets){
             if (compound.toolTipText.contains("Element"))
                 continue
 
             if (compound.toolTipText.contains("Undefined"))
                 a++
-            else
-                b++
         }
 
-        //println("a: $a")
-        //println("b: $b")
+        println("a: $a")
 
         if (a < 5){
-            var plus = 0
-            for (i in a+b+1..a+(5-a)+b){
-                var j = i + plus
-                while (File(Inst.loader.compoundsFolder.path + "/$j.png").exists()){
-                    j++
-                    plus++
+            val listFiles : Array<String> = Inst.loader.compoundsFolder.list() as Array<String>
+            for (i in 10..3136){
+                if (!listFiles.contains("$i.png")){
+                    Painter.paintOne(Inst.loader.compoundsFolder.toPath(), i)
+                    Inst.left.loadCompound(i)
+                    break
                 }
-                Painter.paintOne(Inst.loader.compoundsFolder.toPath(), j)
-                Inst.left.loadCompound(i)
             }
         }
+
         Inst.left.changeSizeDynamically(Inst.left.chemassetpanel)
         Inst.left.refreshChems()
+
         compoundsChecking = false
     }
 }

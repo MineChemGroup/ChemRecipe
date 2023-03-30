@@ -1,6 +1,7 @@
 # ChemRecipe
 Program for creating and editing MineChem Recipes
 
+- download latest version [at releases](https://github.com/justADeni/ChemRecipe/releases)
 - .exe might not work, if that's the case,
 just use .jar
 

@@ -2,10 +2,8 @@
 Program for creating and editing MineChem Recipes
 
 # Requirements
-- this program requires JRE 17 or higher.
-- If you don't have Java installed, [I recommend getting it here](https://bell-sw.com/pages/downloads/)
-  - Under downloads select Java 17(!!!) or higher, your platform and Standard JRE
-  ![jre_downloads](https://raw.githubusercontent.com/justADeni/ChemRecipe/master/img/jre_downloads.png)
+- this program requires Java 8 or higher
+- If you don't have Java installed, [you can get it for example here](https://bell-sw.com/pages/downloads/)
 
 # Usage
 - There are two tabs, Synthesizer and Decomposer

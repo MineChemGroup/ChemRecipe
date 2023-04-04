@@ -57,7 +57,7 @@ class Left(val jPanel: JPanel = JPanel()) {
     }
 
     fun loadCompound(num : Int){
-        println("loadCompound loading $num")
+        ("loadCompound loading $num")
 
         var file = File(Inst.loader.compoundsFolder.path + "/$num.png")
         val label = CompoundLabel("Compound " + file.nameWithoutExtension)
@@ -144,12 +144,10 @@ class Left(val jPanel: JPanel = JPanel()) {
 
 
         val iconConstraints = GridBagConstraints()
-        //c.gridwidth = GridBagConstraints.REMAINDER
-        //iconConstraints.anchor = GridBagConstraints.FIRST_LINE_END
         iconConstraints.weightx = 0.0
         iconConstraints.weighty = 0.0
+
         val searchBarConstraints = GridBagConstraints()
-        //searchBarConstraints.anchor = GridBagConstraints.CENTER
         searchBarConstraints.weightx = 1.0
         searchBarConstraints.weighty = 1.0
         searchBarConstraints.fill = GridBagConstraints.HORIZONTAL

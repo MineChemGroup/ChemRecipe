@@ -104,12 +104,18 @@ object Saver {
     fun reloadall(){
         Inst.right.list.removeAll()
         Inst.right.demoList.removeAllElements()
+        Inst.right.finalList.clear()
 
         Files.walk(Paths.get(Inst.loader.recipeFolder.path)).use {
                 paths -> paths.filter { Files.isRegularFile(it) }
             .forEach {
                 val recipeName = it.fileName.toString().split(".chemrecipe")[0]
-                Inst.right.demoList.addElement(recipeName)
+
+                if (Inst.right.textCheck(recipeName))
+                    Inst.right.demoList.addElement(recipeName)
+
+                Inst.right.finalList.add(recipeName)
+
                 compoundLoadCheck(it)
                 /*
                 val cLine : String = Files.lines(it).use { lines -> lines.skip(10).findFirst().get() }
@@ -237,7 +243,7 @@ object Saver {
                 a++
         }
 
-        println("a: $a")
+        //println("a: $a")
 
         if (a < 5){
             val listFiles : Array<String> = Inst.loader.compoundsFolder.list() as Array<String>

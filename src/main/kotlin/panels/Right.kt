@@ -3,8 +3,11 @@ package panels
 import main.kotlin.actions.ListActions
 import main.kotlin.actions.RecipeRename
 import main.kotlin.misc.Inst
-import java.awt.Dimension
-import java.awt.GridLayout
+import main.kotlin.misc.Inst.copy
+import main.kotlin.search.ItemSearch
+import main.kotlin.search.ListSearch
+import java.awt.*
+import java.io.File
 import javax.swing.*
 
 
@@ -19,6 +22,22 @@ class Right(val jPanel: JPanel = JPanel()){
 
     lateinit var list : JList<String>
     val demoList: DefaultListModel<String> = DefaultListModel<String>()
+
+    val finalList = arrayListOf<String>()
+
+    var text = ""
+
+    val listSearchBar = JTextField()
+
+    fun textCheck(str : String) : Boolean{
+        if (text.isBlank())
+            return true
+
+        if (str.contains(text, true))
+            return true
+
+        return false
+    }
 
     fun init(){
         jPanel.layout = BoxLayout(jPanel, BoxLayout.PAGE_AXIS)
@@ -73,6 +92,29 @@ class Right(val jPanel: JPanel = JPanel()){
         recipeName.maximumSize = Dimension(1000,25)
         recipeName.addKeyListener(RecipeRename())
         jPanel.add(recipeName)
+
+        listSearchBar.toolTipText = "Search in recipes"
+        listSearchBar.addKeyListener(ListSearch())
+        listSearchBar.minimumSize = Dimension(180, 25)
+        listSearchBar.maximumSize = Dimension(1000, 25)
+
+        val searchIconFile = File(Inst.loader.baseFolder.path + "/searchicon.png")
+        val searchIconLabel = JLabel(ImageIcon(ImageIcon(searchIconFile.path).image.getScaledInstance(28,28, Image.SCALE_SMOOTH)))
+        searchIconLabel.preferredSize = Dimension(28,28)
+
+        val iconConstraints = GridBagConstraints()
+        iconConstraints.weightx = 0.0
+        iconConstraints.weighty = 0.0
+
+        val searchBarConstraints = GridBagConstraints()
+        searchBarConstraints.weightx = 1.0
+        searchBarConstraints.weighty = 1.0
+        searchBarConstraints.fill = GridBagConstraints.HORIZONTAL
+
+        val listSearchPanel = JPanel(GridBagLayout())
+        listSearchPanel.add(listSearchBar, searchBarConstraints)
+        listSearchPanel.add(searchIconLabel.copy(), iconConstraints)
+        jPanel.add(listSearchPanel)
 
         jPanel.add(scrollableArea0)
 

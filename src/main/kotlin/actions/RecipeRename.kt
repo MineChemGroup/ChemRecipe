@@ -13,8 +13,8 @@ internal class RecipeRename : KeyAdapter() {
         val ch: Char = event.keyChar
         if (ch.equals('\n', true)) {
 
-            for (piece in 0 until Inst.right.demoList.size()) {
-                if (Inst.right.demoList[piece].equals(Inst.right.recipeName.text)) {
+            for (piece in 0 until Inst.right.finalList.size) {
+                if (Inst.right.finalList[piece] == Inst.right.recipeName.text) {
                     JOptionPane.showMessageDialog(null, "Another file already has this name")
                     return
                 }

@@ -59,12 +59,12 @@ class ButtonActions : ActionListener {
                 //Inst.sEditor.reset()
 
                 var recipeNum = 0
-                for (item in Inst.right.demoList.elements())
+                for (item in Inst.right.finalList)
                     if (item.contains("New Recipe"))
                         recipeNum++
 
                 Inst.right.demoList.addElement("New Recipe #$recipeNum")
-
+                Inst.right.finalList.add("New Recipe #$recipeNum")
                 //println("demoList.size() >>> " + Inst.right.demoList.size)
                 Inst.right.list.selectedIndex = Inst.right.demoList.size - 1
 
@@ -96,7 +96,7 @@ class ButtonActions : ActionListener {
 
                     runBlocking {
                         launch {
-                            delay(220)
+                            delay(100)
                             removing = false
                         }
                     }

@@ -96,7 +96,7 @@ class ButtonActions : ActionListener {
 
                     runBlocking {
                         launch {
-                            delay(100)
+                            delay(120)
                             removing = false
                         }
                     }

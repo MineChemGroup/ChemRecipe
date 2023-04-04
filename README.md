@@ -1,6 +1,10 @@
 # ChemRecipe
 Program for creating and editing MineChem Recipes
 
+- download latest version [at releases](https://github.com/justADeni/ChemRecipe/releases)
+- .exe might not work, if that's the case,
+just use .jar
+
 # Requirements
 - this program requires Java 8 or higher
 - If you don't have Java installed, [you can get it for example here](https://bell-sw.com/pages/downloads/)

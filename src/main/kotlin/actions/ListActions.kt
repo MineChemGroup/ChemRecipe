@@ -38,7 +38,7 @@ class ListActions : ListSelectionListener {
 
         runBlocking {
             launch {
-                delay(25)
+                delay(10)
 
                 if (e?.valueIsAdjusting == true) {
                     return@launch

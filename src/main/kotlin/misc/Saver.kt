@@ -13,6 +13,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import javax.swing.JOptionPane
+import javax.swing.SwingUtilities
 
 
 object Saver {
@@ -133,7 +134,7 @@ object Saver {
                 */
             }
         }
-
+        SwingUtilities.updateComponentTreeUI(Inst.right.list)
         enoughCompoundsCheck()
     }
 
@@ -237,7 +238,7 @@ object Saver {
                 a++
         }
 
-        println("a: $a")
+        //println("a: $a")
 
         if (a < 5){
             val listFiles : Array<String> = Inst.loader.compoundsFolder.list() as Array<String>

@@ -23,6 +23,14 @@ class ListActions : ListSelectionListener {
 
     override fun valueChanged(e: ListSelectionEvent?) {
 
+        //this part is due to list selecting last value even tho it is hidden
+        if (Inst.right.text.isNotBlank()) {
+            if (!Inst.right.list.selectedValue.contains(Inst.right.text, true)) {
+                Inst.right.list.selectedIndex = -1
+                return
+            }
+        }
+
         if (current == -1){
             Inst.sEditor.reset()
             Inst.cEditor.reset()
@@ -42,23 +50,18 @@ class ListActions : ListSelectionListener {
                     return@launch
                 }
 
-                //println("current: $current")
-
-
                 //this saves previous recipe and resets editors
                 var new = if (e?.firstIndex != current)
                     e?.firstIndex!!
                 else
                     e.lastIndex
 
-                if (ButtonActions.removing) //{
-                    //println("stopped due to removing")
+                if (ButtonActions.removing)
                     return@launch
-                //} else
-                    //println("not stopped due to removing")
 
 
                 if (current != new) {
+
                     if (justRemoved){
 
                         current = Inst.right.list.selectedIndex
@@ -80,12 +83,6 @@ class ListActions : ListSelectionListener {
                 } else {
                     justRemoved = false
                 }
-
-                //println("new: $current")
-                //println(" ")
-
-                //this loads the new recipe
-                //println("file>>> " + Inst.loader.recipeFolder.toString() + "/" + Inst.right.demoList[current] + ".chemrecipe")
 
             }
         }

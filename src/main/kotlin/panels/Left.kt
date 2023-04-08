@@ -57,7 +57,7 @@ class Left(val jPanel: JPanel = JPanel()) {
     }
 
     fun loadCompound(num : Int){
-        println("loadCompound loading $num")
+        //println("loadCompound loading $num")
 
         var file = File(Inst.loader.compoundsFolder.path + "/$num.png")
         val label = CompoundLabel("Compound " + file.nameWithoutExtension)

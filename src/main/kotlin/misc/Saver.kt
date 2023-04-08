@@ -13,6 +13,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import javax.swing.JOptionPane
+import javax.swing.SwingUtilities
 
 
 object Saver {
@@ -133,7 +134,7 @@ object Saver {
                 */
             }
         }
-
+        SwingUtilities.updateComponentTreeUI(Inst.right.list)
         enoughCompoundsCheck()
     }
 

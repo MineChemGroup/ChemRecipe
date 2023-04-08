@@ -23,11 +23,6 @@ public class CustomUI extends BasicListUI {
         if (!rendererComponent.isVisible()){
             ch = 0;
         }
-
-        if (selModel.isSelectedIndex(leadIndex)) {
-            rendererComponent.setBackground(Color.cyan);
-            rendererComponent.setForeground(Color.magenta);
-        }
         rendererPane.paintComponent(g, rendererComponent, list, cx, cy, cw, ch, true);
 
     }

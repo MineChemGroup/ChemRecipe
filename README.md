@@ -2,8 +2,7 @@
 Program for creating and editing MineChem Recipes
 
 - download latest version [at releases](https://github.com/justADeni/ChemRecipe/releases)
-- .exe might not work, if that's the case,
-just use .jar
+- doubleclick the .jar to launch the app
 
 # Requirements
 - this program requires Java 8 or higher

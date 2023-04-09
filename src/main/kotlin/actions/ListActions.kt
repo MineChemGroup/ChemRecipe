@@ -25,9 +25,11 @@ class ListActions : ListSelectionListener {
 
         //this part is due to list selecting last value even tho it is hidden
         if (Inst.right.text.isNotBlank()) {
-            if (!Inst.right.list.selectedValue.contains(Inst.right.text, true)) {
-                Inst.right.list.selectedIndex = -1
-                return
+            if (Inst.right.list.selectedValue != null) {
+                if (!Inst.right.list.selectedValue.contains(Inst.right.text, true)) {
+                    Inst.right.list.selectedIndex = -1
+                    return
+                }
             }
         }
 

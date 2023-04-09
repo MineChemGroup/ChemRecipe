@@ -14,6 +14,7 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import javax.swing.JOptionPane
 import javax.swing.SwingUtilities
+import kotlin.io.path.isDirectory
 
 
 object Saver {
@@ -109,29 +110,14 @@ object Saver {
         Files.walk(Paths.get(Inst.loader.recipeFolder.path)).use {
                 paths -> paths.filter { Files.isRegularFile(it) }
             .forEach {
-                val recipeName = it.fileName.toString().split(".chemrecipe")[0]
-                Inst.right.demoList.addElement(recipeName)
-                compoundLoadCheck(it)
-                /*
-                val cLine : String = Files.lines(it).use { lines -> lines.skip(10).findFirst().get() }
-                if (cLine == "S:")
-                    return@forEach
 
-                val parts = cLine.split(":")
-                if (!parts[1].contains("Compound"))
-                    return@forEach
+                if (it.fileName.toString().endsWith(".chemrecipe", true)) {
 
-                if (recipeName.contains("New Recipe"))
-                    return@forEach
+                    val recipeName = it.fileName.toString().split(".chemrecipe")[0]
+                    Inst.right.demoList.addElement(recipeName)
+                    compoundLoadCheck(it)
 
-                for (compound in Inst.left.listchemassets)
-                    if (compound.info == parts[1])
-                        compound.toolTipText = recipeName
-
-                for (compound in Inst.left.chemassetpanel.components)
-                    if ((compound as CustomLabel).info == parts[1])
-                        compound.toolTipText = recipeName
-                */
+                }
             }
         }
         SwingUtilities.updateComponentTreeUI(Inst.right.list)
